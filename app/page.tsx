@@ -1,65 +1,110 @@
-import Image from "next/image";
+"use client";
+import Sidebar from "@/components/Sidebar";
+import { useEffect, useRef, useState } from "react";
+import FirstSection from "./_components/FirstSection";
+import SecondSection from "./_components/SecondSection";
+import ThirdSection from "./_components/ThirdSection";
+import ParallaxScreen from "./_components/ParallaxScreen";
+import Brands from "./_components/Brands";
+import MoreDetails from "./_components/MoreDetails";
+import Footer from "./_components/Footer";
 
 export default function Home() {
+  const outerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const outer = outerRef.current!;
+    const inner = innerRef.current;
+
+    let outerTarget = 0;
+    let innerTarget = 0;
+
+    const lerp = (start: number, end: number, t: number) =>
+      start + (end - start) * t;
+
+    let rafId: number;
+
+    const animate = () => {
+      if (outer) {
+        outer.scrollLeft = lerp(outer.scrollLeft, outerTarget, 0.1);
+      }
+
+      if (inner) {
+        inner.scrollLeft = lerp(inner.scrollLeft, innerTarget, 0.1);
+      }
+
+      rafId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    const handleWheel = (e: WheelEvent) => {
+      if (!outer) return;
+
+      const rect = outer.getBoundingClientRect();
+      const isAtTop = Math.abs(rect.top) < 1;
+
+      if (!isAtTop) return;
+
+      const isDown = e.deltaY > 0;
+
+      const outerAtStart = outer.scrollLeft === 0;
+      const outerAtEnd =
+        outer.scrollLeft + outer.clientWidth >= outer.scrollWidth - 1;
+
+      const isOnInnerSection = outerAtEnd;
+
+      // 👉 INNER SCROLL
+      if (isOnInnerSection && inner) {
+        const innerAtStart = inner.scrollLeft === 0;
+        const innerAtEnd =
+          inner.scrollLeft + inner.clientWidth >= inner.scrollWidth - 1;
+
+        if ((!innerAtEnd && isDown) || (!innerAtStart && !isDown)) {
+          e.preventDefault();
+          innerTarget += e.deltaY; // 🔥 smooth target update
+          return;
+        }
+      }
+
+      // 👉 OUTER SCROLL
+      if ((!outerAtEnd && isDown) || (!outerAtStart && !isDown)) {
+        e.preventDefault();
+        outerTarget += e.deltaY; // 🔥 smooth target update
+        return;
+      }
+    };
+
+    outer.addEventListener("wheel", handleWheel, {
+      passive: false,
+    });
+
+    return () => {
+      outer.removeEventListener("wheel", handleWheel);
+      cancelAnimationFrame(rafId);
+    };
+  }, []);
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="min-h-screen w-full">
+      <Sidebar />
+      {/* Horizontal Wrapper */}
+      <div
+        ref={outerRef}
+        className="md:ml-15 py-5 h-screen flex flex-col md:flex-row overflow-x-auto overflow-y-hidden"
+      >
+        <FirstSection />
+        <SecondSection />
+        <ThirdSection />
+      </div>
+
+      {/* Vertical Sections */}
+      <div className="md:ml-15 scroll-smooth">
+      <ParallaxScreen/>
+      <Brands/>
+      <MoreDetails/>
+      <Footer/>
+      </div>
     </div>
   );
 }

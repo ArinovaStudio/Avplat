@@ -50,8 +50,9 @@
 
 :root {
   --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --foreground: oklch(0.1149 0 0);
   --card: oklch(1 0 0);
+  --bg-secondary: oklch(0.944 0.0423 74.16);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
@@ -84,8 +85,10 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
+  --background: oklch(0.1149 0 0);
+  --foreground: oklch(0.9379 0.0423 74.15);
+  --another: oklch(0.944 0.0423 74.16);
+  --anothersecondary: rgb(255,178,97);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
@@ -98,7 +101,8 @@
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
   --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
+  --destructive: oklch(0.6499 0.1964 28.69);
+  --destructive-secondary: oklch(0.8216 0.1324 65.47);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
@@ -127,4 +131,30 @@
   html {
     @apply font-sans;
   }
+}
+
+.animate-progress{
+  position: relative;
+  overflow: hidden;
+}
+.animate-progress::after{
+  position: absolute;
+  content: '';
+  height: 40px;
+  width: 50px;
+  background-color: white;
+  animation: animatelefttoright 1.5s linear infinite forwards;
+}
+
+@keyframes animatelefttoright {
+  from{
+    left: 0;
+  }
+  to{
+    left: 120%;
+  }
+}
+
+::-webkit-scrollbar,::-webkit-scrollbar-button,::-webkit-scrollbar-thumb{
+  display: none;
 }
