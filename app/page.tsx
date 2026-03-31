@@ -3,108 +3,104 @@ import Sidebar from "@/components/Sidebar";
 import { useEffect, useRef, useState } from "react";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
-import ThirdSection from "./_components/ThirdSection";
-import ParallaxScreen from "./_components/ParallaxScreen";
-import Brands from "./_components/Brands";
-import MoreDetails from "./_components/MoreDetails";
-import Footer from "./_components/Footer";
-
+import dynamic from "next/dynamic";
+const ThirdSection = dynamic(() => import("./_components/ThirdSection"), {
+  ssr: false,
+});
+const MoreDetails = dynamic(() => import("./_components/MoreDetails"), {
+  ssr: false,
+});
+const ParallaxScreen = dynamic(() => import("./_components/ParallaxScreen"), {
+  ssr: false,
+});
+const Brands = dynamic(() => import("./_components/Brands"), { ssr: false });
+const Footer = dynamic(() => import("./_components/Footer"), { ssr: false });
+import useGsap from "@/components/useGSAP";
 export default function Home() {
-  const outerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const { gsap, ScrollTrigger } = useGsap();
   useEffect(() => {
-    const outer = outerRef.current!;
-    const inner = innerRef.current;
-
-    let outerTarget = 0;
-    let innerTarget = 0;
-
-    const lerp = (start: number, end: number, t: number) =>
-      start + (end - start) * t;
-
-    let rafId: number;
-
-    const animate = () => {
-      if (outer) {
-        outer.scrollLeft = lerp(outer.scrollLeft, outerTarget, 0.1);
-      }
-
-      if (inner) {
-        inner.scrollLeft = lerp(inner.scrollLeft, innerTarget, 0.1);
-      }
-
-      rafId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    const handleWheel = (e: WheelEvent) => {
-      if (!outer) return;
-
-      const rect = outer.getBoundingClientRect();
-      const isAtTop = Math.abs(rect.top) < 1;
-
-      if (!isAtTop) return;
-
-      const isDown = e.deltaY > 0;
-
-      const outerAtStart = outer.scrollLeft === 0;
-      const outerAtEnd =
-        outer.scrollLeft + outer.clientWidth >= outer.scrollWidth - 1;
-
-      const isOnInnerSection = outerAtEnd;
-
-      // 👉 INNER SCROLL
-      if (isOnInnerSection && inner) {
-        const innerAtStart = inner.scrollLeft === 0;
-        const innerAtEnd =
-          inner.scrollLeft + inner.clientWidth >= inner.scrollWidth - 1;
-
-        if ((!innerAtEnd && isDown) || (!innerAtStart && !isDown)) {
-          e.preventDefault();
-          innerTarget += e.deltaY; // 🔥 smooth target update
-          return;
-        }
-      }
-
-      // 👉 OUTER SCROLL
-      if ((!outerAtEnd && isDown) || (!outerAtStart && !isDown)) {
-        e.preventDefault();
-        outerTarget += e.deltaY; // 🔥 smooth target update
-        return;
-      }
-    };
-
-    outer.addEventListener("wheel", handleWheel, {
-      passive: false,
+    const section = sectionRef.current;
+    const trigger = triggerRef.current;
+    window.addEventListener("load", () => {
+      ScrollTrigger.refresh();
     });
 
+    if (!section || !trigger) return;
+    const timer = setTimeout(() => {
+      let tween;
+      let mm = gsap.matchMedia();
+      mm.add("(min-width: 768px)", () => {
+        const ctx = gsap.context(() => {
+          tween = gsap.to(section, {
+            x: () => "-400vw",
+            ease: "none",
+            scrollTrigger: {
+              trigger: trigger,
+              start: "top top",
+              // 👇 THE FIX: Increase the scroll distance
+              end: () => "+=" + window.innerWidth * 2,
+              scrub: 0.5, // Note: scrub: 0.1 adds smoothing, it doesn't change overall speed
+              pin: true,
+              anticipatePin: 1,
+            },
+          });
+        }, trigger);
+        requestAnimationFrame(() => {
+          ScrollTrigger.refresh();
+        });
+        return () => {
+          ctx.revert();
+        };
+      });
+    }, 100);
     return () => {
-      outer.removeEventListener("wheel", handleWheel);
-      cancelAnimationFrame(rafId);
+      clearTimeout(timer);
     };
   }, []);
   return (
-    <div className="min-h-screen w-full">
-      <Sidebar />
-      {/* Horizontal Wrapper */}
-      <div
-        ref={outerRef}
-        className="md:ml-15 py-5 h-screen flex flex-col md:flex-row overflow-x-auto overflow-y-hidden"
-      >
-        <FirstSection />
-        <SecondSection />
-        <ThirdSection />
+  <div className="min-h-screen w-full flex max-md:flex-col">
+  <Sidebar triggerRef={triggerRef}/>
+  
+  <div className="flex flex-col overflow-x-clip w-full max-md:max-w-screen">
+    <section className="relative w-full">
+      <div ref={triggerRef} className="md:h-screen w-full">
+        <div className="absolute top-0 left-0 w-full h-full z-0">
+          <video
+            src="/video.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            controls={false}
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div
+          ref={sectionRef}
+          className="
+            md:ml-15
+            md:w-[500vw]
+            md:flex
+            md:h-full
+            relative
+          "
+        >
+          <FirstSection />
+          <SecondSection />
+          <ThirdSection />
+        </div>
       </div>
+    </section>
 
-      {/* Vertical Sections */}
-      <div className="md:ml-15 scroll-smooth">
-      <ParallaxScreen/>
-      <Brands/>
-      <MoreDetails/>
-      <Footer/>
-      </div>
+    <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">
+      <ParallaxScreen />
+      <Brands />
+      <MoreDetails />
+      <Footer />
     </div>
+  </div>
+</div>
   );
 }

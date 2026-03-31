@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useLayoutEffect, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Image from "next/image";
+
 const brands = [
   { name: "American Express", image: "/example.jpg" },
   { name: "AARP", image: "/example.jpg" },
@@ -19,56 +22,72 @@ const brands = [
   { name: "Cotton USA", image: "/example.jpg" },
   { name: "IBM", image: "/example.jpg" },
 ];
+
 gsap.registerPlugin(ScrollTrigger);
+
 export default function Brands() {
-    const [activeImage,setActiveImage] = useState("/example.jpg");
-    useEffect(() => {
-    const items = gsap.utils.toArray<HTMLElement>(".item");
+  const [activeImage, setActiveImage] = useState("/example.jpg");
 
-    items.forEach((item) => {
-      ScrollTrigger.create({
-        trigger: item,
-        start: "top 20%",
-        end: "bottom 20%",
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const items = gsap.utils.toArray<HTMLElement>(".item");
 
-        onEnter: () => {
-          setActiveImage(item.dataset.image || "");
-        },
-
-        onEnterBack: () => {
-          setActiveImage(item.dataset.image || "");
-        },
+      items.forEach((item) => {
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 60%",
+          end: "bottom 40%",
+          onEnter: () => setActiveImage(item.dataset.image || ""),
+          onEnterBack: () => setActiveImage(item.dataset.image || ""),
+        });
       });
     });
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+    return () => ctx.revert();
   }, []);
+
   return (
-    <section className="relative w-full bg-black text-white">
-      {/* 🔥 container with enough height */}
-      <div className="flex px-3 mx-auto">
-        {/* LEFT (sticky) */}
-        <div className="w-1/2 h-screen sticky top-0 flex items-center justify-start">
-          <div className="text-4xl text-[var(--destructive-secondary)] font-bold">
+    <section  id="brandexperience" className="md:pl-15 relative w-full min-h-screen bg-background text-white">
+      
+      {/* CONTAINER */}
+      <div className="flex flex-col lg:flex-row items-start px-4 sm:px-6 mx-auto">
+        
+        {/* LEFT */}
+        <div className="w-full lg:w-1/2 lg:h-screen lg:sticky top-0 flex items-center justify-start py-10 lg:py-0">
+          <div className="max-md:text-center text-[clamp(1.8rem,4vw,2.5rem)] text-[var(--destructive-secondary)] font-bold">
             Brand experience
           </div>
         </div>
 
-        <div className="w-1/2 flex flex-col py-20 relative">
-          <div className="absolute h-70 w-70 sticky top-50">
-          <Image src={activeImage} alt={"Loading"} fill/>
+        {/* RIGHT */}
+        <div className="w-full lg:w-1/2 flex flex-col py-1 lg:py-20 relative">
+          
+          {/* ✅ Sticky preview image (hidden on mobile) */}
+          <div className="hidden sm:block absolute right-5 lg:right-10 w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] lg:w-[240px] lg:h-[240px] sticky top-32">
+            <Image
+              src={activeImage}
+              alt="brand"
+              fill
+              className="object-cover rounded-xl preview-img"
+            />
           </div>
-          {brands.map(({ name, image },index) => {
-            return (
-              <div key={index} data-image={image} className="font-extrabold text-7xl text-foreground">
-                {name}
-              </div>
-            );
-          })}
+
+          {/* LIST */}
+          {brands.map(({ name, image }, index) => (
+            <div
+              key={index}
+              data-image={image}
+              className="item font-extrabold text-[clamp(1rem,6vw,4.5rem)] text-foreground md:leading-[0.3] sm:py-8"
+            >
+              {name}
+            </div>
+          ))}
         </div>
       </div>
-      <div className="text-center text-[var(--destructive-secondary)] cursor-pointer pb-2 capitalize font-bold underline">
-        see past clients list↗
+
+      {/* FOOTER LINK */}
+      <div className="text-center text-[var(--destructive-secondary)] cursor-pointer pb-6 capitalize font-bold underline text-sm sm:text-base">
+        see past clients list ↗
       </div>
     </section>
   );

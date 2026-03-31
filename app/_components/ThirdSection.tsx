@@ -1,30 +1,43 @@
+"use client";
+
+import { useEffect, useLayoutEffect, useRef } from "react";
+
 export default function ThirdSection() {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const textRef = useRef<SVGSVGElement | null>(null);
   return (
-    <div className="relative h-full min-w-[280vw]">
-      <div className="relative h-full min-w-screen">
-        <div className="sticky top-0 left-0 w-full max-w-screen h-full">
-          <video
-            src="/MenuGif.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="absolute w-full h-full object-cover"
-            controls={false}
-          />
-        </div>
-      </div>
-      <svg className="absolute left-0 inset-0 min-w-full w-max h-full z-10"
+    <div
+      ref={ref}
+      id="mentorship"
+      className="
+        relative 
+        w-full 
+        max-md:w-screen
+        h-screen
+      "
+    >
+
+      <svg
+        ref={textRef}
+        className="
+          absolute inset-0 
+          min-w-full   // 👈 allow scroll room on mobile
+          w-max 
+          h-full 
+          z-10
+        "
       >
         <defs>
           <mask id="text-mask">
             <rect width="100%" height="100%" fill="white" />
             <text
               x="0%"
+              id="text-to-be-scaled"
               y="50%"
               textAnchor="start"
               dy=".35em"
-              fontSize="800"
+              fontSize="120"
+              className="md:[font-size:800px]"
               fontWeight="900"
               fill="black"
             >

@@ -3,7 +3,9 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
-
+* {
+  transition: color 0.5s ease, background-color 0.5s ease, border-color 0.5s ease;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -86,7 +88,8 @@
 
 .dark {
   --background: oklch(0.1149 0 0);
-  --foreground: oklch(0.9379 0.0423 74.15);
+  /* --foreground: oklch(0.9379 0.0423 74.15); */
+  --foreground: #fee9ce;
   --another: oklch(0.944 0.0423 74.16);
   --anothersecondary: rgb(255,178,97);
   --card: oklch(0.205 0 0);
