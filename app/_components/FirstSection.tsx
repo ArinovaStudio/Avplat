@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { AvanttFont } from "@/assets/fonts";
 import { motion } from "framer-motion";
-export default function FirstSection({ loaded }: { loaded: boolean }) {
+export default function FirstSection({ ref, loaded }: { ref: any; loaded: boolean }) {
   const [triggerDisappear, setTextDisappear] = useState(false);
   const [triggerStart, setTextStart] = useState(false);
   return (
     <div
+      ref={ref}
       id="intro"
       className="pb-3 flex flex-col w-full justify-between 
       bg-background

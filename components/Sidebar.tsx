@@ -22,10 +22,12 @@ export default function Sidebar({
   loaded,
   letsConnect,
   setLetsConnect,
+  sectionRefs,
 }: {
   setLetsConnect: any;
   loaded: boolean;
   letsConnect: any;
+  sectionRefs: any[];
 }) {
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -44,50 +46,6 @@ export default function Sidebar({
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  // useEffect(() => {
-  //   if (!loaded) return;
-
-  //   const observerOptions = {
-  //     root: null,
-  //     rootMargin: "-50% 0px -50% 0px",
-  //     threshold: 0,
-  //   };
-
-  //   const observerCallback: IntersectionObserverCallback = (entries) => {
-  //     entries.forEach((entry) => {
-  //       if (entry.isIntersecting) {
-  //         const activeIndex = sections.findIndex(
-  //           (sec) => sec.jump === entry.target.id
-  //         );
-
-  //         if (activeIndex !== -1) {
-  //           setActive(activeIndex);
-  //         }
-  //       }
-  //     });
-  //   };
-
-  //   const observer = new IntersectionObserver(
-  //     observerCallback,
-  //     observerOptions
-  //   );
-
-  //   // 🔥 Use requestAnimationFrame instead of setTimeout
-  //   const raf = requestAnimationFrame(() => {
-  //     sections.forEach((sec) => {
-  //       const element = document.getElementById(sec.jump);
-
-  //       if (element) {
-  //         observer.observe(element);
-  //       }
-  //     });
-  //   });
-
-  //   return () => {
-  //     cancelAnimationFrame(raf);
-  //     observer.disconnect();
-  //   };
-  // }, [loaded, sections]);
 
   const handleJump = (index: number, jumpId: string) => {
     setActive(index);

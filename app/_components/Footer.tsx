@@ -1,5 +1,5 @@
 "use client";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { AvanttFont } from "@/assets/fonts";
 import { motion } from "framer-motion";
@@ -12,9 +12,12 @@ import { useGSAP } from "@gsap/react";
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
-export default function Footer() {
+export default function Footer({ref: wrapperRef}:{ref: any}) {
   const containerRef = useRef(null);
-  const wrapperRef = useRef(null);
+  // In your page or layout component
+useEffect(() => {
+  ScrollTrigger.refresh();
+}, []);
   useGSAP(() => {
     const container = containerRef.current!;
     const wrapper = wrapperRef.current!;

@@ -29,7 +29,18 @@ export default function Home() {
   const triggerRef = useRef<HTMLDivElement>(null);
   const [letsConnect, setLetsConnect] = useState(false);
   const { loaded, progress } = useLoadAssets();
-
+  const homeRef = useRef(null);
+  const aboutRef = useRef(null);
+  const brandsRef = useRef(null);
+  const educationRef = useRef(null);
+  const footerRef = useRef(null);
+  const sectionRefs = [
+    homeRef,
+    aboutRef,
+    brandsRef,
+    educationRef,
+    footerRef
+  ];
   useGSAP(
     () => {
       if (!sectionRef.current || !triggerRef.current) return;
@@ -70,6 +81,7 @@ export default function Home() {
         letsConnect={letsConnect}
         setLetsConnect={setLetsConnect}
         loaded={loaded}
+        sectionRefs={sectionRefs}
       />
       <div className="flex flex-col overflow-x-clip w-full max-md:max-w-screen">
         <section className="relative w-full">
@@ -96,7 +108,7 @@ export default function Home() {
             relative
           `}
             >
-              <FirstSection loaded={loaded} />
+              <FirstSection ref={homeRef} loaded={loaded} />
               <SecondSection />
               <ThirdSection />
             </div>
@@ -106,18 +118,13 @@ export default function Home() {
           {letsConnect && <ConnectSection setLetsConnect={setLetsConnect} />}
         </AnimatePresence>
         <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">
-          <Suspense>
-            <ParallaxScreen />
-          </Suspense>
-          <Suspense>
-            <Brands />
-          </Suspense>
-          <Suspense>
-            <MoreDetails />
-          </Suspense>
-          <Suspense>
-            <Footer />
-          </Suspense>
+            <Suspense>
+
+            <ParallaxScreen ref={aboutRef}/>
+            <Brands ref={brandsRef} />
+            <MoreDetails ref={educationRef} />
+            <Footer ref={footerRef}/>
+            </Suspense>
         </div>
       </div>
     </div>

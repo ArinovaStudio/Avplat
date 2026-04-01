@@ -36,25 +36,23 @@ const images = [
     position: "top-[100%] right-[2%] sm:bottom-[20%] sm:right-5",
   },
 ];
-export default function ParallaxSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
+export default function ParallaxSection({ref: containerRef}:{ref: any}) {
   useGSAP(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    let ctx: gsap.Context;
     const mm = gsap.matchMedia();
+
     mm.add("(min-width:768px)", () => {
-      ctx = gsap.context(() => {
-        // ✅ Scope query to container, not whole document
+      const ctx = gsap.context(() => {
         const items = gsap.utils.toArray<HTMLElement>(
           ".parallax-item",
           container
         );
-
-        if (items.length === 0) return; // ✅ guard
+        if (items.length === 0) return;
 
         items.forEach((item) => {
+          // ✅ Fix: read speed from the item div, not the Image child
           const speed = Number(item.dataset.speed || 0.5);
 
           gsap.fromTo(
@@ -68,16 +66,21 @@ export default function ParallaxSection() {
                 start: "top bottom",
                 end: "bottom top",
                 scrub: true,
-                invalidateOnRefresh: true, // ✅ recalculates on resize/reflow
+                invalidateOnRefresh: true,
               },
             }
           );
         });
       }, container);
-    });
-    ScrollTrigger.refresh();
-  });
 
+      return () => ctx.revert(); // ✅ cleanup on matchMedia exit
+    });
+
+    // ✅ No refresh() here — handled once in Home
+  }, { scope: containerRef });
+  useEffect(()=>{
+    ScrollTrigger.refresh();
+  })
   return (
     <div
       ref={containerRef}
@@ -102,10 +105,10 @@ export default function ParallaxSection() {
         {images.map((img) => (
           <div
             key={img.id}
+            data-speed={img.speed}
             className={`group parallax-item absolute ${img.position} w-[70px] h-[70px] sm:w-[110px] sm:h-[110px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] hover:scale-110 transition-all duration-500`}
           >
             <Image
-              data-speed={img.speed}
               src={img.src}
               alt="img"
               fill

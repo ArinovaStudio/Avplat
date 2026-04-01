@@ -1,12 +1,11 @@
 "use client";
 
-import { useLayoutEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-// Register outside the component to prevent re-registration warnings
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
@@ -28,7 +27,7 @@ const brands = [
   { name: "IBM", image: "/example.jpg" },
 ];
 
-export default function Brands() {
+export default function Brands({ref}:{ref: any}) {
   const [activeImage, setActiveImage] = useState("/example.jpg");
   useGSAP(() => {
     const ctx = gsap.context(() => {
@@ -45,9 +44,12 @@ export default function Brands() {
       });
     });
   });
-
+// In your page or layout component
+useEffect(() => {
+  ScrollTrigger.refresh();
+}, []);
   return (
-    <section  id="brandexperience" className="md:pl-15 relative w-full min-h-screen bg-background text-white">
+    <section ref={ref} id="brandexperience" className="md:pl-15 relative w-full min-h-screen bg-background text-white">
       
       {/* CONTAINER */}
       <div className="flex flex-col lg:flex-row items-start px-4 sm:px-6 mx-auto">
