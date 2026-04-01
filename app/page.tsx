@@ -68,12 +68,7 @@ export default function Home() {
     { dependencies: [loaded], revertOnUpdate: true }
   );
   useEffect(() => {
-    if (loaded) {
-      const timer = setTimeout(() => {
         ScrollTrigger.refresh();
-      }, 300);
-      return () => clearTimeout(timer);
-    }
   }, [loaded]);
   return (
     <div className="min-h-screen w-full flex max-md:flex-col">
@@ -108,9 +103,11 @@ export default function Home() {
             relative
           `}
             >
+              <Suspense fallback={"LOading..."}>
               <FirstSection ref={homeRef} loaded={loaded} />
               <SecondSection />
               <ThirdSection />
+              </Suspense>
             </div>
           </div>
         </section>
