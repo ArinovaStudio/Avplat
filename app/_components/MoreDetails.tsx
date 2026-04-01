@@ -2,15 +2,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
-
+import useGsap from "@/components/useGSAP";
 export default function MoreDetails() {
   const ref = useRef(null);
   const [isColorApplied, setIsColorApplied] = useState(false);
   const wrapperRef = useRef(null);
-
+  const {ScrollTrigger,gsap} = useGsap();
   const clampMap: Record<number, number> = {
     1: 100,
     2: 150,

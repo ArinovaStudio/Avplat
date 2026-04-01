@@ -38,9 +38,6 @@ export default function ParallaxSection() {
     if (!container) return;
 
     let ctx: gsap.Context;
-
-    // ✅ Small defer to wait for dynamic components to paint
-    const timeout = setTimeout(() => {
       const mm = gsap.matchMedia();
       mm.add("(min-width:768px)", () => {
         ctx = gsap.context(() => {
@@ -75,9 +72,7 @@ export default function ParallaxSection() {
           ScrollTrigger.refresh(); // ✅ recalculate all positions after mount
         }, container);
       });
-    }, 100); // small delay for dynamic imports to settle
     return () => {
-      clearTimeout(timeout);
       ctx?.revert(); // ✅ clean gsap.context instead of manual kill loop
     };
   }, []);
@@ -89,7 +84,7 @@ export default function ParallaxSection() {
       className="relative max-w-5xl  
       mx-auto md:pl-15 py-12 bg-black"
     >
-      
+      <div id="overlay"/>
       <div
         className={`uppercase relative text-center text-destructive text-[clamp(4rem,10vw,14rem)] leading-[0.8] grid font-extrabold ${AvanttFont.className}`}
       >
@@ -103,11 +98,9 @@ export default function ParallaxSection() {
         <span>500s</span>
         <span>innovate</span>
         <span>at scale</span>
-        {/* 🔥 PARALLAX IMAGES */}
         {images.map((img) => (
           <div
             key={img.id}
-            // 🔥 FIX: Added a space before hover:scale-110
             className={`group parallax-item absolute ${img.position} w-[70px] h-[70px] sm:w-[110px] sm:h-[110px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] hover:scale-110 transition-all duration-500`}
           >
             <Image

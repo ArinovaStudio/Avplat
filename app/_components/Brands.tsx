@@ -1,8 +1,7 @@
 "use client";
 
 import { useLayoutEffect, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/all";
+import useGsap from "@/components/useGSAP";
 import Image from "next/image";
 
 const brands = [
@@ -23,11 +22,9 @@ const brands = [
   { name: "IBM", image: "/example.jpg" },
 ];
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Brands() {
   const [activeImage, setActiveImage] = useState("/example.jpg");
-
+  const {gsap,ScrollTrigger} = useGsap();
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const items = gsap.utils.toArray<HTMLElement>(".item");

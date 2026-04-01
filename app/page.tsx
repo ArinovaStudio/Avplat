@@ -39,7 +39,7 @@ export default function Home() {
       mm.add("(min-width: 768px)", () => {
         const ctx = gsap.context(() => {
           tween = gsap.to(section, {
-            x: () => "-500vw",
+            x: () => "-350vw",
             ease: "none",
             scrollTrigger: {
               trigger: trigger,
