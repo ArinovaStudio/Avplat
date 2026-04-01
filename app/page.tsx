@@ -118,7 +118,7 @@ export default function Home() {
           {letsConnect && <ConnectSection setLetsConnect={setLetsConnect} />}
         </AnimatePresence>
         <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">
-            <Suspense>
+            <Suspense fallback={"Loading..."}>
 
             <ParallaxScreen ref={aboutRef}/>
             <Brands ref={brandsRef} />
