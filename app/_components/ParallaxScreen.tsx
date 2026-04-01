@@ -89,6 +89,7 @@ export default function ParallaxSection() {
       className="relative max-w-5xl  
       mx-auto md:pl-15 py-12 bg-black"
     >
+      
       <div
         className={`uppercase relative text-center text-destructive text-[clamp(4rem,10vw,14rem)] leading-[0.8] grid font-extrabold ${AvanttFont.className}`}
       >
@@ -102,7 +103,6 @@ export default function ParallaxSection() {
         <span>500s</span>
         <span>innovate</span>
         <span>at scale</span>
-
         {/* 🔥 PARALLAX IMAGES */}
         {images.map((img) => (
           <div

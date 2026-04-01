@@ -21,10 +21,12 @@ export default function ThirdSection() {
         ref={textRef}
         className="
           absolute inset-0 
-          min-w-full   // 👈 allow scroll room on mobile
+          min-w-full
           w-max 
           h-full 
           z-10
+          max-md:hidden
+          max-md:text-center
         "
       >
         <defs>
@@ -36,7 +38,7 @@ export default function ThirdSection() {
               y="50%"
               textAnchor="start"
               dy=".35em"
-              fontSize="120"
+              fontSize="60"
               className="md:[font-size:800px]"
               fontWeight="900"
               fill="black"

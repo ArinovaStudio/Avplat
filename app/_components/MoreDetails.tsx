@@ -13,13 +13,12 @@ export default function MoreDetails() {
 
   const clampMap: Record<number, number> = {
     1: 100,
-    2: 200,
-    3: 300,
+    2: 150,
+    3: 200,
   };
 
   useLayoutEffect(() => {
-    let ctx: gsap.Context;
-    ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: ref.current,
@@ -121,7 +120,7 @@ export default function MoreDetails() {
       <span
         key={`up-${n}`}
         id={`up-${n}`}
-        className={`absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.5] bg-background inline-block ${
+        className={`absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block ${
           isColorApplied ? "text-white!" : ""
         }`}
         style={{ zIndex: mp[n] }}
@@ -135,7 +134,7 @@ export default function MoreDetails() {
       <span
         key={`down-${n}`}
         id={`down-${n}`}
-        className={`absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase bg-background leading-[0.5] inline-block ${
+        className={`absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase bg-background leading-[0.8] inline-block ${
           isColorApplied ? "text-white!" : ""
         }`}
         style={{ zIndex: mp[n] }}
@@ -154,13 +153,13 @@ export default function MoreDetails() {
     </span>
   </div>
 
-  <div className="flex min-h-screen mt-34 md:mt-30 w-full">
+  <div className="flex min-h-screen relative mt-34 md:mt-30 w-full">
     {/* 🔥 Changed to flex-col on mobile, flex-row on desktop */}
     <div className="flex flex-col md:flex-row w-full gap-10 md:gap-0">
       
       {/* Image container: Gave it a set height on mobile so 'fill' works, min-h-full on desktop */}
-      <div className="max-md:h-screen md:h-[50vh] md:h-auto md:min-h-full w-full">
-        <div className="h-full w-[90%] mx-auto md:w-[90%] relative">
+      <div className="md:h-[50vh] md:h-auto md:min-h-full w-full">
+        <div className="h-full max-md:min-h-[500px] w-[90%] mx-auto md:w-[90%] relative">
           <span className="absolute -mt-6 capitalize font-bold text-[var(--destructive-secondary)]">
             professor of ux
           </span>
@@ -168,9 +167,6 @@ export default function MoreDetails() {
             fill
             alt={"Loading..."}
             src={"/example.jpg"}
-            onLoadingComplete={() => {
-              ScrollTrigger.refresh();
-            }}
             className="object-cover max-md:h-full" // Added object-cover to ensure image scales nicely
           />
           
