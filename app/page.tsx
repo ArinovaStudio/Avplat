@@ -1,6 +1,6 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
 import dynamic from "next/dynamic";
@@ -15,55 +15,55 @@ const ParallaxScreen = dynamic(() => import("./_components/ParallaxScreen"), {
 });
 const Brands = dynamic(() => import("./_components/Brands"), { ssr: false });
 const Footer = dynamic(() => import("./_components/Footer"), { ssr: false });
-import useGsap from "@/components/useGSAP";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 import useLoadAssets from "@/components/useLoadAssets";
 import ConnectSection from "./_components/ConnectScreen";
 import { AnimatePresence } from "framer-motion";
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
-  const { gsap, ScrollTrigger } = useGsap();
   const [letsConnect, setLetsConnect] = useState(false);
   const { loaded, progress } = useLoadAssets();
-  useEffect(() => {
-    const section = sectionRef.current;
-    const trigger = triggerRef.current;
-    window.addEventListener("load", () => {
-      ScrollTrigger.refresh();
-    });
 
-    if (!section || !trigger) return;
-    const timer = setTimeout(() => {
-      let tween;
+  useGSAP(
+    () => {
+      if (!sectionRef.current || !triggerRef.current) return;
+
       let mm = gsap.matchMedia();
+
       mm.add("(min-width: 768px)", () => {
-        const ctx = gsap.context(() => {
-          tween = gsap.to(section, {
-            x: () => "-350vw",
-            ease: "none",
-            scrollTrigger: {
-              trigger: trigger,
-              start: "top top",
-              // 👇 THE FIX: Increase the scroll distance
-              end: () => "+=" + window.innerWidth * 2,
-              scrub: 0.5, // Note: scrub: 0.1 adds smoothing, it doesn't change overall speed
-              pin: true,
-              anticipatePin: 1,
-            },
-          });
-        }, trigger);
-        requestAnimationFrame(() => {
-          ScrollTrigger.refresh();
+        gsap.to(sectionRef.current, {
+          x: () => "-350vw",
+          ease: "none",
+          scrollTrigger: {
+            trigger: triggerRef.current,
+            start: "top top",
+            end: () => "+=" + window.innerWidth * 2,
+            scrub: 0.5,
+            pin: true,
+            anticipatePin: 1,
+            // 3. THIS IS CRITICAL: Forces GSAP to recalculate the start/end points
+            // if the window resizes or dynamic content shifts the layout
+            invalidateOnRefresh: true,
+          },
         });
-        return () => {
-          ctx.revert();
-        };
       });
-    }, 100);
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+    },
+    { dependencies: [loaded], revertOnUpdate: true }
+  );
+  useEffect(() => {
+    if (loaded) {
+      const timer = setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [loaded]);
   return (
     <div className="min-h-screen w-full flex max-md:flex-col">
       <Sidebar
@@ -106,10 +106,18 @@ export default function Home() {
           {letsConnect && <ConnectSection setLetsConnect={setLetsConnect} />}
         </AnimatePresence>
         <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">
-          <ParallaxScreen />
-          <Brands />
-          <MoreDetails />
-          <Footer />
+          <Suspense>
+            <ParallaxScreen />
+          </Suspense>
+          <Suspense>
+            <Brands />
+          </Suspense>
+          <Suspense>
+            <MoreDetails />
+          </Suspense>
+          <Suspense>
+            <Footer />
+          </Suspense>
         </div>
       </div>
     </div>

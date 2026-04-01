@@ -1,48 +1,48 @@
 "use client";
 import React, { useLayoutEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { AvanttFont } from "@/assets/fonts";
 import { motion } from "framer-motion";
 import { FaLinkedin, FaInstagram, FaGlobe } from "react-icons/fa";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
-gsap.registerPlugin(ScrollTrigger);
-
+// Register outside the component to prevent re-registration warnings
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 export default function Footer() {
   const containerRef = useRef(null);
   const wrapperRef = useRef(null);
-
-  useLayoutEffect(() => {
+  useGSAP(() => {
     const container = containerRef.current!;
     const wrapper = wrapperRef.current!;
-    const timer = setTimeout(() => {
-      const ctx = gsap.context(() => {
-        gsap.fromTo(
-          container,
-          { yPercent: 50 },
-          {
-            yPercent: -120,
-            ease: "none", 
-            scrollTrigger: {
-              trigger: container,
-              start: "top bottom", 
-              end: "bottom top", 
-              scrub: true, 
-            },
-          }
-        );
-      }, wrapper);
-      ScrollTrigger.refresh();
-      return () => {
-        ctx.revert();
-      };
-    }, 100);
-    return () => clearTimeout(timer);
-  }, []);
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        container,
+        { yPercent: 50 },
+        {
+          yPercent: -120,
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
+    }, wrapper);
+    ScrollTrigger.refresh();
+  });
 
   return (
-    <div ref={wrapperRef} id="getintouch" className="w-full md:pl-15 relative overflow-hidden">
+    <div
+      ref={wrapperRef}
+      id="getintouch"
+      className="w-full md:pl-15 relative overflow-hidden"
+    >
       <div
         ref={containerRef}
         data-speed="0.3"
@@ -54,7 +54,7 @@ export default function Footer() {
           fill
           className="object-cover brightness-50 contrast-100 w-full h-full grayscale-100 -z-1"
         />
-        
+
         {/* RESPONSIVE TEXT: Scaled down text-[14rem] to text-6xl/8xl on mobile */}
         <div
           className={`w-full uppercase text-[var(--destructive)] text-6xl sm:text-8xl md:text-[14rem] leading-[0.8] font-extrabold flex flex-col ${AvanttFont.className}`}
@@ -138,9 +138,15 @@ export default function Footer() {
         <div className="justify-center md:justify-end flex">
           <div className="flex items-center max-w-xs justify-between w-full">
             <h6 className="capitalize text-md text-gray-500/80">social</h6>
-            <a href={"#"}><FaLinkedin /></a>
-            <a href={"#"}><FaGlobe /></a>
-            <a href={"#"}><FaInstagram /></a>
+            <a href={"#"}>
+              <FaLinkedin />
+            </a>
+            <a href={"#"}>
+              <FaGlobe />
+            </a>
+            <a href={"#"}>
+              <FaInstagram />
+            </a>
           </div>
         </div>
 
@@ -155,17 +161,30 @@ export default function Footer() {
           </h3>
           {/* RESPONSIVE IMAGE: Scaled down signature w-100 */}
           <div className="relative h-16 w-52 md:h-30 md:w-100">
-            <Image src={"/sign.png"} alt={"Logo"} fill className="object-contain" />
+            <Image
+              src={"/sign.png"}
+              alt={"Logo"}
+              fill
+              className="object-contain"
+            />
           </div>
         </div>
 
         {/* RESPONSIVE LINKS & COPYRIGHT: Flex-col on mobile, flex-row on desktop */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0 text-center">
           <div className="text-[var(--destructive)] text-lg md:text-xl font-bold flex flex-wrap justify-center md:justify-start gap-4 md:gap-0 md:space-x-4">
-            <a className="border-b-3 border-b-[var(--destructive)]" href="#">Personal site↗</a>
-            <a className="border-b-3 border-b-[var(--destructive)]" href="#">Medium↗</a>
-            <a className="border-b-3 border-b-[var(--destructive)]" href="#">Resources↗</a>
-            <a className="border-b-3 border-b-[var(--destructive)]" href="#">Colophon↗</a>
+            <a className="border-b-3 border-b-[var(--destructive)]" href="#">
+              Personal site↗
+            </a>
+            <a className="border-b-3 border-b-[var(--destructive)]" href="#">
+              Medium↗
+            </a>
+            <a className="border-b-3 border-b-[var(--destructive)]" href="#">
+              Resources↗
+            </a>
+            <a className="border-b-3 border-b-[var(--destructive)]" href="#">
+              Colophon↗
+            </a>
           </div>
           <span className="text-gray-500/80 text-sm md:text-base">
             Copyright ©2025-26. All rights reserved. Stealing is bad karma.

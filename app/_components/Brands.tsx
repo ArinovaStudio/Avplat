@@ -1,9 +1,15 @@
 "use client";
 
 import { useLayoutEffect, useState } from "react";
-import useGsap from "@/components/useGSAP";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
+// Register outside the component to prevent re-registration warnings
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 const brands = [
   { name: "American Express", image: "/example.jpg" },
   { name: "AARP", image: "/example.jpg" },
@@ -24,8 +30,7 @@ const brands = [
 
 export default function Brands() {
   const [activeImage, setActiveImage] = useState("/example.jpg");
-  const {gsap,ScrollTrigger} = useGsap();
-  useLayoutEffect(() => {
+  useGSAP(() => {
     const ctx = gsap.context(() => {
       const items = gsap.utils.toArray<HTMLElement>(".item");
 
@@ -39,9 +44,7 @@ export default function Brands() {
         });
       });
     });
-
-    return () => ctx.revert();
-  }, []);
+  });
 
   return (
     <section  id="brandexperience" className="md:pl-15 relative w-full min-h-screen bg-background text-white">

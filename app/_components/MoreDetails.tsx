@@ -2,19 +2,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
-import useGsap from "@/components/useGSAP";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
+
 export default function MoreDetails() {
   const ref = useRef(null);
   const [isColorApplied, setIsColorApplied] = useState(false);
   const wrapperRef = useRef(null);
-  const {ScrollTrigger,gsap} = useGsap();
   const clampMap: Record<number, number> = {
     1: 100,
     2: 150,
     3: 200,
   };
 
-  useLayoutEffect(() => {
+  useGSAP(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -89,10 +94,7 @@ export default function MoreDetails() {
     });
     ScrollTrigger.refresh();
 
-    return () => {
-      ctx?.revert();
-    };
-  }, []);
+  });
   const mp: any = {
     1: 8,
     2: 5,
@@ -150,7 +152,7 @@ export default function MoreDetails() {
     </span>
   </div>
 
-  <div className="flex min-h-screen relative mt-34 md:mt-30 w-full">
+  <div className="flex min-h-screen relative mt-34 md:mt-40 w-full">
     {/* 🔥 Changed to flex-col on mobile, flex-row on desktop */}
     <div className="flex flex-col md:flex-row w-full gap-10 md:gap-0">
       

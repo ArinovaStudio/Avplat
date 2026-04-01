@@ -1,9 +1,15 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef } from "react";
-import useGsap from "@/components/useGSAP";
 import { AvanttFont } from "@/assets/fonts";
 import Image from "next/image";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 const images = [
   {
     id: 1,
@@ -32,50 +38,45 @@ const images = [
 ];
 export default function ParallaxSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { gsap, ScrollTrigger } = useGsap();
-  useLayoutEffect(() => {
+  useGSAP(() => {
     const container = containerRef.current;
     if (!container) return;
 
     let ctx: gsap.Context;
-      const mm = gsap.matchMedia();
-      mm.add("(min-width:768px)", () => {
-        ctx = gsap.context(() => {
-          // ✅ Scope query to container, not whole document
-          const items = gsap.utils.toArray<HTMLElement>(
-            ".parallax-item",
-            container
+    const mm = gsap.matchMedia();
+    mm.add("(min-width:768px)", () => {
+      ctx = gsap.context(() => {
+        // ✅ Scope query to container, not whole document
+        const items = gsap.utils.toArray<HTMLElement>(
+          ".parallax-item",
+          container
+        );
+
+        if (items.length === 0) return; // ✅ guard
+
+        items.forEach((item) => {
+          const speed = Number(item.dataset.speed || 0.5);
+
+          gsap.fromTo(
+            item,
+            { y: 0 },
+            {
+              y: () => -(window.innerHeight * speed),
+              ease: "none",
+              scrollTrigger: {
+                trigger: container,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+                invalidateOnRefresh: true, // ✅ recalculates on resize/reflow
+              },
+            }
           );
-
-          if (items.length === 0) return; // ✅ guard
-
-          items.forEach((item) => {
-            const speed = Number(item.dataset.speed || 0.5);
-
-            gsap.fromTo(
-              item,
-              { y: 0 },
-              {
-                y: () => -(window.innerHeight * speed),
-                ease: "none",
-                scrollTrigger: {
-                  trigger: container,
-                  start: "top bottom",
-                  end: "bottom top",
-                  scrub: true,
-                  invalidateOnRefresh: true, // ✅ recalculates on resize/reflow
-                },
-              }
-            );
-          });
-
-          ScrollTrigger.refresh(); // ✅ recalculate all positions after mount
-        }, container);
-      });
-    return () => {
-      ctx?.revert(); // ✅ clean gsap.context instead of manual kill loop
-    };
-  }, []);
+        });
+      }, container);
+    });
+    ScrollTrigger.refresh();
+  });
 
   return (
     <div
@@ -84,7 +85,7 @@ export default function ParallaxSection() {
       className="relative max-w-5xl  
       mx-auto md:pl-15 py-12 bg-black"
     >
-      <div id="overlay"/>
+      <div id="overlay" />
       <div
         className={`uppercase relative text-center text-destructive text-[clamp(4rem,10vw,14rem)] leading-[0.8] grid font-extrabold ${AvanttFont.className}`}
       >

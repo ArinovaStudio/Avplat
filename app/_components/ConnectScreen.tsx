@@ -14,7 +14,7 @@ export default function ConnectSection({
       whileInView={{ width: "80%" }}
       exit={{ width: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed min-h-screen max-md:min-w-[100%] top-0 right-0 overflow-hidden bg-black text-white flex justify-center"
+      className="fixed min-h-screen z-[999] max-md:min-w-[100%] top-0 right-0 overflow-hidden bg-black text-white flex justify-center"
     >
       {/* 🔴 Overlay Gradient */}
       <div className="absolute inset-0 bg-[#ef5143] z-10" />

@@ -51,9 +51,9 @@ export default function FirstSection({ loaded }: { loaded: boolean }) {
         <div className="flex flex-col sm:flex-row sm:items-start gap-2">
           <motion.span
             initial={{ x: -600 }}
-            animate={triggerDisappear ? { x: 0 } : { x: -600 }}
-            transition={{ duration: 1, delay: 1 }}
-            className="text-xs sm:text-sm mt-2 sm:mt-5 md:max-w-[180px] capitalize text-[var(--foreground)]"
+            animate={triggerDisappear ? { x: 0 } : { x: -600}}
+            transition={{ duration: 0.5 }}
+            className={`text-xs sm:text-sm mt-2 sm:mt-5 md:max-w-[180px] capitalize text-[var(--foreground)] ${triggerDisappear ? "block":"hidden"}`}
           >
             Design mentorship by Won J. You
           </motion.span>
