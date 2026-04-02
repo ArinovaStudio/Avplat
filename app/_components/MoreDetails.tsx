@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRef, useLayoutEffect } from "react";
 import { gsap } from "@/lib/gsapConfig";
+import LineRevealOnScroll from "@/components/LineReveal";
 
 export default function MoreDetails({
   educationRef: ref,
@@ -11,7 +12,6 @@ export default function MoreDetails({
   educationRef: any;
   educationWrapperRef: any;
 }) {
-
   const mp: Record<number, number> = { 1: 8, 2: 5, 3: 1 };
 
   return (
@@ -21,13 +21,10 @@ export default function MoreDetails({
       className="relative z-10 md:pl-15 bg-background transition-colors duration-500 w-full"
     >
       {/* ── Pinned Container (GSAP touches this) ──────────────── */}
-      <div
-        ref={ref}
-        className="h-screen relative w-full"
-      >
+      <div ref={ref} className="h-screen relative w-full">
         {/* ── Strict Clipping Boundary (GSAP ignores this) ──────── */}
         {/* clip-path: inset(0) guarantees nothing will EVER render outside this div */}
-        <div 
+        <div
           className="absolute inset-0 w-full h-full flex justify-center items-center"
           style={{ clipPath: "inset(0 0 0 0)" }}
         >
@@ -79,8 +76,13 @@ export default function MoreDetails({
                 src="/example.jpg"
                 className="object-cover"
               />
-              <h3 className="left-2 md:left-[80%] text-[var(--destructive)] leading-[0.9] top-[-15%] md:top-[-10%] z-[99] max-md:hidden md:absolute text-4xl sm:text-5xl md:text-6xl font-extrabold w-[90%] md:w-2xl">
-                Educating the Next Generation of Design Rebels & Changemakers.
+              <h3 className="left-2 md:left-[80%] text-[var(--destructive)] leading-[0.9] top-[-15%] md:top-[-10%] z-[99] max-md:hidden md:absolute text-4xl sm:text-5xl md:text-[5rem] w-full font-extrabold">
+                <LineRevealOnScroll
+                  text={`Educating the 
+                Next Generation 
+                of Design Rebels 
+                & Changemakers.`}
+                />
               </h3>
             </div>
           </div>
@@ -88,9 +90,12 @@ export default function MoreDetails({
           <div className="relative w-full md:min-h-full md:min-w-lg px-5 md:px-0 pb-10 md:pb-0">
             <div className="md:absolute md:right-5 md:bottom-5 grid gap-3 mt-10 md:mt-0">
               <p className="bottom-text w-full md:max-w-sm text-lg md:text-2xl text-foreground transition-colors duration-500">
+                <LineRevealOnScroll
+                  text={`
                 The design world needs more than great portfolios—it needs
                 fearless leaders who aren't afraid to push boundaries and
-                challenge the status quo.
+                challenge the status quo.`}
+                />
               </p>
               <Link
                 className="bottom-text text-lg md:text-xl font-bold underline transition-colors duration-500"

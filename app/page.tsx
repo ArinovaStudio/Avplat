@@ -11,7 +11,7 @@ import Brands from "./_components/Brands";
 import useLoadAssets from "@/components/useLoadAssets";
 import ConnectSection from "./_components/ConnectScreen";
 import { AnimatePresence } from "framer-motion";
-import { gsap, ScrollTrigger } from "@/lib/gsapConfig";
+import { gsap, ScrollTrigger, CustomEase, SplitText } from "@/lib/gsapConfig";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -32,11 +32,10 @@ export default function Home() {
   useEffect(() => {
     if (!loaded) return;
     let mm = gsap.matchMedia();
-
     mm.add("(min-width: 768px)", () => {
       if (!sectionRef.current || !triggerRef.current) return;
       gsap.to(sectionRef.current, {
-        x: () => "-350vw",
+        x: () => "-460vw",
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
@@ -234,7 +233,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-        <AnimatePresence mode="popLayout">
+        <AnimatePresence mode="sync">
           {letsConnect && <ConnectSection setLetsConnect={setLetsConnect} />}
         </AnimatePresence>
         <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">

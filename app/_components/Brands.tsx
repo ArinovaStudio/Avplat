@@ -37,7 +37,7 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
             <div
               key={index}
               data-image={image}
-              className="item font-extrabold text-[clamp(1rem,6vw,4.5rem)] text-foreground md:leading-[0.3] sm:py-8"
+              className="item font-extrabold text-[clamp(1rem,6vw,4.7rem)] text-foreground md:leading-[0.3] sm:py-8"
             >
               {name}
             </div>

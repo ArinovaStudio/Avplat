@@ -32,12 +32,12 @@ export const IMAGES = [
     id: 3,
     src: "/example.jpg",
     speed: 1,
-    position: "top-[100%] left-[2%] sm:top-[60%] sm:left-5",
+    position: "top-[90%] left-[2%] sm:top-[60%] sm:left-5",
   },
   {
     id: 4,
     src: "/example.jpg",
     speed: 0.8,
-    position: "top-[100%] right-[2%] sm:bottom-[20%] sm:right-5",
+    position: "top-[90%] right-[0%] sm:bottom-[20%] sm:right-5",
   },
 ];

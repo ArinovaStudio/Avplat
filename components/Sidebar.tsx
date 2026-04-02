@@ -94,7 +94,7 @@ export default function Sidebar({
   return (
     <div
       className="
-  w-full h-full md:h-15 flex flex-row md:flex-col 
+  w-full h-full md:h-15 flex z-[200] flex-row md:flex-col 
   sticky top-0
   md:fixed md:h-screen md:w-15 
   bg-background text-white 

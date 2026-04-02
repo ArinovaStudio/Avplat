@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { AvanttFont } from "@/assets/fonts";
 import { FaLinkedin, FaGlobe, FaEnvelope, FaInstagram } from "react-icons/fa";
 import { ArrowUpRight } from "lucide-react";
+import LineRevealOnScroll from "@/components/LineReveal";
 export default function ConnectSection({
   setLetsConnect,
 }: {
@@ -24,25 +25,25 @@ export default function ConnectSection({
         <div className="grid text-[var(--foreground)] grid-cols-2 md:absolute right-0 top-0 max-w-md p-5 w-full">
           <div className="p-3 flex justify-between items-center shadow-xs rounded-md">
             <div className="flex gap-2 items-center">
-              <FaEnvelope /> Write Me
+              <FaEnvelope /> <LineRevealOnScroll text={"Write Me"} />
             </div>
             <ArrowUpRight strokeWidth={3} size={20} />
           </div>
           <div className="p-3 flex justify-between items-center shadow-xs rounded-md">
             <div className="flex gap-2 items-center">
-              <FaLinkedin /> Connect
+              <FaLinkedin /> <LineRevealOnScroll text={"Connect"} />
             </div>
             <ArrowUpRight strokeWidth={3} size={20} />
           </div>
           <div className="p-3 flex justify-between items-center shadow-xs rounded-md">
             <div className="flex gap-2 items-center">
-              <FaGlobe /> Personal Site
+              <FaGlobe /> <LineRevealOnScroll text={"Personal Site"} />
             </div>
             <ArrowUpRight strokeWidth={3} size={20} />
           </div>
           <div className="p-3 flex justify-between items-center shadow-xs rounded-md">
             <div className="flex gap-2 items-center">
-              <FaInstagram /> Follow Me
+              <FaInstagram /> <LineRevealOnScroll text={"Follow Me"} />
             </div>
             <ArrowUpRight strokeWidth={3} size={20} />
           </div>
@@ -51,14 +52,17 @@ export default function ConnectSection({
         <h2
           className={`${AvanttFont.className} text-[4rem] max-md:text-center sm:text-[6rem] md:text-[17rem] font-black uppercase leading-[0.8] tracking-tight text-[var(--foreground)]`}
         >
-          LET’S <br /> CONNECT
+          <LineRevealOnScroll text="LET'S" />
+          <LineRevealOnScroll text="CONNECT" />
         </h2>
 
         {/* ✨ Subtext */}
         <p
           className={`md:max-w-xl text-md max-md:text-center font-bold md:text-3xl text-[var(--foreground)] md:ml-auto md:mr-15 ${AvanttFont.className}`}
         >
-          If you made it this far, we should talk.
+          <LineRevealOnScroll
+            text={"If you made it this far, we should talk."}
+          />
         </p>
 
         {/* 🚀 Actions */}
@@ -72,7 +76,7 @@ export default function ConnectSection({
               href={"https://calendly.com"}
               target="_blank"
             >
-              calendly.com
+              <LineRevealOnScroll text={"calendly.com"} />
             </a>
           </div>
           <div className="grid gap-3">
@@ -83,7 +87,7 @@ export default function ConnectSection({
               className="text-xl sm:text-2xl md:text-3xl max-w-fit bottom-shine border-b-3 border-b-[var(--foreground)] pb-1 font-extrabold tracking-[1.1]"
               href={"tel:312-436-1845"}
             >
-              312-436-1845
+              <LineRevealOnScroll text={"312-436-1845"} />
             </a>
           </div>
           <div className="grid gap-3">
@@ -94,7 +98,7 @@ export default function ConnectSection({
               className="text-xl sm:text-2xl md:text-3xl bottom-shine border-b-3 border-b-[var(--foreground)] max-w-fit pb-1 font-extrabold tracking-[1.1] break-all"
               href={"mailto:won@wjystudios.com"}
             >
-              won@wjystudios.com
+              <LineRevealOnScroll text={"won@wjystudios.com"} />
             </a>
           </div>
         </div>

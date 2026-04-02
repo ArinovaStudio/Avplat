@@ -7,6 +7,8 @@ export default function useLoadAssets() {
   useEffect(() => {
     const loadAssets = async () => {
       document.body.style.cursor = "not-allowed";
+      window.scrollTo(0, 0);
+      document.body.style.overflow = "hidden";
       const keys = Object.keys(ASSETS);
       const n = keys.length;
       let curr = 0;
@@ -35,7 +37,7 @@ export default function useLoadAssets() {
       setTimeout(() => {
         setLoaded(true);
         document.body.style.cursor = "default";
-        window.scrollTo(0, 0);
+        document.body.style.overflow = "auto";
       }, 2000);
     };
     loadAssets();
