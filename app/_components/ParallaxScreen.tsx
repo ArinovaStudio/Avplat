@@ -1,92 +1,19 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
 import { AvanttFont } from "@/assets/fonts";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { IMAGES } from "@/assets/additionalinfo";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
-const images = [
-  {
-    id: 1,
-    src: "/example.jpg",
-    speed: 0.3,
-    position: "top-[8%] left-[2%] sm:top-[10%] sm:left-5",
-  },
-  {
-    id: 2,
-    src: "/example.jpg",
-    speed: 0.6,
-    position: "top-[18%] right-[2%] sm:top-[30%] sm:right-5",
-  },
-  {
-    id: 3,
-    src: "/example.jpg",
-    speed: 1,
-    position: "top-[100%] left-[2%] sm:top-[60%] sm:left-5",
-  },
-  {
-    id: 4,
-    src: "/example.jpg",
-    speed: 0.8,
-    position: "top-[100%] right-[2%] sm:bottom-[20%] sm:right-5",
-  },
-];
-export default function ParallaxSection({ref: containerRef}:{ref: any}) {
-  useGSAP(() => {
-    const container = containerRef.current;
-    if (!container) return;
-
-    const mm = gsap.matchMedia();
-
-    mm.add("(min-width:768px)", () => {
-      const ctx = gsap.context(() => {
-        const items = gsap.utils.toArray<HTMLElement>(
-          ".parallax-item",
-          container
-        );
-        if (items.length === 0) return;
-
-        items.forEach((item) => {
-          // ✅ Fix: read speed from the item div, not the Image child
-          const speed = Number(item.dataset.speed || 0.5);
-
-          gsap.fromTo(
-            item,
-            { y: 0 },
-            {
-              y: () => -(window.innerHeight * speed),
-              ease: "none",
-              scrollTrigger: {
-                trigger: container,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-                invalidateOnRefresh: true,
-              },
-            }
-          );
-        });
-      }, container);
-
-      return () => ctx.revert(); // ✅ cleanup on matchMedia exit
-    });
-
-    // ✅ No refresh() here — handled once in Home
-  }, { scope: containerRef });
-  useEffect(()=>{
-    ScrollTrigger.refresh();
-  })
+export default function ParallaxSection({
+  aboutRef: containerRef,
+}: {
+  aboutRef: any;
+}) {
   return (
     <div
       ref={containerRef}
       id="about"
-      className="relative max-w-5xl  
-      mx-auto md:pl-15 py-12 bg-black"
+      className="relative max-w-5xl mx-auto md:pl-15 py-12 bg-black"
     >
       <div id="overlay" />
       <div
@@ -102,7 +29,8 @@ export default function ParallaxSection({ref: containerRef}:{ref: any}) {
         <span>500s</span>
         <span>innovate</span>
         <span>at scale</span>
-        {images.map((img) => (
+
+        {IMAGES.map((img) => (
           <div
             key={img.id}
             data-speed={img.speed}

@@ -1,188 +1,100 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
+import { useRef, useLayoutEffect } from "react";
+import { gsap } from "@/lib/gsapConfig";
 
-export default function MoreDetails({ ref }: { ref: any }) {
-  const [isColorApplied, setIsColorApplied] = useState(false);
-  const wrapperRef = useRef(null);
-  const clampMap: Record<number, number> = {
-    1: 100,
-    2: 150,
-    3: 200,
-  };
+export default function MoreDetails({
+  educationRef: ref,
+  educationWrapperRef,
+}: {
+  educationRef: any;
+  educationWrapperRef: any;
+}) {
 
-  useGSAP(
-    () => {
-      const ctx = gsap.context(() => {
-        // 1. Main pinned timeline
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: ref.current,
-            start: "top top",
-            end: "+=1200",
-            scrub: true,
-            pin: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            // ✅ Add id so other triggers can reference it
-            id: "professor-pin",
-          },
-        });
+  const mp: Record<number, number> = { 1: 8, 2: 5, 3: 1 };
 
-        tl.to(
-          '[id^="up"]',
-          {
-            y: (i, el) => {
-              const num = Number(el.id.split("-")[1]);
-              return -(clampMap[num] ?? 50);
-            },
-            stagger: 0.1,
-            ease: "none",
-          },
-          0
-        );
-
-        tl.to(
-          '[id^="down"]',
-          {
-            y: (i, el) => {
-              const num = Number(el.id.split("-")[1]);
-              return clampMap[num] ?? 50;
-            },
-            stagger: 0.1,
-            ease: "none",
-          },
-          0
-        );
-
-        // 2. ✅ Merge color ScrollTrigger INTO the same context
-        //    Use wrapperRef but sync start/end with the pin duration
-        ScrollTrigger.create({
-          trigger: wrapperRef.current,
-          start: "top top",
-          // ✅ end must account for the pinned scroll distance
-          end: "+=1200",
-          onEnter: () => applyColor("oklch(0.9379 0.0423 74.15)"),
-          onLeave: () => applyColor("oklch(0.1149 0 0)"),
-          onEnterBack: () => applyColor("oklch(0.9379 0.0423 74.15)"),
-          onLeaveBack: () => applyColor("oklch(0.1149 0 0)"),
-        });
-      }, wrapperRef); // ✅ Scope to wrapperRef, not ref
-
-      // 3. ✅ Remove ScrollTrigger.refresh() from here entirely
-      //    Call it globally once, after ALL sections mount (e.g. in a parent layout)
-    },
-    { scope: wrapperRef }
-  );
-
-  const applyColor = (color: string) => {
-    document.documentElement.style.setProperty("--background", color);
-    setIsColorApplied(color !== "oklch(0.1149 0 0)");
-  };
-  const mp: any = {
-    1: 8,
-    2: 5,
-    3: 1,
-  };
   return (
     <div
-      ref={wrapperRef}
+      ref={educationWrapperRef}
       id="education"
-      className="relative! md:pl-15 bg-background transition-colors duration-500 w-full overflow-hidden" // Added overflow-hidden to prevent horizontal scroll on mobile
+      className="relative z-10 md:pl-15 bg-background transition-colors duration-500 w-full"
     >
+      {/* ── Pinned Container (GSAP touches this) ──────────────── */}
       <div
         ref={ref}
-        className="h-screen relative flex justify-center items-center w-full"
+        className="h-screen relative w-full"
       >
-        <h6 className="absolute z-[20] text-[var(--destructive)] text-2xl md:text-5xl font-extrabold">
-          You can call me
-        </h6>
-
-        {/* UP layers */}
-        {[1, 2, 3].map((n) => (
-          <span
-            key={`up-${n}`}
-            id={`up-${n}`}
-            className={`absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block ${
-              isColorApplied ? "text-white!" : ""
-            }`}
-            style={{ zIndex: mp[n] }}
-          >
-            professor
-          </span>
-        ))}
-
-        {/* DOWN layers */}
-        {[1, 2, 3].map((n) => (
-          <span
-            key={`down-${n}`}
-            id={`down-${n}`}
-            className={`absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase bg-background leading-[0.8] inline-block ${
-              isColorApplied ? "text-white!" : ""
-            }`}
-            style={{ zIndex: mp[n] }}
-          >
-            professor
-          </span>
-        ))}
-
-        {/* CENTER — always on top */}
-        <span
-          className={`layer absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-none inline-block bg-background ${
-            isColorApplied ? "text-white!" : ""
-          } z-[10]`}
+        {/* ── Strict Clipping Boundary (GSAP ignores this) ──────── */}
+        {/* clip-path: inset(0) guarantees nothing will EVER render outside this div */}
+        <div 
+          className="absolute inset-0 w-full h-full flex justify-center items-center"
+          style={{ clipPath: "inset(0 0 0 0)" }}
         >
-          professor
-        </span>
+          <h6 className="absolute z-[20] text-[var(--destructive)] text-2xl md:text-5xl font-extrabold">
+            You can call me
+          </h6>
+
+          {[1, 2, 3].map((n) => (
+            <span
+              key={`up-${n}`}
+              data-type="up"
+              data-index={n}
+              className="anim-text absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block transition-colors duration-500"
+              style={{ zIndex: mp[n] }}
+            >
+              professor
+            </span>
+          ))}
+
+          {[1, 2, 3].map((n) => (
+            <span
+              key={`down-${n}`}
+              data-type="down"
+              data-index={n}
+              className="anim-text absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase bg-background leading-[0.8] inline-block transition-colors duration-500"
+              style={{ zIndex: mp[n] }}
+            >
+              professor
+            </span>
+          ))}
+
+          <span className="anim-text absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-none inline-block bg-background z-[10] transition-colors duration-500">
+            professor
+          </span>
+        </div>
       </div>
 
+      {/* ── Content below the pin ────────────────────────────────── */}
       <div className="flex min-h-screen relative mt-34 md:mt-40 w-full">
-        {/* 🔥 Changed to flex-col on mobile, flex-row on desktop */}
         <div className="flex flex-col md:flex-row w-full gap-10 md:gap-0">
-          {/* Image container: Gave it a set height on mobile so 'fill' works, min-h-full on desktop */}
-          <div className="md:h-[50vh] md:h-auto md:min-h-full w-full">
+          <div className="md:h-auto md:min-h-full w-full">
             <div className="h-full max-md:min-h-[500px] w-[90%] mx-auto md:w-[90%] relative">
               <span className="absolute -mt-6 capitalize font-bold text-[var(--destructive-secondary)]">
                 professor of ux
               </span>
               <Image
                 fill
-                alt={"Loading..."}
-                src={"/example.jpg"}
-                className="object-cover max-md:h-full" // Added object-cover to ensure image scales nicely
+                alt="Professor of UX"
+                src="/example.jpg"
+                className="object-cover"
               />
-
-              {/* Text overlap: Re-positioned and resized for mobile, preserved for desktop */}
-              <h3 className="left-2 md:left-[80%] text-[var(--destructive)] leading-[0.9] top-[-15%] md:top-[-10%] z-[99] max-md:hidden md:absolute text-4xl sm:text-5xl md:text-7xl font-extrabold w-[90%] md:w-2xl">
+              <h3 className="left-2 md:left-[80%] text-[var(--destructive)] leading-[0.9] top-[-15%] md:top-[-10%] z-[99] max-md:hidden md:absolute text-4xl sm:text-5xl md:text-6xl font-extrabold w-[90%] md:w-2xl">
                 Educating the Next Generation of Design Rebels & Changemakers.
               </h3>
             </div>
           </div>
 
-          {/* Text block: Removed min-w-lg on mobile, preserved on desktop */}
           <div className="relative w-full md:min-h-full md:min-w-lg px-5 md:px-0 pb-10 md:pb-0">
             <div className="md:absolute md:right-5 md:bottom-5 grid gap-3 mt-10 md:mt-0">
-              <p
-                className={`w-full md:max-w-sm text-lg md:text-2xl text-foreground ${
-                  isColorApplied ? "text-[var(--destructive)]!" : ""
-                }`}
-              >
+              <p className="bottom-text w-full md:max-w-sm text-lg md:text-2xl text-foreground transition-colors duration-500">
                 The design world needs more than great portfolios—it needs
                 fearless leaders who aren't afraid to push boundaries and
                 challenge the status quo.
               </p>
               <Link
-                className={`text-lg md:text-xl font-bold underline ${
-                  isColorApplied ? "text-[var(--destructive)]!" : ""
-                }`}
-                href={"#"}
+                className="bottom-text text-lg md:text-xl font-bold underline transition-colors duration-500"
+                href="#"
               >
                 My services↗
               </Link>

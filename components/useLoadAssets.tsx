@@ -6,6 +6,7 @@ export default function useLoadAssets() {
   const [progress, setProgress] = useState(0);
   useEffect(() => {
     const loadAssets = async () => {
+      document.body.style.cursor = "not-allowed";
       const keys = Object.keys(ASSETS);
       const n = keys.length;
       let curr = 0;
@@ -28,7 +29,14 @@ export default function useLoadAssets() {
           });
         })
       );
-      setLoaded(true);
+      // const LocomotiveScroll = (await import("locomotive-scroll")).default;
+      // const locomotiveScroll = new LocomotiveScroll();
+
+      setTimeout(() => {
+        setLoaded(true);
+        document.body.style.cursor = "default";
+        window.scrollTo(0, 0);
+      }, 2000);
     };
     loadAssets();
   }, []);

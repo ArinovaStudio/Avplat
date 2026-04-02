@@ -1,29 +1,17 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
-import dynamic from "next/dynamic";
-const ThirdSection = dynamic(() => import("./_components/ThirdSection"), {
-  ssr: false,
-});
-const MoreDetails = dynamic(() => import("./_components/MoreDetails"), {
-  ssr: false,
-});
-const ParallaxScreen = dynamic(() => import("./_components/ParallaxScreen"), {
-  ssr: false,
-});
-const Brands = dynamic(() => import("./_components/Brands"), { ssr: false });
-const Footer = dynamic(() => import("./_components/Footer"), { ssr: false });
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import ThirdSection from "./_components/ThirdSection";
+import ParallaxSection from "./_components/ParallaxScreen";
+import MoreDetails from "./_components/MoreDetails";
+import Footer from "./_components/Footer";
+import Brands from "./_components/Brands";
 import useLoadAssets from "@/components/useLoadAssets";
 import ConnectSection from "./_components/ConnectScreen";
 import { AnimatePresence } from "framer-motion";
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
+import { gsap, ScrollTrigger } from "@/lib/gsapConfig";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -32,43 +20,180 @@ export default function Home() {
   const homeRef = useRef(null);
   const aboutRef = useRef(null);
   const brandsRef = useRef(null);
+  const educationWrapperRef = useRef(null);
   const educationRef = useRef(null);
   const footerRef = useRef(null);
-  const sectionRefs = [
-    homeRef,
-    aboutRef,
-    brandsRef,
-    educationRef,
-    footerRef
-  ];
-  useGSAP(
-    () => {
-      if (!sectionRef.current || !triggerRef.current) return;
-
-      let mm = gsap.matchMedia();
-
-      mm.add("(min-width: 768px)", () => {
-        gsap.to(sectionRef.current, {
-          x: () => "-350vw",
-          ease: "none",
-          scrollTrigger: {
-            trigger: triggerRef.current,
-            start: "top top",
-            end: () => "+=" + window.innerWidth * 2,
-            scrub: 0.5,
-            pin: true,
-            anticipatePin: 1,
-            // 3. THIS IS CRITICAL: Forces GSAP to recalculate the start/end points
-            // if the window resizes or dynamic content shifts the layout
-            invalidateOnRefresh: true,
-          },
-        });
-      });
-    },
-    { dependencies: [loaded], revertOnUpdate: true }
+  const footerContainerRef = useRef(null);
+  const clampMap: Record<number, number> = { 1: 100, 2: 150, 3: 200 };
+  const sectionRefs = useMemo(
+    () => [homeRef, aboutRef, brandsRef, educationRef, footerContainerRef],
+    []
   );
   useEffect(() => {
+    if (!loaded) return;
+    let mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      if (!sectionRef.current || !triggerRef.current) return;
+      gsap.to(sectionRef.current, {
+        x: () => "-350vw",
+        ease: "none",
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          start: "top top",
+          end: () => "+=" + window.innerWidth * 2,
+          scrub: 0.5,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+      const items = gsap.utils.toArray<HTMLElement>(".parallax-item");
+
+      if (items.length === 0) return;
+
+      items.forEach((item) => {
+        const speed = Number(item.dataset.speed || 0.5);
+
+        gsap.fromTo(
+          item,
+          { y: 0 },
+          {
+            y: () => -(window.innerHeight * speed),
+            ease: "none",
+            scrollTrigger: {
+              trigger: aboutRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
+      });
+    });
+    const ctx = gsap.context(() => {
+      const items = gsap.utils.toArray(".item", brandsRef.current);
+
+      items.forEach((item: any) => {
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 60%",
+          end: "bottom 40%",
+          invalidateOnRefresh: true,
+          // onEnter: () => setActiveImage(item.dataset.image || ""),
+          // onEnterBack: () => setActiveImage(item.dataset.image || ""),
+        });
+      });
+    }, brandsRef);
+
+    const educationContext = gsap.context(() => {
+      const pinnedSection = educationRef.current;
+      const wrapper = educationWrapperRef.current;
+
+      const ups = gsap.utils.toArray<HTMLElement>('[data-type="up"]', wrapper);
+      const downs = gsap.utils.toArray<HTMLElement>(
+        '[data-type="down"]',
+        wrapper
+      );
+
+      const animatedTexts = gsap.utils.toArray<HTMLElement>(
+        ".anim-text",
+        wrapper
+      );
+      const bottomTexts = gsap.utils.toArray<HTMLElement>(
+        ".bottom-text",
+        wrapper
+      );
+
+      const toggleColors = (isApplied: boolean) => {
+        document.documentElement.style.setProperty(
+          "--background",
+          isApplied ? "oklch(0.9379 0.0423 74.15)" : "oklch(0.1149 0 0)"
+        );
+
+        animatedTexts.forEach((el) => {
+          if (isApplied) el.classList.add("!text-white");
+          else el.classList.remove("!text-white");
+        });
+
+        bottomTexts.forEach((el) => {
+          if (isApplied) el.classList.add("!text-[var(--destructive)]");
+          else el.classList.remove("!text-[var(--destructive)]");
+        });
+      };
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: pinnedSection,
+          start: "top top",
+          end: "+=1200",
+          scrub: true,
+          pin: true,
+          pinSpacing: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
+      const wrappertl = gsap.timeline({
+        scrollTrigger: {
+          trigger: educationWrapperRef.current,
+          start: "top top",
+          end: "bottom top",
+          onEnter: () => toggleColors(true),
+          onLeave: () => toggleColors(false),
+          onEnterBack: () => toggleColors(true),
+          onLeaveBack: () => toggleColors(false),
+        },
+      });
+      tl.to(
+        ups,
+        {
+          y: (i, el) =>
+            -(clampMap[Number(el.getAttribute("data-index"))] ?? 50),
+          ease: "none",
+          stagger: 0.1,
+        },
+        0
+      );
+
+      tl.to(
+        downs,
+        {
+          y: (i, el) => clampMap[Number(el.getAttribute("data-index"))] ?? 50,
+          ease: "none",
+          stagger: 0.1,
+        },
+        0
+      );
+    }, educationRef);
+
+    const footerContext = gsap.context(() => {
+      gsap.fromTo(
+        footerContainerRef.current,
+        { yPercent: 50 },
+        {
+          yPercent: -50,
+          ease: "none",
+          scrollTrigger: {
+            trigger: footerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+    }, footerRef);
+    return () => {
+      mm.revert();
+      ctx.revert();
+      educationContext.revert();
+      footerContext.revert();
+      requestAnimationFrame(() => {
         ScrollTrigger.refresh();
+      });
+    };
   }, [loaded]);
   return (
     <div className="min-h-screen w-full flex max-md:flex-col">
@@ -78,8 +203,8 @@ export default function Home() {
         loaded={loaded}
         sectionRefs={sectionRefs}
       />
-      <div className="flex flex-col overflow-x-clip w-full max-md:max-w-screen">
-        <section className="relative w-full">
+      <div className="flex flex-col w-full max-md:max-w-screen">
+        <section className="relative overflow-x-clip w-full">
           <div ref={triggerRef} className="md:h-screen w-full">
             <div className="absolute top-0 left-0 w-full h-full z-0">
               <video
@@ -103,11 +228,9 @@ export default function Home() {
             relative
           `}
             >
-              <Suspense fallback={"LOading..."}>
               <FirstSection ref={homeRef} loaded={loaded} />
               <SecondSection />
               <ThirdSection />
-              </Suspense>
             </div>
           </div>
         </section>
@@ -115,13 +238,16 @@ export default function Home() {
           {letsConnect && <ConnectSection setLetsConnect={setLetsConnect} />}
         </AnimatePresence>
         <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">
-            <Suspense fallback={"Loading..."}>
-
-            <ParallaxScreen ref={aboutRef}/>
-            <Brands ref={brandsRef} />
-            <MoreDetails ref={educationRef} />
-            <Footer ref={footerRef}/>
-            </Suspense>
+          <ParallaxSection aboutRef={aboutRef} />
+          <Brands brandsRef={brandsRef} />
+          <MoreDetails
+            educationRef={educationRef}
+            educationWrapperRef={educationWrapperRef}
+          />
+          <Footer
+            footerRef={footerRef}
+            footerContainerRef={footerContainerRef}
+          />
         </div>
       </div>
     </div>

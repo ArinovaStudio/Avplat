@@ -5,41 +5,16 @@ import { AvanttFont } from "@/assets/fonts";
 import { motion } from "framer-motion";
 import { FaLinkedin, FaInstagram, FaGlobe } from "react-icons/fa";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-
-// Register outside the component to prevent re-registration warnings
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, useGSAP);
-}
-export default function Footer({ref: wrapperRef}:{ref: any}) {
-  const containerRef = useRef(null);
-  // In your page or layout component
-useEffect(() => {
-  ScrollTrigger.refresh();
-}, []);
-  useGSAP(() => {
-    const container = containerRef.current!;
-    const wrapper = wrapperRef.current!;
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        container,
-        { yPercent: 50 },
-        {
-          yPercent: -120,
-          ease: "none",
-          scrollTrigger: {
-            trigger: container,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          },
-        }
-      );
-    }, wrapper);
-    ScrollTrigger.refresh();
-  });
-
+gsap.registerPlugin(ScrollTrigger, useGSAP);
+export default function Footer({
+  footerRef: wrapperRef,
+  footerContainerRef: containerRef,
+}: {
+  footerRef: any;
+  footerContainerRef: any;
+}) {
   return (
     <div
       ref={wrapperRef}
