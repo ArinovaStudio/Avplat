@@ -3,6 +3,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import Image from "next/image";
 import { BRANDS } from "@/assets/additionalinfo";
+
 export default function Brands({ brandsRef }: { brandsRef: any }) {
   const [activeImage, setActiveImage] = useState("/example.jpg");
 
@@ -12,17 +13,22 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
       className="md:pl-15 w-full min-h-screen bg-background text-white"
     >
       {/* CONTAINER */}
-      <div className="flex flex-col lg:flex-row items-start px-4 sm:px-6 mx-auto">
+      {/* 1. Removed `items-start` so the left column stretches to match the right column's height */}
+      <div className="flex flex-col lg:flex-row px-4 sm:px-6 mx-auto">
+        
         {/* LEFT */}
-        <div className="w-full lg:w-1/2 lg:h-screen lg:sticky top-0 flex items-center justify-start py-10 lg:py-0">
-          <div className="max-md:text-center text-[clamp(1.8rem,4vw,2.5rem)] text-[var(--destructive-secondary)] font-bold">
+        {/* 2. Removed `h-screen`, `sticky`, and `items-center`. Added `lg:py-20` to match the right column's padding */}
+        <div className="w-full lg:w-1/2 py-10 lg:py-20">
+          
+          {/* 3. Made the text itself sticky and centered it vertically using top-1/2 and translate-y */}
+          <div className="lg:sticky lg:top-1/2 lg:-translate-y-1/2 max-md:text-center text-[clamp(1.8rem,4vw,2.5rem)] text-[var(--destructive-secondary)] font-bold">
             Brand experience
           </div>
         </div>
 
         {/* RIGHT */}
         <div className="w-full lg:w-1/2 flex flex-col py-1 lg:py-20 relative">
-          {/* ✅ Sticky preview image (hidden on mobile) */}
+          {/* Sticky preview image */}
           <div className="hidden z-[200] sm:block absolute right-5 lg:right-10 w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] lg:w-[240px] lg:h-[240px] sticky top-32">
             <Image
               src={activeImage}
@@ -46,7 +52,8 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
       </div>
 
       {/* FOOTER LINK */}
-      <div className="text-center text-[var(--destructive-secondary)] cursor-pointer pb-6 capitalize font-bold underline text-sm sm:text-base">
+      {/* Added top margin to space it evenly from the newly stretched columns */}
+      <div className="text-center text-[var(--destructive-secondary)] cursor-pointer pb-6 capitalize font-bold underline text-sm sm:text-base mt-10 lg:mt-0">
         see past clients list ↗
       </div>
     </div>

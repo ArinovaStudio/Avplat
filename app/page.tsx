@@ -163,7 +163,7 @@ export default function Home() {
               duration: 0.4,
             },
             "<"
-          ) // 🔥 starts at same time as previous ends
+          ) 
           .to(text, {
             scale: 700,
             transformOrigin: "90% center",
