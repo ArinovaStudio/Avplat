@@ -19,6 +19,14 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
   // 🎯 Cursor follow (optimized)
   useEffect(() => {
     if (!cursorRef.current) return;
+    const innerHeight = window.innerHeight;
+    const innerWidth = window.innerWidth;
+    const offsetWidth = innerWidth * 0.1;
+    const offsetHeight = innerHeight * 0.8; 
+    gsap.set(cursorRef.current, {
+      x: offsetWidth,
+      y: offsetHeight,
+    });
 
     const xTo = gsap.quickTo(cursorRef.current, "x", {
       duration: 0.2,
@@ -89,7 +97,9 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
           </svg>
 
           {/* Text OUTSIDE */}
-          <span className="text-white text-xs text-[var(--foreground)] tracking-wide">Loading...</span>
+          <span className="text-white text-xs text-[var(--foreground)] tracking-wide">
+            Loading...
+          </span>
         </div>
       </div>
     )
