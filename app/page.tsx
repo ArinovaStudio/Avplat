@@ -100,7 +100,7 @@ export default function Home() {
     mm.add("(min-width: 768px)", () => {
       if (!sectionRef.current || !triggerRef.current) return;
       const scrollTween = gsap.to(sectionRef.current, {
-        x: () => "-360vw",
+        x: () => "-400vw",
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
@@ -144,16 +144,16 @@ export default function Home() {
           scrollTrigger: {
             trigger: section,
             containerAnimation: scrollTween,
-            start: "86% 86%",
+            start: "83% 83%",
             end: "right left",
             scrub: true,
           },
         });
         tl.to(text, {
-          scale: 300,
-          transformOrigin: "90% center",
+          scale: 400,
+          transformOrigin: "92% center",
           ease: "power2.in",
-          duration: 0.5,
+          duration: 1.7,
         })
           .to(
             svgWrapper,
@@ -164,12 +164,12 @@ export default function Home() {
             },
             "<"
           ) 
-          .to(text, {
-            scale: 700,
-            transformOrigin: "90% center",
-            ease: "power2.in",
-            duration: 0.4,
-          });
+          // .to(text, {
+          //   scale: 700,
+          //   transformOrigin: "92% center",
+          //   ease: "power2.in",
+          //   duration: 0.4,
+          // });
       }
     });
 
@@ -377,7 +377,7 @@ export default function Home() {
               className={`
             md:ml-15
             transition-all duration-1000
-            md:w-[450vw]
+            md:w-[500vw]
             md:flex
             md:h-full
             relative

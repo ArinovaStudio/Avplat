@@ -3,7 +3,8 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react"; 
-
+import { DESIGN_BY } from "@/lib/constants";
+import VideoDialog from "@/components/VideoPlayer";
 export default function SecondSection() { 
   return (
     <section className="md:w-screen h-full w-full bg-black text-white px-4 md:px-12 pb-10">
@@ -28,14 +29,13 @@ export default function SecondSection() {
           <h1 className="
             flex 
             indent-0 md:indent-40 
-            text-[clamp(1.8rem,7vw,5.5rem)] 
+            text-[clamp(1.8rem,4vw,3rem)] 
             font-extrabold leading-[1.05] 
             text-[var(--foreground)]
             max-md:text-center
             md:max-w-6xl
           ">
-            After years of designing solutions for industry giants and game-
-            changing startups...
+            AvPlat Charters offers effortless access to private jets and helicopters through our digital charter platform. With 15+ years of industry experience, we manage everything from aircraft selection to flight operations, so you can focus on your journey.
           </h1>
         </div>
 
@@ -63,17 +63,18 @@ export default function SecondSection() {
                   Showreel
                 </p>
                 <p className="text-sm md:text-base font-semibold">
-                  Design by Won
+                  Design by {DESIGN_BY}
                 </p>
               </div>
-
-              <Button
+              {/* <VideoDialog> */}
+              <Button 
                 size="icon"
                 variant="outline"
                 className="rounded-full border-neutral-700 w-8 h-8 md:w-10 md:h-10"
               >
                 <Play size={12} />
               </Button>
+              {/* </VideoDialog> */}
             </div>
           </div>
 

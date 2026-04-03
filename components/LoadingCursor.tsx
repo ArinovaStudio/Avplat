@@ -11,7 +11,7 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
   const cursorRef = useRef<HTMLDivElement | null>(null);
   const circleRef = useRef<SVGCircleElement | null>(null);
 
-  const size = 50;
+  const size = 45;
   const stroke = 2;
   const radius = (size - stroke) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -19,10 +19,13 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
   // 🎯 Cursor follow (optimized)
   useEffect(() => {
     if (!cursorRef.current) return;
+
     const innerHeight = window.innerHeight;
     const innerWidth = window.innerWidth;
+
     const offsetWidth = innerWidth * 0.1;
-    const offsetHeight = innerHeight * 0.8; 
+    const offsetHeight = innerHeight * 0.85; 
+    
     gsap.set(cursorRef.current, {
       x: offsetWidth,
       y: offsetHeight,

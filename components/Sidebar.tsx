@@ -107,7 +107,7 @@ export default function Sidebar({
         initial={{ x: -100 }}
         transition={{ duration: 1 }}
         animate={loaded ? { x: 0 } : { x: -100 }}
-        className="h-15 w-full overflow-hidden flex items-center justify-center border-b"
+        className="h-15 md:w-full overflow-hidden flex items-center justify-center border-b"
       >
         <Menu size={20} />
       </motion.div>
@@ -174,7 +174,7 @@ export default function Sidebar({
           onClick={() => {
             setLetsConnect((prev: boolean) => !prev);
           }}
-          className="max-md:w-full w-auto rounded-none md:w-full bg-[var(--anothersecondary)] h-full md:h-38 flex items-center justify-center"
+          className="w-auto rounded-none md:w-full bg-[var(--anothersecondary)]  md:h-38 flex md:items-center md:justify-center"
         >
           <span className="md:[writing-mode:vertical-rl] flex whitespace-nowrap transition-all duration-300 items-center gap-2 font-extrabold uppercase tracking-tighter text-xs md:text-sm">
             {letsConnect ? "Never Mind" : "Let’s Connect"}{" "}

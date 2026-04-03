@@ -8,6 +8,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import LineRevealOnScroll from "@/components/LineReveal";
+import { SITE_NAME } from "@/lib/constants";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 export default function Footer({
   footerRef: wrapperRef,
@@ -35,7 +36,7 @@ export default function Footer({
         />
 
         <div
-          className={`w-full uppercase text-[var(--destructive)] text-6xl sm:text-8xl md:text-[14rem] leading-[0.8] font-extrabold flex flex-col ${AvanttFont.className}`}
+          className={`w-full uppercase text-[var(--destructive)] text-3xl sm:text-5xl md:text-[7rem] leading-[1] font-extrabold flex flex-col ${AvanttFont.className}`}
         >
           <motion.h6
             initial={{ x: 0 }}
@@ -43,7 +44,7 @@ export default function Footer({
             transition={{ duration: 0.5, delay: 1.5 }}
             className="text-center"
           >
-            <LineRevealOnScroll text={"let's"} />
+            <LineRevealOnScroll text={"Save"} />
           </motion.h6>
           <motion.h6
             initial={{ x: 100 }}
@@ -51,7 +52,7 @@ export default function Footer({
             transition={{ duration: 0.5, delay: 1.5 }}
             className="text-left"
           >
-            <LineRevealOnScroll text={"have"} />
+            <LineRevealOnScroll text={"More on"} />
           </motion.h6>
           <motion.h6
             initial={{ x: -100 }}
@@ -59,21 +60,21 @@ export default function Footer({
             transition={{ duration: 0.5, delay: 1.5 }}
             className="text-right"
           >
-            <LineRevealOnScroll text={"a"} />
+            <LineRevealOnScroll text={"Every Charter"} />
           </motion.h6>
           <motion.h6
             initial={{ x: 0 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
             // RESPONSIVE MARGIN: Removed mr-40 on mobile, kept on desktop
-            className="text-right pr-5 md:pr-0 md:mr-40"
+            className="text-right mt-15 pr-5 md:pr-0 md:mr-40"
           >
-            <LineRevealOnScroll text={"chat"} />
+            <LineRevealOnScroll text={"24×7 Assistance"} />
           </motion.h6>
         </div>
 
         {/* RESPONSIVE GRID: Added gap-10 for mobile stacking, text scaling */}
-        <div className="max-w-3xl pl-5 pr-5 md:pr-0 w-full grid gap-10 md:gap-0 md:grid-cols-3 mt-10 md:mt-0">
+        {/* <div className="max-w-3xl pl-5 pr-5 md:pr-0 w-full grid gap-10 md:gap-0 md:grid-cols-3 mt-10 md:mt-0">
           <div className="grid gap-3">
             <span className="uppercase text-[var(--destructive-secondary)] font-bold text-base md:text-lg flex items-center gap-1">
               <span className="text-xs">■</span> schedule a call
@@ -108,7 +109,7 @@ export default function Footer({
               <LineRevealOnScroll text={"won@wjystudios.com"} />
             </a>
           </div>
-        </div>
+        </div> */}
       </div>
 
       {/* RESPONSIVE BOTTOM: Switched to min-h-screen to avoid overlap on mobile */}
@@ -136,25 +137,25 @@ export default function Footer({
             className={`text-center mx-auto max-w-4xl leading-[0.8] font-extrabold w-full text-5xl md:text-[6rem]`}
           >
             <LineRevealOnScroll
-              text={`“Research without 
-            actionable insight is 
-            meaningless. ”`}
+              text={`“Transparent, tech-driven 
+                private charter with 
+                full control. ”`}
             />
           </h3>
           {/* RESPONSIVE IMAGE: Scaled down signature w-100 */}
-          <div className="relative h-16 w-52 md:h-30 md:w-100">
+          {/* <div className="relative h-16 w-52 md:h-30 md:w-100">
             <Image
               src={"/sign.png"}
               alt={"Logo"}
               fill
               className="object-contain"
             />
-          </div>
+          </div> */}
         </div>
 
         {/* RESPONSIVE LINKS & COPYRIGHT: Flex-col on mobile, flex-row on desktop */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0 text-center">
-          <div className="text-[var(--destructive)] text-lg md:text-xl font-bold flex flex-wrap justify-center md:justify-start gap-4 md:gap-0 md:space-x-4">
+        <div className="flex flex-col md:flex-row items-end justify-end gap-6 md:gap-0 text-center">
+          {/* <div className="text-[var(--destructive)] text-lg md:text-xl font-bold flex flex-wrap justify-center md:justify-start gap-4 md:gap-0 md:space-x-4">
             <a className="border-b-3 border-b-[var(--destructive)]" href="#">
               Personal site↗
             </a>
@@ -167,9 +168,9 @@ export default function Footer({
             <a className="border-b-3 border-b-[var(--destructive)]" href="#">
               Colophon↗
             </a>
-          </div>
+          </div> */}
           <span className="text-gray-500/80 text-sm md:text-base">
-            Copyright ©2025-26. All rights reserved. Stealing is bad karma.
+            Copyright ©2025-26. All rights reserved by {SITE_NAME}.
           </span>
         </div>
       </div>

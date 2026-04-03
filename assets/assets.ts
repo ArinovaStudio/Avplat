@@ -43,4 +43,8 @@ export const ASSETS = [
     type: "image",
     location: "/window.svg",
   },
+  {
+    type: "video",
+    location: "/hero-video.mp4",
+  },
 ];

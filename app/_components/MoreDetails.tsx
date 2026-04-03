@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRef, useLayoutEffect } from "react";
 import { gsap } from "@/lib/gsapConfig";
 import LineRevealOnScroll from "@/components/LineReveal";
+import { SITE_NAME } from "@/lib/constants";
 
 export default function MoreDetails({
   educationRef: ref,
@@ -37,10 +38,10 @@ export default function MoreDetails({
               key={`up-${n}`}
               data-type="up"
               data-index={n}
-              className="anim-text absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block transition-colors duration-500"
+              className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block transition-colors duration-500"
               style={{ zIndex: mp[n] }}
             >
-              professor
+              {SITE_NAME}
             </span>
           ))}
 
@@ -49,15 +50,15 @@ export default function MoreDetails({
               key={`down-${n}`}
               data-type="down"
               data-index={n}
-              className="anim-text absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase bg-background leading-[0.8] inline-block transition-colors duration-500"
+              className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase bg-background leading-[0.8] inline-block transition-colors duration-500"
               style={{ zIndex: mp[n] }}
             >
-              professor
+              {SITE_NAME}
             </span>
           ))}
 
-          <span className="anim-text absolute text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-none inline-block bg-background z-[10] transition-colors duration-500">
-            professor
+          <span className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-none inline-block bg-background z-[10] transition-colors duration-500">
+            {SITE_NAME}
           </span>
         </div>
       </div>
@@ -77,11 +78,15 @@ export default function MoreDetails({
                 className="object-cover"
               />
               <h3 className="left-2 md:left-[80%] text-[var(--destructive)] leading-[0.9] top-[-15%] md:top-[-10%] z-[99] max-md:hidden md:absolute text-4xl sm:text-5xl md:text-[5rem] w-full font-extrabold">
-                <LineRevealOnScroll
+                {/* <LineRevealOnScroll
                   text={`Educating the 
                 Next Generation 
                 of Design Rebels 
                 & Changemakers.`}
+                /> */}
+                <LineRevealOnScroll
+                  text={`Our Private 
+                    Jet Fleet `}
                 />
               </h3>
             </div>
@@ -91,10 +96,10 @@ export default function MoreDetails({
             <div className="md:absolute md:right-5 md:bottom-5 grid gap-3 mt-10 md:mt-0">
               <p className="bottom-text w-full md:max-w-sm text-lg md:text-2xl text-foreground transition-colors duration-500">
                 <LineRevealOnScroll
-                  text={`
-                The design world needs more than great portfolios—it needs
-                fearless leaders who aren't afraid to push boundaries and
-                challenge the status quo.`}
+                  text={`AvPlat puts private aviation at your fingertips, 
+                    offering aircraft access to plan, customize, and manage 
+                    charter journeys ensuring precision, transparency, and 
+                    confidence from itinerary to touchdown.`}
                 />
               </p>
               <Link

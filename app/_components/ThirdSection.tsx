@@ -26,7 +26,7 @@ export default function ThirdSection({
           absolute inset-0 
           min-w-full
           w-max 
-          left-[36%]
+          left-[38%]
           h-full 
           z-10
           max-md:hidden
