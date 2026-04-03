@@ -38,37 +38,37 @@ export default function Footer({
           className={`w-full uppercase text-[var(--destructive)] text-6xl sm:text-8xl md:text-[14rem] leading-[0.8] font-extrabold flex flex-col ${AvanttFont.className}`}
         >
           <motion.h6
-            initial={{ opacity: 0, x: 0 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
+            initial={{ x: 0 }}
+            whileInView={{ x: 0 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
             className="text-center"
           >
-            <LineRevealOnScroll text={"let's"}/>
+            <LineRevealOnScroll text={"let's"} />
           </motion.h6>
           <motion.h6
-            initial={{ opacity: 0, x: 100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
+            initial={{ x: 100 }}
+            whileInView={{ x: 0 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
             className="text-left"
           >
-            <LineRevealOnScroll text={"have"}/>
+            <LineRevealOnScroll text={"have"} />
           </motion.h6>
           <motion.h6
-            initial={{ opacity: 0, x: -100 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
+            initial={{ x: -100 }}
+            whileInView={{ x: 0 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
             className="text-right"
           >
-            <LineRevealOnScroll text={"a"}/>
+            <LineRevealOnScroll text={"a"} />
           </motion.h6>
           <motion.h6
-            initial={{ opacity: 0, x: 0 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 1 }}
+            initial={{ x: 0 }}
+            whileInView={{ x: 0 }}
+            transition={{ duration: 0.5, delay: 1.5 }}
             // RESPONSIVE MARGIN: Removed mr-40 on mobile, kept on desktop
             className="text-right pr-5 md:pr-0 md:mr-40"
           >
-            <LineRevealOnScroll text={"chat"}/>
+            <LineRevealOnScroll text={"chat"} />
           </motion.h6>
         </div>
 
@@ -83,7 +83,7 @@ export default function Footer({
               href={"https://calendly.com"}
               target="_blank"
             >
-              <LineRevealOnScroll text={"calendly.com"}/>
+              <LineRevealOnScroll text={"calendly.com"} />
             </a>
           </div>
           <div className="grid gap-3">
@@ -94,7 +94,7 @@ export default function Footer({
               className="text-xl sm:text-2xl md:text-3xl max-w-fit bottom-shine border-b-3 border-b-[var(--foreground)] pb-1 font-extrabold tracking-[1.1]"
               href={"tel:312-436-1845"}
             >
-              <LineRevealOnScroll text={"312-436-1845"}/>
+              <LineRevealOnScroll text={"312-436-1845"} />
             </a>
           </div>
           <div className="grid gap-3">
@@ -105,7 +105,7 @@ export default function Footer({
               className="text-xl sm:text-2xl md:text-3xl bottom-shine border-b-3 border-b-[var(--foreground)] max-w-fit pb-1 font-extrabold tracking-[1.1]"
               href={"mailto:won@wjystudios.com"}
             >
-              <LineRevealOnScroll text={"won@wjystudios.com"}/>
+              <LineRevealOnScroll text={"won@wjystudios.com"} />
             </a>
           </div>
         </div>
@@ -135,9 +135,11 @@ export default function Footer({
           <h3
             className={`text-center mx-auto max-w-4xl leading-[0.8] font-extrabold w-full text-5xl md:text-[6rem]`}
           >
-            <LineRevealOnScroll text={`“Research without 
+            <LineRevealOnScroll
+              text={`“Research without 
             actionable insight is 
-            meaningless. ”`}/>
+            meaningless. ”`}
+            />
           </h3>
           {/* RESPONSIVE IMAGE: Scaled down signature w-100 */}
           <div className="relative h-16 w-52 md:h-30 md:w-100">

@@ -6,7 +6,7 @@ import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 const sections = [
   { id: "intro", label: "intro" },
-  // { id: "mentorship", label: "mentorship", jump: "mentorship" },
+  { id: "mentorship", label: "mentorship", jump: "mentorship" },
   { id: "about", label: "about" },
   { id: "brandexperience", label: "brandexperience" },
   { id: "education", label: "education" },
@@ -75,6 +75,7 @@ export default function Sidebar({
       observers.forEach((observer) => observer.disconnect());
     };
   }, [sectionRefs]);
+  
   const handleJump = (index: number) => {
     setActive(index);
 
@@ -83,11 +84,11 @@ export default function Sidebar({
 
     const headerOffset = 100;
     const elementPosition = ref.current.getBoundingClientRect().top;
+    const elementLeftPosition = ref.current.getBoundingClientRect().left;
     const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
     window.scrollTo({
       top: index === 0 ? 0 : offsetPosition,
-      behavior: "smooth",
+      behavior: "smooth"
     });
   };
 

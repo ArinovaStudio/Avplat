@@ -11,13 +11,16 @@ import Brands from "./_components/Brands";
 import useLoadAssets from "@/components/useLoadAssets";
 import ConnectSection from "./_components/ConnectScreen";
 import { AnimatePresence } from "framer-motion";
-import { gsap, ScrollTrigger, CustomEase, SplitText } from "@/lib/gsapConfig";
+import { gsap, ScrollTrigger } from "@/lib/gsapConfig";
+import CursorLoader from "@/components/LoadingCursor";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
   const [letsConnect, setLetsConnect] = useState(false);
   const { loaded, progress } = useLoadAssets();
+  const thirdSectionRef = useRef(null);
   const homeRef = useRef(null);
+  const innerHomeRef = useRef(null);
   const aboutRef = useRef(null);
   const brandsRef = useRef(null);
   const educationWrapperRef = useRef(null);
@@ -26,16 +29,75 @@ export default function Home() {
   const footerContainerRef = useRef(null);
   const clampMap: Record<number, number> = { 1: 100, 2: 150, 3: 200 };
   const sectionRefs = useMemo(
-    () => [homeRef, aboutRef, brandsRef, educationRef, footerContainerRef],
+    () => [
+      homeRef,
+      thirdSectionRef,
+      aboutRef,
+      brandsRef,
+      educationRef,
+      footerContainerRef,
+    ],
     []
   );
   useEffect(() => {
+    gsap.set("#parallax-overlay", { yPercent: 100 });
+    const homeContext = gsap.context(() => {
+      if(loaded) return;
+      const element = innerHomeRef.current;
+      const lines = gsap.utils.toArray<HTMLElement>(".line");
+
+      // 🔥 set initial positions
+      gsap.set(lines, {
+        yPercent: 100,
+        opacity: 0,
+        display: "none"
+      }); 
+
+      gsap.set(element, {
+        alignItems: "center",
+        justifyContent: "center"
+      });
+
+      const tl = gsap.timeline();
+
+      lines.forEach((line, i) => {
+        // current line enters
+        tl.to(line, {
+          yPercent: 0,
+          opacity: 1,
+          duration: 1,
+          display: "block",
+          ease: "back.out(1.4)",
+        });
+        if(i>=3){
+          tl.to(".top-text",{
+            display: "none"
+          });
+        }
+
+      });
+
+      tl.to(element, {
+        justifyItems: "center",
+        alignItems: "flex-start",
+        duration: 1,
+        ease: "power3.inOut",
+      });
+      tl.to(".left-text",{
+        display: "block"
+      });
+
+      tl.to(".reveal-it",{
+        display: "flex"
+      });
+    }, homeRef);
+
     if (!loaded) return;
     let mm = gsap.matchMedia();
     mm.add("(min-width: 768px)", () => {
       if (!sectionRef.current || !triggerRef.current) return;
       gsap.to(sectionRef.current, {
-        x: () => "-460vw",
+        x: () => "-350vw",
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
@@ -48,7 +110,6 @@ export default function Home() {
         },
       });
       const items = gsap.utils.toArray<HTMLElement>(".parallax-item");
-
       if (items.length === 0) return;
 
       items.forEach((item) => {
@@ -71,6 +132,53 @@ export default function Home() {
         );
       });
     });
+    const aboutContext = gsap.context(() => {
+      const overlay = document.querySelector("#parallax-overlay");
+
+      if (!overlay) return;
+
+      gsap.set(overlay, {
+        yPercent: 100,
+        autoAlpha: 0, // better than opacity
+      });
+
+      const tween = gsap.to(overlay, {
+        yPercent: () => -15,
+        ease: "none",
+        scrollTrigger: {
+          trigger: aboutRef.current,
+          start: "top bottom", // section enters
+          end: "bottom 50%",
+          scrub: true,
+
+          // 🔥 appear when entering
+          onEnter: () => {
+            gsap.set(overlay, { autoAlpha: 1 });
+          },
+
+          // 🔥 disappear when leaving forward
+          onLeave: () => {
+            gsap.set(overlay, {
+              autoAlpha: 0,
+              yPercent: 100, // reset below
+            });
+          },
+
+          // 🔥 appear again when scrolling back
+          onEnterBack: () => {
+            gsap.set(overlay, { autoAlpha: 1 });
+          },
+
+          // 🔥 disappear when leaving backward
+          onLeaveBack: () => {
+            gsap.set(overlay, {
+              autoAlpha: 0,
+              yPercent: 100,
+            });
+          },
+        },
+      });
+    }, aboutRef);
     const ctx = gsap.context(() => {
       const items = gsap.utils.toArray(".item", brandsRef.current);
 
@@ -185,7 +293,9 @@ export default function Home() {
       );
     }, footerRef);
     return () => {
+      homeContext.revert();
       mm.revert();
+      aboutContext.revert();
       ctx.revert();
       educationContext.revert();
       footerContext.revert();
@@ -196,11 +306,16 @@ export default function Home() {
   }, [loaded]);
   return (
     <div className="min-h-screen w-full flex max-md:flex-col">
+      <CursorLoader progress={progress} />
       <Sidebar
         letsConnect={letsConnect}
         setLetsConnect={setLetsConnect}
         loaded={loaded}
         sectionRefs={sectionRefs}
+      />
+      <div
+        id="parallax-overlay"
+        className="pointer-events-none fixed bottom-0 left-0 w-full h-[60%] bg-[rgba(0,0,0,0.25)] opacity-25 backdrop-grayscale z-[100]"
       />
       <div className="flex flex-col w-full max-md:max-w-screen">
         <section className="relative overflow-x-clip w-full">
@@ -227,9 +342,9 @@ export default function Home() {
             relative
           `}
             >
-              <FirstSection ref={homeRef} loaded={loaded} />
+              <FirstSection ref={homeRef} innerRef={innerHomeRef} />
               <SecondSection />
-              <ThirdSection />
+              <ThirdSection sectionRef={thirdSectionRef} />
             </div>
           </div>
         </section>

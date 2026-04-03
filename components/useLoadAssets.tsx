@@ -5,41 +5,49 @@ export default function useLoadAssets() {
   const [loaded, setLoaded] = useState(false);
   const [progress, setProgress] = useState(0);
   useEffect(() => {
+    window.scroll(0,0);
     const loadAssets = async () => {
       document.body.style.cursor = "not-allowed";
-      window.scrollTo(0, 0);
       document.body.style.overflow = "hidden";
-      const keys = Object.keys(ASSETS);
-      const n = keys.length;
+
+      const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
       let curr = 0;
+      const n = ASSETS.length;
+
       await Promise.all(
-        ASSETS.map(async (asset) => {
-          return new Promise((resolve, reject) => {
+        ASSETS.map(async (asset, index) => {
+          await delay(index * 500);
+
+          return new Promise<void>((resolve, reject) => {
+            const handleDone = () => {
+              curr += 1;
+              setProgress(Math.round((curr / n) * 100));
+              resolve();
+            };
+
             if (asset.type === "image") {
               const img = new Image();
               img.src = asset.location;
-              img.onload = resolve;
+              img.onload = handleDone;
               img.onerror = reject;
             } else if (asset.type === "video") {
               const video = document.createElement("video");
               video.src = asset.location;
-              video.oncanplaythrough = resolve;
+              video.oncanplaythrough = handleDone;
               video.onerror = reject;
             }
-            curr += 1;
-            setProgress(Math.round(curr / n) * 100);
           });
         })
       );
-      // const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      // const locomotiveScroll = new LocomotiveScroll();
 
       setTimeout(() => {
-        setLoaded(true);
         document.body.style.cursor = "default";
         document.body.style.overflow = "auto";
+        setLoaded(true);
       }, 2000);
     };
+
     loadAssets();
   }, []);
   return { loaded, progress };

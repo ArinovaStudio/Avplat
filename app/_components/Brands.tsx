@@ -23,7 +23,7 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
         {/* RIGHT */}
         <div className="w-full lg:w-1/2 flex flex-col py-1 lg:py-20 relative">
           {/* ✅ Sticky preview image (hidden on mobile) */}
-          <div className="hidden sm:block absolute right-5 lg:right-10 w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] lg:w-[240px] lg:h-[240px] sticky top-32">
+          <div className="hidden z-[200] sm:block absolute right-5 lg:right-10 w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] lg:w-[240px] lg:h-[240px] sticky top-32">
             <Image
               src={activeImage}
               alt="brand"

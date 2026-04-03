@@ -1,13 +1,11 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef } from "react";
-
-export default function ThirdSection() {
-  const ref = useRef<HTMLDivElement | null>(null);
+import { useRef } from "react";
+export default function ThirdSection({sectionRef}:{sectionRef: any}) {
   const textRef = useRef<SVGSVGElement | null>(null);
   return (
     <div
-      ref={ref}
+      ref={sectionRef}
       id="mentorship"
       className="
         relative 

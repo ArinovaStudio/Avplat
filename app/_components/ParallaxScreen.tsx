@@ -11,7 +11,6 @@ export default function ParallaxSection({
 }) {
   return (
     <div ref={containerRef} className="w-full">
-      {/* <div className="pointer-events-none bottom-0 left-0 w-full h-[30%] bg-[#4e4e4e]/30 backdrop-grayscale z-[100] parallax-overlay" /> */}
       <div className="relative max-w-5xl mx-auto md:pl-15 py-12 bg-black">
         <div
           className={`uppercase relative text-center text-destructive text-[clamp(4rem,10vw,14rem)] leading-[0.8] grid font-extrabold ${AvanttFont.className}`}
@@ -31,7 +30,7 @@ export default function ParallaxSection({
             <div
               key={img.id}
               data-speed={img.speed}
-              className={`group parallax-item absolute ${img.position} w-[70px] h-[70px] sm:w-[110px] sm:h-[110px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] hover:scale-110 transition-all duration-500`}
+              className={`group z-[100] parallax-item absolute ${img.position} w-[70px] h-[70px] sm:w-[110px] sm:h-[110px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] hover:scale-110 transition-all duration-500`}
             >
               <Image
                 src={img.src}
