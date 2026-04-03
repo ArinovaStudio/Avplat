@@ -1,6 +1,6 @@
 "use client";
 import Sidebar from "@/components/Sidebar";
-import { Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import FirstSection from "./_components/FirstSection";
 import SecondSection from "./_components/SecondSection";
 import ThirdSection from "./_components/ThirdSection";
@@ -21,6 +21,8 @@ export default function Home() {
   const thirdSectionRef = useRef(null);
   const homeRef = useRef(null);
   const innerHomeRef = useRef(null);
+  const thirdSectionSvgWrapper = useRef(null);
+  const thirdSectionTextRef = useRef(null);
   const aboutRef = useRef(null);
   const brandsRef = useRef(null);
   const educationWrapperRef = useRef(null);
@@ -42,7 +44,7 @@ export default function Home() {
   useEffect(() => {
     gsap.set("#parallax-overlay", { yPercent: 100 });
     const homeContext = gsap.context(() => {
-      if(loaded) return;
+      if (loaded) return;
       const element = innerHomeRef.current;
       const lines = gsap.utils.toArray<HTMLElement>(".line");
 
@@ -50,12 +52,12 @@ export default function Home() {
       gsap.set(lines, {
         yPercent: 100,
         opacity: 0,
-        display: "none"
-      }); 
+        display: "none",
+      });
 
       gsap.set(element, {
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       });
 
       const tl = gsap.timeline();
@@ -69,12 +71,11 @@ export default function Home() {
           display: "block",
           ease: "back.out(1.4)",
         });
-        if(i>=3){
-          tl.to(".top-text",{
-            display: "none"
+        if (i >= 3) {
+          tl.to(".top-text", {
+            display: "none",
           });
         }
-
       });
 
       tl.to(element, {
@@ -83,21 +84,23 @@ export default function Home() {
         duration: 1,
         ease: "power3.inOut",
       });
-      tl.to(".left-text",{
-        display: "block"
+      tl.to(".left-text", {
+        display: "block",
       });
 
-      tl.to(".reveal-it",{
-        display: "flex"
+      tl.to(".reveal-it", {
+        display: "flex",
       });
     }, homeRef);
 
     if (!loaded) return;
+    if (!loaded) return;
     let mm = gsap.matchMedia();
+
     mm.add("(min-width: 768px)", () => {
       if (!sectionRef.current || !triggerRef.current) return;
-      gsap.to(sectionRef.current, {
-        x: () => "-350vw",
+      const scrollTween = gsap.to(sectionRef.current, {
+        x: () => "-360vw",
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
@@ -109,29 +112,67 @@ export default function Home() {
           invalidateOnRefresh: true,
         },
       });
+
       const items = gsap.utils.toArray<HTMLElement>(".parallax-item");
-      if (items.length === 0) return;
+      if (items.length !== 0) {
+        items.forEach((item) => {
+          const speed = Number(item.dataset.speed || 0.5);
+          gsap.fromTo(
+            item,
+            { y: 0 },
+            {
+              y: () => -(window.innerHeight * speed),
+              ease: "none",
+              scrollTrigger: {
+                trigger: aboutRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+        });
+      }
+      const text = thirdSectionTextRef.current as any;
+      const section = thirdSectionRef.current as any;
+      const svgWrapper = thirdSectionSvgWrapper.current as any; // Assuming this is your ref name
 
-      items.forEach((item) => {
-        const speed = Number(item.dataset.speed || 0.5);
-
-        gsap.fromTo(
-          item,
-          { y: 0 },
-          {
-            y: () => -(window.innerHeight * speed),
-            ease: "none",
-            scrollTrigger: {
-              trigger: aboutRef.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-              invalidateOnRefresh: true,
+      if (text && section && svgWrapper) {
+        // 1. Create a timeline with your exact ScrollTrigger settings
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            containerAnimation: scrollTween,
+            start: "86% 86%",
+            end: "right left",
+            scrub: true,
+          },
+        });
+        tl.to(text, {
+          scale: 300,
+          transformOrigin: "90% center",
+          ease: "power2.in",
+          duration: 0.5,
+        })
+          .to(
+            svgWrapper,
+            {
+              opacity: 0,
+              ease: "power1.out",
+              duration: 0.4,
             },
-          }
-        );
-      });
+            "<"
+          ) // 🔥 starts at same time as previous ends
+          .to(text, {
+            scale: 700,
+            transformOrigin: "90% center",
+            ease: "power2.in",
+            duration: 0.4,
+          });
+      }
     });
+
     const aboutContext = gsap.context(() => {
       const overlay = document.querySelector("#parallax-overlay");
 
@@ -344,7 +385,11 @@ export default function Home() {
             >
               <FirstSection ref={homeRef} innerRef={innerHomeRef} />
               <SecondSection />
-              <ThirdSection sectionRef={thirdSectionRef} />
+              <ThirdSection
+                sectionRef={thirdSectionRef}
+                thirdSectionSvgWrapper={thirdSectionSvgWrapper}
+                thirdSectionTextRef={thirdSectionTextRef}
+              />
             </div>
           </div>
         </section>

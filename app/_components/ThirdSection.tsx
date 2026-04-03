@@ -1,26 +1,32 @@
 "use client";
 
-import { useRef } from "react";
-export default function ThirdSection({sectionRef}:{sectionRef: any}) {
-  const textRef = useRef<SVGSVGElement | null>(null);
+export default function ThirdSection({
+  sectionRef,
+  thirdSectionTextRef,
+  thirdSectionSvgWrapper
+}: {
+  sectionRef: any;
+  thirdSectionTextRef: any;
+  thirdSectionSvgWrapper: any
+}) {
   return (
     <div
       ref={sectionRef}
       id="mentorship"
       className="
-        relative 
         w-full 
+        overflow-hidden
         max-md:w-screen
         h-screen
       "
     >
-
       <svg
-        ref={textRef}
+      ref={thirdSectionSvgWrapper}
         className="
           absolute inset-0 
           min-w-full
           w-max 
+          left-[36%]
           h-full 
           z-10
           max-md:hidden
@@ -31,9 +37,10 @@ export default function ThirdSection({sectionRef}:{sectionRef: any}) {
           <mask id="text-mask">
             <rect width="100%" height="100%" fill="white" />
             <text
+              ref={thirdSectionTextRef}
               x="0%"
               id="text-to-be-scaled"
-              y="50%"
+              y="51%"
               textAnchor="start"
               dy=".35em"
               fontSize="60"

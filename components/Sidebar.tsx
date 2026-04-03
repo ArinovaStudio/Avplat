@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrowDownRight, ArrowUpLeft, ArrowUpRight, Menu } from "lucide-react";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { ArrowDownRight, Menu } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 const sections = [

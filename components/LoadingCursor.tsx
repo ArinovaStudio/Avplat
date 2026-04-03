@@ -67,7 +67,7 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
               cx={size / 2}
               cy={size / 2}
               r={radius}
-              stroke="rgba(255,255,255,0.2)"
+              stroke="var(--foreground)"
               strokeWidth={stroke}
               fill="transparent"
             />
@@ -89,7 +89,7 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
           </svg>
 
           {/* Text OUTSIDE */}
-          <span className="text-white text-xs tracking-wide">Loading...</span>
+          <span className="text-white text-xs text-[var(--foreground)] tracking-wide">Loading...</span>
         </div>
       </div>
     )
