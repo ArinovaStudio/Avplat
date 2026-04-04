@@ -47,4 +47,32 @@ export const ASSETS = [
     type: "video",
     location: "/hero-video.mp4",
   },
+  {
+    type: "image",
+    location: "/1.jpg",
+  },
+  {
+    type: "image",
+    location: "/TEM09576.jpg",
+  },
+  {
+    type: "image",
+    location: "/TEM09545.jpg",
+  },
+  {
+    type: "image",
+    location: "/Executive Lounge Chair.JPG",
+  },
+  {
+    type: "image",
+    location: "/Reg No.JPG",
+  },
+  {
+    type: "image",
+    location: "/Executive Lounge_Fwd.JPG",
+  },
+  {
+    type: "image",
+    location: "/Nose_Left.JPG",
+  },
 ];
