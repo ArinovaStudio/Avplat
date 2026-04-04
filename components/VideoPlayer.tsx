@@ -7,7 +7,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 
 type Video = {
   id: number;
@@ -25,24 +24,20 @@ const videos: Video[] = [
 
 export default function VideoDialog({ children }: { children: any }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  //   const handleNext = () => {
-  //     setCurrentIndex((prev) => (prev + 1) % videos.length);
-  //   };
-
   const currentVideo = videos[currentIndex];
 
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="min-w-[90vw]">
         <DialogTitle></DialogTitle>
-        <div className="min-h-screen min-w-screen">
+        <div className="w-full overflow-clip max-h-[90vh]">
           <video
             key={currentVideo.src}
             src={currentVideo.src}
             controls
+            className="w-full max-h-[90vh]"
             autoPlay
           />
         </div>

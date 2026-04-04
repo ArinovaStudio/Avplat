@@ -1,5 +1,4 @@
 "use client";
-import React, { useEffect, useLayoutEffect, useRef } from "react";
 import Image from "next/image";
 import { AvanttFont } from "@/assets/fonts";
 import { motion } from "framer-motion";
@@ -9,6 +8,7 @@ import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import LineRevealOnScroll from "@/components/LineReveal";
 import { SITE_NAME } from "@/lib/constants";
+import { Separator } from "@/components/ui/separator";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 export default function Footer({
   footerRef: wrapperRef,
@@ -47,7 +47,7 @@ export default function Footer({
             <LineRevealOnScroll text={"Save"} />
           </motion.h6>
           <motion.h6
-            initial={{ x: 100 }}
+            initial={{ x: 430 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
             className="max-md:text-center md:text-left"
@@ -55,7 +55,7 @@ export default function Footer({
             <LineRevealOnScroll text={"More on"} />
           </motion.h6>
           <motion.h6
-            initial={{ x: -100 }}
+            initial={{ x: -430 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
             className="max-md:text-center md:text-right"
@@ -66,7 +66,6 @@ export default function Footer({
             initial={{ x: 0 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
-            // RESPONSIVE MARGIN: Removed mr-40 on mobile, kept on desktop
             className="max-md:text-center md:text-right md:mt-15 md:pr-5 md:pr-0 md:mr-40"
           >
             <LineRevealOnScroll text={"24×7 Assistance"} />
@@ -114,6 +113,7 @@ export default function Footer({
 
       {/* RESPONSIVE BOTTOM: Switched to min-h-screen to avoid overlap on mobile */}
       <div className="min-h-screen md:h-screen flex flex-col justify-between p-6 w-full gap-12 md:gap-0">
+        <div className="space-y-5">
         <div className="justify-center md:justify-end flex">
           <div className="flex items-center max-w-xs justify-between w-full">
             <h6 className="capitalize text-md text-gray-500/80">social</h6>
@@ -128,7 +128,8 @@ export default function Footer({
             </a>
           </div>
         </div>
-
+        <Separator/>
+          </div>
         <div
           className={`justify-self-center flex flex-col justify-center items-center gap-5 text-center align-self-center ${AvanttFont.className} mx-auto max-w-4xl w-full`}
         >

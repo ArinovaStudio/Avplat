@@ -46,10 +46,11 @@ export default function FirstSection({
     >
       <div
         ref={innerRef}
-        className={`flex-1 max-md:hidden z-[1] text-[var(--destructive)] font-[700] font-['avantt'] 
+        className={`flex-1 z-[1] text-[var(--destructive)] font-[700] font-['avantt'] 
         text-[3.5rem] sm:text-[4rem] md:text-[12rem] 
         font-[800] leading-[0.8] uppercase
         transition-all 
+        pl-10
         duration-300
         py-5
         relative
@@ -66,7 +67,7 @@ export default function FirstSection({
 
         <div className="flex">
           <span
-            className={`text-xs left-text hidden sm:text-sm mt-2 sm:mt-5 md:max-w-[180px] capitalize text-[var(--foreground)]`}
+            className={`text-xs left-text hidden sm:text-sm mt-2 sm:mt-5 max-w-[180px] capitalize text-[var(--foreground)]`}
           >
             Design by {DESIGN_BY}
           </span>
@@ -84,7 +85,7 @@ export default function FirstSection({
           <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
         </div>
       </div>
-      <div className={`md:hidden text-[var(--destructive)] text-center ${AvanttFont.className} font-extrabold uppercase text-7xl`}>
+      {/* <div className={`md:hidden text-[var(--destructive)] text-center ${AvanttFont.className} font-extrabold uppercase text-7xl`}>
         <span className="text-xs sm:text-sm mt-2 sm:mt-5 w-full capitalize text-[var(--foreground)]">
           Design by {DESIGN_BY}
         </span>
@@ -93,7 +94,7 @@ export default function FirstSection({
         <LineRevealOnScroll text={"to fly"} />
         <LineRevealOnScroll text={"private"} />
 
-      </div>
+      </div> */}
       <video
         ref={videoRef}
         src="/hero-video.mp4"

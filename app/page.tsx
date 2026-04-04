@@ -11,7 +11,7 @@ import Brands from "./_components/Brands";
 import useLoadAssets from "@/components/useLoadAssets";
 import ConnectSection from "./_components/ConnectScreen";
 import { AnimatePresence } from "framer-motion";
-import { gsap, ScrollTrigger } from "@/lib/gsapConfig";
+import { gsap, ScrollTrigger, Flip } from "@/lib/gsapConfig";
 import CursorLoader from "@/components/LoadingCursor";
 import HowItWorks from "./_components/HowItWorks";
 export default function Home() {
@@ -74,29 +74,62 @@ export default function Home() {
           display: "block",
           ease: "back.out(1.4)",
         });
+
         if (i >= 4) {
-          tl.fromTo(".top-text",{y:0}, {
-            y: -200,
-            display: "none",
-          });
+          tl.fromTo(
+            ".top-text",
+            { y: 0 },
+            {
+              y: -200,
+              display: "none",
+            },
+            "<" // Optional: makes this start at the same time as the 5th line
+          );
         }
       });
 
-      tl.to(element, {
-        justifyItems: "center",
-        alignItems: "flex-start",
-        duration: 1,
-        ease: "power3.inOut",
-      });
-      tl.fromTo(".left-text",{x: -100}, {
-        display: "block",
-        x: 0,
+      // 🔥 THE FLIP INTEGRATION 🔥
+      // Instead of tweening alignItems, we use a callback to capture state,
+      // change the alignment, and trigger the smooth Flip transition.
+      tl.add(() => {
+        // 1. Capture the state of all direct children inside the container
+        const state = Flip.getState((element as any).children);
+
+        // 2. Change the CSS alignment instantly
+        gsap.set(element, {
+          justifyItems: "center",
+          alignItems: "flex-start",
+        });
+
+        // 3. Animate them from their previous centered positions to the top
+        Flip.from(state, {
+          duration: 1,
+          ease: "power3.inOut",
+        });
       });
 
-      tl.fromTo(".reveal-it",{opacity: 0}, {
-        opacity: 1,
-        display: "flex",
-      });
+      // 4. Because Flip is running outside the timeline's main flow,
+      // we add an empty 1-second tween so the timeline "waits" for Flip to finish
+      tl.to({}, { duration: 1 });
+
+      // Now continue with the rest of your sequence...
+      tl.fromTo(
+        ".left-text",
+        { x: -100, display: "none" }, // Added display: none here for a cleaner fromTo
+        {
+          display: "block",
+          x: 0,
+        }
+      );
+
+      tl.fromTo(
+        ".reveal-it",
+        { opacity: 0, display: "none" },
+        {
+          opacity: 1,
+          display: "flex",
+        }
+      );
     }, homeRef);
 
     if (!loaded) return;
@@ -134,7 +167,7 @@ export default function Home() {
     mm.add("(min-width: 767px)", () => {
       if (!sectionRef.current || !triggerRef.current) return;
       const scrollTween = gsap.to(sectionRef.current, {
-        x: () => "-400vw",
+        x: () => "-330vw",
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
@@ -147,27 +180,6 @@ export default function Home() {
         },
       });
 
-      const items = gsap.utils.toArray<HTMLElement>(".parallax-item");
-      if (items.length !== 0) {
-        items.forEach((item) => {
-          const speed = Number(item.dataset.speed || 0.5);
-          gsap.fromTo(
-            item,
-            { y: 0 },
-            {
-              y: () => -(window.innerHeight * speed),
-              ease: "none",
-              scrollTrigger: {
-                trigger: aboutRef.current,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: true,
-                invalidateOnRefresh: true,
-              },
-            }
-          );
-        });
-      }
       const text = thirdSectionTextRef.current as any;
       const section = thirdSectionRef.current as any;
       const svgWrapper = thirdSectionSvgWrapper.current as any; // Assuming this is your ref name
@@ -178,22 +190,22 @@ export default function Home() {
           scrollTrigger: {
             trigger: section,
             containerAnimation: scrollTween,
-            start: "81% 81%",
+            start: "85% 85%",
             end: "right left",
             scrub: true,
           },
         });
         tl.to(text, {
-          scale: 400,
-          transformOrigin: "92% center",
+          scale: 1800,
+          transformOrigin: "91.6% center",
           ease: "power2.in",
-          duration: 1.7,
+          duration: 0.5,
         }).to(
           svgWrapper,
           {
             opacity: 0,
             ease: "power1.out",
-            duration: 0.5,
+            duration: 0.6,
           },
           "<"
         );
@@ -246,6 +258,27 @@ export default function Home() {
           },
         },
       });
+      const items = gsap.utils.toArray<HTMLElement>(".parallax-item");
+      if (items.length !== 0) {
+        items.forEach((item) => {
+          // const speed = Number(item.dataset.speed || 0.5);
+          gsap.fromTo(
+            item,
+            { y: 0 },
+            {
+              y: () => -(window.innerHeight * 0.8),
+              ease: "none",
+              scrollTrigger: {
+                trigger: aboutRef.current,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: true,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+        });
+      }
     }, aboutRef);
     const ctx = gsap.context(() => {
       const items = gsap.utils.toArray(".item", brandsRef.current);
@@ -404,7 +437,7 @@ export default function Home() {
               className={`
             md:ml-15
             transition-all duration-1000
-            md:w-[500vw]
+            md:w-[430vw]
             md:flex
             md:h-full
             relative

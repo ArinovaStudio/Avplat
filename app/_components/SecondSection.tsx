@@ -67,7 +67,7 @@ export default function SecondSection() {
                   Design by {DESIGN_BY}
                 </p>
               </div>
-              {/* <VideoDialog> */}
+              <VideoDialog>
               <Button 
                 size="icon"
                 variant="outline"
@@ -75,7 +75,7 @@ export default function SecondSection() {
               >
                 <Play size={12} />
               </Button>
-              {/* </VideoDialog> */}
+              </VideoDialog>
             </div>
           </div>
 

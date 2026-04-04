@@ -2,14 +2,33 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
+import { useMotionValueEvent, useScroll } from "framer-motion";
+const IMAGES = [
+  { id: 1, src: "/Reg No.JPG" },
+  { id: 2, src: "/Executive Lounge Chair.JPG" },
+  { id: 3, src: "/TEM09545.jpg" },
+  { id: 4, src: "/TEM09576.jpg" },
+  { id: 5, src: "/Middle Club Seats_Fwd Dacing.JPG" },
+  { id: 6, src: "/Middle Club Seats_Rear Facing.JPG" },
+  { id: 7, src: "/Side Pic_Left.JPG" },
+  { id: 8, src: "/Side Pic_Right.JPG" },
+  { id: 9, src: "/Side Pic_RWY.JPG" },
+  { id: 10, src: "/Side Profile.JPG" },
+];
 export default function Brands({ brandsRef }: { brandsRef: any }) {
-  const [activeImage, setActiveImage] = useState("/Executive Lounge_Fwd.JPG");
-
+  const [index, setIndex] = useState(0);
+  const { scrollYProgress } = useScroll({
+    target: brandsRef,
+    offset: ["start end", "end start"],
+  });
+  useMotionValueEvent(scrollYProgress, "change", (v: number) => {
+    const newIndex = Math.round(v * 10);
+    setIndex(Math.min(newIndex, IMAGES.length - 1));
+  });
   return (
     <div
       ref={brandsRef}
-      className="md:pl-15 w-full min-h-screen bg-background text-white"
+      className="md:pl-15  w-full min-h-screen bg-background text-white"
     >
       <div className="flex flex-col lg:flex-row px-4 sm:px-6 mx-auto">
         <div className="w-full lg:w-1/2 py-10 lg:py-20">
@@ -19,18 +38,16 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
         </div>
 
         <div className="w-full lg:w-1/2 flex flex-col py-1 lg:py-20 relative">
-          <div className="hidden z-[200] sm:block absolute right-5 lg:right-10 w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] lg:w-[240px] lg:h-[240px] sticky top-32">
+          <div className="hidden z-[200] sm:block absolute right-5 lg:right-10 w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] lg:w-[240px] lg:h-[240px] sticky top-0">
             <Image
-              src={activeImage}
+              src={IMAGES[index].src}
               alt="brand"
               fill
-              className="object-cover rounded-xl preview-img"
+              className="object-cover mt-30 rounded-xl preview-img"
             />
           </div>
 
-          <div
-            className="item font-extrabold text-[clamp(1rem,6vw,4.7rem)] text-foreground leading-[1] uppercase sm:py-8"
-          >
+          <div className="item font-extrabold text-[clamp(1rem,6vw,4.7rem)] text-foreground leading-[1] uppercase sm:py-8">
             AvPlat Charters was built on a simple promise to transform how
             private aviation is experienced and delivered. Backed by deep
             industry knowledge and shaped by innovation, we bring together years
@@ -44,7 +61,7 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
         </div>
       </div>
 
-      <div className="text-center text-[var(--destructive-secondary)] cursor-pointer pb-6 capitalize font-bold underline text-sm sm:text-base mt-10 lg:mt-0">
+      <div className="text-center text-[var(--destructive-secondary)] cursor-pointer pb-6 capitalize font-bold underline text-sm sm:text-base mt-20! lg:mt-0">
         see past clients list ↗
       </div>
     </div>

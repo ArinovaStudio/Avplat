@@ -10,10 +10,10 @@ export default function ParallaxSection({
   aboutRef: any;
 }) {
   return (
-    <div ref={containerRef} className="w-full mt-[300px]">
+    <div ref={containerRef} className="w-full overflow-hidden mt-[300px]">
       <div className="relative max-w-5xl mx-auto md:pl-15 py-12 bg-black">
         <div
-          className={`uppercase relative text-center text-destructive text-[clamp(4rem,10vw,14rem)] leading-[0.8] grid font-extrabold ${AvanttFont.className}`}
+          className={`uppercase relative text-center text-destructive text-[clamp(4rem,10vw,15rem)] leading-[0.8] grid font-extrabold ${AvanttFont.className}`}
         >
          AvPlat Charters offers effortless access to private jets and helicopters through our digital charter platform. With 15+ years of industry experience, we manage everything from aircraft selection to flight operations, so you can focus on your journey.
 

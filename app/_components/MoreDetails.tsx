@@ -65,9 +65,9 @@ export default function MoreDetails({
 
       {/* ── Content below the pin ────────────────────────────────── */}
       <div className="flex min-h-screen relative mt-34 md:mt-40 w-full">
-        <div className="flex flex-col md:flex-row w-full gap-10 md:gap-0">
+        <div className="grid md:grid-cols-[60%_40%] w-full gap-10 md:gap-0">
           <div className="md:h-auto md:min-h-full w-full">
-            <div className="h-full max-md:min-h-[500px] w-[90%] mx-auto md:w-[90%] relative">
+            <div className="h-full max-md:min-h-[500px] w-[90%] mx-auto relative">
               <span className="absolute -mt-6 capitalize font-bold text-[var(--destructive-secondary)]">
                 professor of ux
               </span>
@@ -79,7 +79,7 @@ export default function MoreDetails({
                   className="object-cover"
                 />
               </div>
-              <h3 className="left-2 max-md:mt-5 md:left-[80%] text-[var(--destructive)] leading-[0.9] md:top-[-15%] md:top-[-10%] z-[99] md:absolute text-4xl sm:text-5xl md:text-[5rem] w-full font-extrabold">
+              <h3 className="left-2 max-md:mt-5 md:left-[80%] text-[var(--destructive)] leading-[0.9] md:top-[-10%] md:top-[-10%] z-[99] md:absolute text-4xl sm:text-5xl md:text-[5rem] w-full font-extrabold">
                 <div className="max-md:hidden">
                   <LineRevealOnScroll
                     text={`Our Private 

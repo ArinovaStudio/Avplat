@@ -1,5 +1,7 @@
 "use client";
 
+import { SITE_NAME } from "@/lib/constants";
+
 export default function ThirdSection({
   sectionRef,
   thirdSectionTextRef,
@@ -43,12 +45,7 @@ export default function ThirdSection({
                 fill="black"
                 fontSize="10"
               >
-                <tspan x="50%" dy="-0.6em">
-                  MEET
-                </tspan>
-                <tspan x="50%" dy="1.2em">
-                  WON
-                </tspan>
+                {SITE_NAME}
               </text>
             </g>
           </mask>
@@ -61,7 +58,7 @@ export default function ThirdSection({
           absolute inset-0 
           min-w-full
           w-max 
-          left-[38%]
+          left-[43%]
           h-full 
           z-10
           max-md:hidden
@@ -73,7 +70,7 @@ export default function ThirdSection({
             <rect width="100%" height="100%" fill="white" />
             <text
               ref={thirdSectionTextRef}
-              x="0%"
+              x="5%"
               id="text-to-be-scaled"
               y="51%"
               textAnchor="start"
@@ -83,7 +80,7 @@ export default function ThirdSection({
               fontWeight="900"
               fill="black"
             >
-              MEET WON
+              {SITE_NAME}
             </text>
           </mask>
         </defs>
