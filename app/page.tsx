@@ -14,6 +14,7 @@ import { AnimatePresence } from "framer-motion";
 import { gsap, ScrollTrigger, Flip } from "@/lib/gsapConfig";
 import CursorLoader from "@/components/LoadingCursor";
 import HowItWorks from "./_components/HowItWorks";
+import CloseCursor from "@/components/CloseCursor";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -266,7 +267,7 @@ export default function Home() {
             item,
             { y: 0 },
             {
-              y: () => -(window.innerHeight * 0.8),
+              y: () => -(window.innerHeight * 1.6),
               ease: "none",
               scrollTrigger: {
                 trigger: aboutRef.current,
@@ -443,7 +444,7 @@ export default function Home() {
             relative
           `}
             >
-              <FirstSection ref={homeRef} innerRef={innerHomeRef} />
+              <FirstSection ref={homeRef} innerRef={innerHomeRef} loaded={loaded} />
               <SecondSection />
               <ThirdSection
                 sectionRef={thirdSectionRef}
@@ -456,7 +457,7 @@ export default function Home() {
           </div>
         </section>
         <AnimatePresence mode="sync">
-          {letsConnect && <ConnectSection setLetsConnect={setLetsConnect} />}
+          {letsConnect && <ConnectSection letsConnect={letsConnect} setLetsConnect={setLetsConnect} />}
         </AnimatePresence>
         <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">
           <ParallaxSection aboutRef={aboutRef} />

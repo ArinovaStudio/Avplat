@@ -4,16 +4,31 @@ import { useState } from "react";
 import Image from "next/image";
 import { useMotionValueEvent, useScroll } from "framer-motion";
 const IMAGES = [
-  { id: 1, src: "/Reg No.JPG" },
-  { id: 2, src: "/Executive Lounge Chair.JPG" },
-  { id: 3, src: "/TEM09545.jpg" },
-  { id: 4, src: "/TEM09576.jpg" },
-  { id: 5, src: "/Middle Club Seats_Fwd Dacing.JPG" },
-  { id: 6, src: "/Middle Club Seats_Rear Facing.JPG" },
-  { id: 7, src: "/Side Pic_Left.JPG" },
-  { id: 8, src: "/Side Pic_Right.JPG" },
-  { id: 9, src: "/Side Pic_RWY.JPG" },
-  { id: 10, src: "/Side Profile.JPG" },
+  { id: 1, src: "/Side Pic_Right.JPG" },
+  { id: 2, src: "/Side Pic_RWY.JPG" },
+  { id: 3, src: "/Side Profile.JPG" },
+  { id: 4, src: "/TEM09531.jpg" },
+  { id: 5, src: "/TEM09537.jpg" },
+  { id: 6, src: "/TEM09541.jpg" },
+  { id: 7, src: "/professor.png" },
+  { id: 8, src: "/Side Profile.JPG" },
+  { id: 9, src: "/TEM09545.jpg" },
+  { id: 10, src: "/TEM09548.jpg" },
+  { id: 11, src: "/TEM09561.jpg" },
+  { id: 12, src: "/TEM09576.jpg" },
+  { id: 13, src: "/1.jpg" },
+  { id: 14, src: "/TEM09576.jpg" },
+  { id: 15, src: "/TEM09545.jpg" },
+  { id: 16, src: "/Executive Lounge Chair.JPG" },
+  { id: 17, src: "/Reg No.JPG" },
+  { id: 18, src: "/Executive Lounge_Fwd.JPG" },
+  { id: 19, src: "/Nose_Left.JPG" },
+  { id: 20, src: "/Middle Club Seats_Fwd Dacing.JPG" },
+  { id: 21, src: "/Middle Club Seats_Rear Facing.JPG" },
+  { id: 22, src: "/Side Pic_Left.JPG" },
+  { id: 23, src: "/Side Pic_Right.JPG" },
+  { id: 24, src: "/Side Pic_RWY.JPG" },
+  { id: 25, src: "/Side Profile.JPG" },
 ];
 export default function Brands({ brandsRef }: { brandsRef: any }) {
   const [index, setIndex] = useState(0);
@@ -22,7 +37,7 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
     offset: ["start end", "end start"],
   });
   useMotionValueEvent(scrollYProgress, "change", (v: number) => {
-    const newIndex = Math.round(v * 10);
+    const newIndex = Math.floor(v * IMAGES.length);
     setIndex(Math.min(newIndex, IMAGES.length - 1));
   });
   return (

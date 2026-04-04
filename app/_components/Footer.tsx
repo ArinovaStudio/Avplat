@@ -116,14 +116,17 @@ export default function Footer({
         <div className="space-y-5">
         <div className="justify-center md:justify-end flex">
           <div className="flex items-center max-w-xs justify-between w-full">
-            <h6 className="capitalize text-md text-gray-500/80">social</h6>
-            <a href={"#"}>
+            <h6 className="capitalize text-lg text-gray-500/80">social</h6>
+            <Separator orientation="vertical"/>
+            <a className="border-1" href={"#"}>
               <FaLinkedin />
             </a>
-            <a href={"#"}>
+            <Separator orientation="vertical"/>
+            <a className="border-1" href={"#"}>
               <FaGlobe />
             </a>
-            <a href={"#"}>
+            <Separator orientation="vertical"/>
+            <a className="border-1" href={"#"}>
               <FaInstagram />
             </a>
           </div>

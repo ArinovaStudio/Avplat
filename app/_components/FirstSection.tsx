@@ -3,12 +3,15 @@ import { AvanttFont } from "@/assets/fonts";
 import LineRevealOnScroll from "@/components/LineReveal";
 import { DESIGN_BY } from "@/lib/constants";
 import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 export default function FirstSection({
   ref,
   innerRef,
+  loaded,
 }: {
   ref: any;
   innerRef: any;
+  loaded: boolean;
 }) {
   const videoRef = useRef(null);
   useEffect(() => {
@@ -50,10 +53,11 @@ export default function FirstSection({
         text-[3.5rem] sm:text-[4rem] md:text-[12rem] 
         font-[800] leading-[0.8] uppercase
         transition-all 
-        pl-10
+        md:pl-5
         duration-300
         py-5
         relative
+        max-md:hidden
         h-full
         flex flex-col
         text-center 
@@ -85,20 +89,25 @@ export default function FirstSection({
           <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
         </div>
       </div>
-      {/* <div className={`md:hidden text-[var(--destructive)] text-center ${AvanttFont.className} font-extrabold uppercase text-7xl`}>
-        <span className="text-xs sm:text-sm mt-2 sm:mt-5 w-full capitalize text-[var(--foreground)]">
-          Design by {DESIGN_BY}
-        </span>
+      <div
+        className={`md:hidden text-[var(--destructive)] text-left ${AvanttFont.className} font-extrabold uppercase text-7xl`}
+      >
         <LineRevealOnScroll text={"A smarter"} />
-        <LineRevealOnScroll text={"way"} />
+        <div className="flex">
+          <span className="text-xs sm:text-sm max-w-[150px] mt-2 sm:mt-5 w-full capitalize text-[var(--foreground)]">
+            <LineRevealOnScroll className="" text={`Design by ${DESIGN_BY}`} />
+          </span>
+          <LineRevealOnScroll text={"way"} />
+        </div>
         <LineRevealOnScroll text={"to fly"} />
         <LineRevealOnScroll text={"private"} />
-
-      </div> */}
-      <video
+      </div>
+      <motion.video
         ref={videoRef}
         src="/hero-video.mp4"
         muted
+        initial={{ opacity: 0, x:500 }}
+        animate={loaded ? { opacity: 1,x:0 } : { opacity: 0,x:500 }}
         playsInline
         controls={false}
         className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-fill"

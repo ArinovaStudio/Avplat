@@ -4,18 +4,23 @@ import { AvanttFont } from "@/assets/fonts";
 import { FaLinkedin, FaGlobe, FaEnvelope, FaInstagram } from "react-icons/fa";
 import { ArrowUpRight } from "lucide-react";
 import LineRevealOnScroll from "@/components/LineReveal";
+import CloseCursor from "@/components/CloseCursor";
 export default function ConnectSection({
   setLetsConnect,
+  letsConnect
 }: {
   setLetsConnect: any;
+  letsConnect: boolean;
 }) {
   return (
+    <div className="w-full">
+      <CloseCursor active={letsConnect} onClose={()=>{setLetsConnect(false)}}/>
     <motion.section
       initial={{ width: 0 }}
       whileInView={{ width: "80%" }}
       exit={{ width: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed max-md:max-h-[600px] max-md:top-10 md:min-h-screen z-[999] max-md:min-w-[100%] top-0 right-0 overflow-hidden bg-black text-white flex justify-center"
+      className="fixed max-md:max-h-[600px] max-md:top-10 md:min-h-screen z-[1000] max-md:min-w-[100%] top-0 right-0 overflow-hidden bg-black text-white flex justify-center"
     >
       {/* 🔴 Overlay Gradient */}
       <div className="absolute inset-0 bg-[#ef5143] z-10" />
@@ -104,5 +109,6 @@ export default function ConnectSection({
         </div>
       </div>
     </motion.section>
+    </div>
   );
 }
