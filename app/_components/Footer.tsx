@@ -26,7 +26,7 @@ export default function Footer({
       <div
         ref={containerRef}
         data-speed="0.3"
-        className="z-[10] relative py-12 bg-center flex justify-between flex-col items-start min-h-screen parallax-container w-full"
+        className="z-[10] relative py-12 bg-center flex justify-between flex-col items-start md:min-h-screen parallax-container w-full"
       >
         <Image
           src={"/man-working.png"}
@@ -36,13 +36,13 @@ export default function Footer({
         />
 
         <div
-          className={`w-full uppercase text-[var(--destructive)] text-3xl sm:text-5xl md:text-[7rem] leading-[1] font-extrabold flex flex-col ${AvanttFont.className}`}
+          className={`w-full uppercase text-[var(--destructive)] text-3xl sm:text-5xl md:text-[7rem] leading-[1.5] md:leading-[1] font-extrabold flex flex-col ${AvanttFont.className}`}
         >
           <motion.h6
             initial={{ x: 0 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
-            className="text-center"
+            className="max-md:text-center md:text-center"
           >
             <LineRevealOnScroll text={"Save"} />
           </motion.h6>
@@ -50,7 +50,7 @@ export default function Footer({
             initial={{ x: 100 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
-            className="text-left"
+            className="max-md:text-center md:text-left"
           >
             <LineRevealOnScroll text={"More on"} />
           </motion.h6>
@@ -58,7 +58,7 @@ export default function Footer({
             initial={{ x: -100 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
-            className="text-right"
+            className="max-md:text-center md:text-right"
           >
             <LineRevealOnScroll text={"Every Charter"} />
           </motion.h6>
@@ -67,7 +67,7 @@ export default function Footer({
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
             // RESPONSIVE MARGIN: Removed mr-40 on mobile, kept on desktop
-            className="text-right mt-15 pr-5 md:pr-0 md:mr-40"
+            className="max-md:text-center md:text-right md:mt-15 md:pr-5 md:pr-0 md:mr-40"
           >
             <LineRevealOnScroll text={"24×7 Assistance"} />
           </motion.h6>

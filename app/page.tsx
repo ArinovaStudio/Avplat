@@ -13,6 +13,7 @@ import ConnectSection from "./_components/ConnectScreen";
 import { AnimatePresence } from "framer-motion";
 import { gsap, ScrollTrigger } from "@/lib/gsapConfig";
 import CursorLoader from "@/components/LoadingCursor";
+import HowItWorks from "./_components/HowItWorks";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -21,6 +22,8 @@ export default function Home() {
   const thirdSectionRef = useRef(null);
   const homeRef = useRef(null);
   const innerHomeRef = useRef(null);
+  const thirdMobileSvgWrapper = useRef(null);
+  const thirdMobileTextRef = useRef(null);
   const thirdSectionSvgWrapper = useRef(null);
   const thirdSectionTextRef = useRef(null);
   const aboutRef = useRef(null);
@@ -96,8 +99,40 @@ export default function Home() {
     if (!loaded) return;
     if (!loaded) return;
     let mm = gsap.matchMedia();
-
-    mm.add("(min-width: 768px)", () => {
+    mm.add("(max-width: 768px)", () => {
+      const text = thirdMobileTextRef.current as any;
+      const section = thirdSectionRef.current as any;
+      const svgWrapper = thirdMobileSvgWrapper.current as any; // Assuming this is your ref name
+      if (text && section && svgWrapper) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: "+=2000",
+            scrub: true,
+            pin: true,
+            anticipatePin: 1,
+            pinSpacing: true,
+            invalidateOnRefresh: true
+          },
+        });
+        tl.to(text, {
+          scale: 400,
+          transformOrigin: "center center",
+          ease: "power2.in",
+          duration: 1.7,
+        })
+        .to(
+          svgWrapper,
+          {
+            opacity: 0,
+            ease: "power1.out",
+            duration: 0.4,
+          }
+        );
+      }
+    });
+    mm.add("(min-width: 767px)", () => {
       if (!sectionRef.current || !triggerRef.current) return;
       const scrollTween = gsap.to(sectionRef.current, {
         x: () => "-400vw",
@@ -153,23 +188,16 @@ export default function Home() {
           scale: 400,
           transformOrigin: "92% center",
           ease: "power2.in",
-          duration: 1.7,
-        })
-          .to(
-            svgWrapper,
-            {
-              opacity: 0,
-              ease: "power1.out",
-              duration: 0.4,
-            },
-            "<"
-          ) 
-          // .to(text, {
-          //   scale: 700,
-          //   transformOrigin: "92% center",
-          //   ease: "power2.in",
-          //   duration: 0.4,
-          // });
+          duration: 1.5,
+        }).to(
+          svgWrapper,
+          {
+            opacity: 0,
+            ease: "power1.out",
+            duration: 0.4
+          },
+          "<"
+        );
       }
     });
 
@@ -389,6 +417,8 @@ export default function Home() {
                 sectionRef={thirdSectionRef}
                 thirdSectionSvgWrapper={thirdSectionSvgWrapper}
                 thirdSectionTextRef={thirdSectionTextRef}
+                thirdMobileTextRef={thirdMobileTextRef}
+                thirdMobileSvgWrapper={thirdMobileSvgWrapper}
               />
             </div>
           </div>
@@ -403,6 +433,7 @@ export default function Home() {
             educationRef={educationRef}
             educationWrapperRef={educationWrapperRef}
           />
+          <HowItWorks/>
           <Footer
             footerRef={footerRef}
             footerContainerRef={footerContainerRef}

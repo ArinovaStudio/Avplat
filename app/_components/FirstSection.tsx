@@ -1,5 +1,6 @@
 "use client";
 import { AvanttFont } from "@/assets/fonts";
+import LineRevealOnScroll from "@/components/LineReveal";
 import { DESIGN_BY } from "@/lib/constants";
 import { useEffect, useRef } from "react";
 export default function FirstSection({
@@ -45,7 +46,7 @@ export default function FirstSection({
     >
       <div
         ref={innerRef}
-        className={`flex-1 z-[1] text-[var(--destructive)] font-[700] font-['avantt'] 
+        className={`flex-1 max-md:hidden z-[1] text-[var(--destructive)] font-[700] font-['avantt'] 
         text-[3.5rem] sm:text-[4rem] md:text-[12rem] 
         font-[800] leading-[0.8] uppercase
         transition-all 
@@ -83,13 +84,23 @@ export default function FirstSection({
           <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
         </div>
       </div>
+      <div className={`md:hidden text-[var(--destructive)] text-center ${AvanttFont.className} font-extrabold uppercase text-7xl`}>
+        <span className="text-xs sm:text-sm mt-2 sm:mt-5 w-full capitalize text-[var(--foreground)]">
+          Design by {DESIGN_BY}
+        </span>
+        <LineRevealOnScroll text={"A smarter"} />
+        <LineRevealOnScroll text={"way"} />
+        <LineRevealOnScroll text={"to fly"} />
+        <LineRevealOnScroll text={"private"} />
+
+      </div>
       <video
         ref={videoRef}
         src="/hero-video.mp4"
         muted
         playsInline
         controls={false}
-        className="h-full right-0 absolute w-[50%] -z-[0] object-fill"
+        className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-fill"
       />
     </div>
   );

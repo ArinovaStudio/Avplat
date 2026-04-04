@@ -81,10 +81,15 @@ export default function Sidebar({
 
     const ref = sectionRefs[index];
     if (!ref?.current) return;
-
+    if(index===1){
+      window.scrollTo({
+        top: 1500,
+        behavior: "smooth"
+      })
+      return;
+    }
     const headerOffset = 100;
     const elementPosition = ref.current.getBoundingClientRect().top;
-    const elementLeftPosition = ref.current.getBoundingClientRect().left;
     const offsetPosition = elementPosition + window.scrollY - headerOffset;
     window.scrollTo({
       top: index === 0 ? 0 : offsetPosition,
@@ -101,13 +106,14 @@ export default function Sidebar({
   bg-background text-white 
   items-center border-border border-b md:border-b-0 md:border-r
   z-[99]
+  max-md:px-5
 "
     >
       <motion.div
         initial={{ x: -100 }}
         transition={{ duration: 1 }}
         animate={loaded ? { x: 0 } : { x: -100 }}
-        className="h-15 md:w-full overflow-hidden flex items-center justify-center border-b"
+        className="h-15 w-full overflow-hidden flex items-center justify-start md:justify-center border-b"
       >
         <Menu size={20} />
       </motion.div>
@@ -168,7 +174,7 @@ export default function Sidebar({
         initial={{ x: -100 }}
         transition={{ duration: 1 }}
         animate={loaded ? { x: 0 } : { x: -100 }}
-        className="w-full"
+        className="w-full max-md:flex max-md:justify-end"
       >
         <Button
           onClick={() => {

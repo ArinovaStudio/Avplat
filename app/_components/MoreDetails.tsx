@@ -71,23 +71,25 @@ export default function MoreDetails({
               <span className="absolute -mt-6 capitalize font-bold text-[var(--destructive-secondary)]">
                 professor of ux
               </span>
-              <Image
-                fill
-                alt="Professor of UX"
-                src="/example.jpg"
-                className="object-cover"
-              />
-              <h3 className="left-2 md:left-[80%] text-[var(--destructive)] leading-[0.9] top-[-15%] md:top-[-10%] z-[99] max-md:hidden md:absolute text-4xl sm:text-5xl md:text-[5rem] w-full font-extrabold">
-                {/* <LineRevealOnScroll
-                  text={`Educating the 
-                Next Generation 
-                of Design Rebels 
-                & Changemakers.`}
-                /> */}
-                <LineRevealOnScroll
-                  text={`Our Private 
-                    Jet Fleet `}
+              <div className="max-md:relative max-md:h-[500px]">
+                <Image
+                  fill
+                  alt="Professor of UX"
+                  src="/example.jpg"
+                  className="object-cover"
                 />
+              </div>
+              <h3 className="left-2 max-md:mt-5 md:left-[80%] text-[var(--destructive)] leading-[0.9] md:top-[-15%] md:top-[-10%] z-[99] md:absolute text-4xl sm:text-5xl md:text-[5rem] w-full font-extrabold">
+                <div className="max-md:hidden">
+                  <LineRevealOnScroll
+                    text={`Our Private 
+                    Jet Fleet `}
+                  />
+                </div>
+
+                <div className="md:hidden">
+                  <LineRevealOnScroll text={`Our Private Jet Fleet `} />
+                </div>
               </h3>
             </div>
           </div>

@@ -34,6 +34,7 @@ export default function SecondSection() {
             text-[var(--foreground)]
             max-md:text-center
             md:max-w-6xl
+            max-md:text-left
           ">
             AvPlat Charters offers effortless access to private jets and helicopters through our digital charter platform. With 15+ years of industry experience, we manage everything from aircraft selection to flight operations, so you can focus on your journey.
           </h1>
@@ -86,6 +87,7 @@ export default function SecondSection() {
             text-sm md:text-md 
             text-[var(--foreground)] 
             leading-relaxed
+            max-md:text-justify
           ">
             <p>
               My focus has shifted from client projects to coaching exceptional
