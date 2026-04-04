@@ -74,8 +74,9 @@ export default function Home() {
           display: "block",
           ease: "back.out(1.4)",
         });
-        if (i >= 3) {
-          tl.to(".top-text", {
+        if (i >= 4) {
+          tl.fromTo(".top-text",{y:0}, {
+            y: -200,
             display: "none",
           });
         }
@@ -87,11 +88,13 @@ export default function Home() {
         duration: 1,
         ease: "power3.inOut",
       });
-      tl.to(".left-text", {
+      tl.fromTo(".left-text",{x: -100}, {
         display: "block",
+        x: 0,
       });
 
-      tl.to(".reveal-it", {
+      tl.fromTo(".reveal-it",{opacity: 0}, {
+        opacity: 1,
         display: "flex",
       });
     }, homeRef);
@@ -113,7 +116,7 @@ export default function Home() {
             pin: true,
             anticipatePin: 1,
             pinSpacing: true,
-            invalidateOnRefresh: true
+            invalidateOnRefresh: true,
           },
         });
         tl.to(text, {
@@ -121,15 +124,11 @@ export default function Home() {
           transformOrigin: "center center",
           ease: "power2.in",
           duration: 1.7,
-        })
-        .to(
-          svgWrapper,
-          {
-            opacity: 0,
-            ease: "power1.out",
-            duration: 0.4,
-          }
-        );
+        }).to(svgWrapper, {
+          opacity: 0,
+          ease: "power1.out",
+          duration: 0.4,
+        });
       }
     });
     mm.add("(min-width: 767px)", () => {
@@ -179,7 +178,7 @@ export default function Home() {
           scrollTrigger: {
             trigger: section,
             containerAnimation: scrollTween,
-            start: "83% 83%",
+            start: "81% 81%",
             end: "right left",
             scrub: true,
           },
@@ -188,13 +187,13 @@ export default function Home() {
           scale: 400,
           transformOrigin: "92% center",
           ease: "power2.in",
-          duration: 1.5,
+          duration: 1.7,
         }).to(
           svgWrapper,
           {
             opacity: 0,
             ease: "power1.out",
-            duration: 0.4
+            duration: 0.4,
           },
           "<"
         );
@@ -433,7 +432,7 @@ export default function Home() {
             educationRef={educationRef}
             educationWrapperRef={educationWrapperRef}
           />
-          <HowItWorks/>
+          <HowItWorks />
           <Footer
             footerRef={footerRef}
             footerContainerRef={footerContainerRef}
