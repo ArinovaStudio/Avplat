@@ -29,7 +29,7 @@ export default function Footer({
         className="z-[10] relative py-12 bg-center flex justify-between flex-col items-start md:min-h-screen parallax-container w-full"
       >
         <Image
-          src={"/man-working.png"}
+          src={"/Nose_Left.JPG"}
           alt={"loading..."}
           fill
           className="object-cover brightness-50 contrast-100 w-full h-full grayscale-100 -z-1"

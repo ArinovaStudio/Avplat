@@ -18,25 +18,25 @@ export const BRANDS = [
 export const IMAGES = [
   {
     id: 1,
-    src: "/example.jpg",
+    src: "/Reg No.JPG",
     speed: 0.3,
     position: "top-[8%] left-[2%] sm:top-[10%] sm:left-5",
   },
   {
     id: 2,
-    src: "/example.jpg",
+    src: "/Executive Lounge Chair.JPG",
     speed: 0.6,
     position: "top-[18%] right-[2%] sm:top-[30%] sm:right-5",
   },
   {
     id: 3,
-    src: "/example.jpg",
+    src: "/TEM09545.jpg",
     speed: 1,
     position: "top-[90%] left-[2%] sm:top-[60%] sm:left-5",
   },
   {
     id: 4,
-    src: "/example.jpg",
+    src: "/TEM09576.jpg",
     speed: 0.8,
     position: "top-[90%] right-[0%] sm:bottom-[20%] sm:right-5",
   },

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 
 export default function Brands({ brandsRef }: { brandsRef: any }) {
-  const [activeImage, setActiveImage] = useState("/example.jpg");
+  const [activeImage, setActiveImage] = useState("/Executive Lounge_Fwd.JPG");
 
   return (
     <div

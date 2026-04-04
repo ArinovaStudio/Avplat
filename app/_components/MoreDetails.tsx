@@ -75,7 +75,7 @@ export default function MoreDetails({
                 <Image
                   fill
                   alt="Professor of UX"
-                  src="/example.jpg"
+                  src="/1.jpg"
                   className="object-cover"
                 />
               </div>
