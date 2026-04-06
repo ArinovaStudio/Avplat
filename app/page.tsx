@@ -424,7 +424,7 @@ export default function Home() {
       <div className="flex flex-col w-full max-md:max-w-screen">
         <section className="relative overflow-x-clip w-full">
           <div ref={triggerRef} className="md:h-screen w-full">
-            <div className="absolute top-0 left-0 w-full h-full z-0">
+            <div className="absolute max-md:hidden top-0 left-0 w-full h-full z-0">
               <video
                 src="/video.mp4"
                 autoPlay

@@ -26,6 +26,18 @@ export default function ThirdSection({
         min-h-screen
       "
     >
+            <div className="absolute top-0 left-0 w-full md:hidden h-screen md:h-full z-0">
+              <video
+                src="/video.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls={false}
+                // Added w-full so it spans the mobile screen properly
+                className="w-full h-full object-cover md:w-screen"
+              />
+            </div>
       <svg
         ref={thirdMobileSvgWrapper}
         className="w-full md:hidden max-md:h-screen max-md:absolute scale-300 block overflow-hidden"
