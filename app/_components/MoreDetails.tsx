@@ -104,12 +104,12 @@ export default function MoreDetails({
                     confidence from itinerary to touchdown.`}
                 />
               </p>
-              <Link
+              {/* <Link
                 className="bottom-text text-lg md:text-xl font-bold underline transition-colors duration-500"
                 href="#"
               >
                 My services↗
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/dialog";
 import { useRef, useState } from "react";
 
-export default function VideoDialog({ children, setExpanded }: { children: any;setExpanded: any }) {
+export default function VideoDialog({ url,children, setExpanded }: {url: string; children: any;setExpanded: any }) {
   const [open, setOpen] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -31,11 +31,11 @@ export default function VideoDialog({ children, setExpanded }: { children: any;s
       }
     }}>
       <DialogTrigger onClick={handleClick} asChild>{children}</DialogTrigger>
-      <DialogContent className="!max-w-[80vw] !w-[80vw] z-[1000] bg-zinc-900 border-none p-0 overflow-hidden">
+      <DialogContent className="!max-w-[80vw] !w-[80vw] max-md:!h-[40vh] z-[1000] bg-zinc-900 border-none p-0 overflow-hidden">
         <DialogTitle className="sr-only"></DialogTitle>
         <div className="w-full aspect-video mt-8">
           <iframe
-            src="https://www.youtube.com/embed/IlbOpSccI_E?autoplay=1&controls=1&modestbranding=1&rel=0"
+            src={url}
             allow="autoplay; encrypted-media"
             allowFullScreen
             className="w-full h-full"

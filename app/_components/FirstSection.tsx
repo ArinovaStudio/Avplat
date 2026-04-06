@@ -20,26 +20,57 @@ export default function FirstSection({
     const video = videoRef.current! as HTMLVideoElement;
     if (!video) return;
 
+    let animationFrameId: number;
+    let targetTime = 0;
+    let currentTime = 0;
+
+    // 1. THE RENDER LOOP (Smoothness)
+    const renderLoop = () => {
+      if (video.duration) {
+        // Lerp formula: moves the current time smoothly towards the target time
+        // The 0.1 multiplier controls the "glide". Lower = smoother/slower, Higher = snappier
+        currentTime += (targetTime - currentTime) * 0.1;
+
+        // Only update the actual video if the change is significant (saves CPU)
+        if (Math.abs(targetTime - currentTime) > 0.001) {
+          video.currentTime = currentTime;
+        }
+      }
+      animationFrameId = requestAnimationFrame(renderLoop);
+    };
+
+    // Start the continuous loop
+    renderLoop();
+
+    // 2. THE SCROLL LISTENER (Target Calculation)
     const handleScroll = () => {
       if (!video.duration) return;
 
       const scrollTop = window.scrollY;
       const windowHeight = window.innerHeight;
 
-      // 🔥 adjust these
-      const start = windowHeight * 0.5; // animation starts later
-      const end = windowHeight * 2; // animation finishes later
+      // 🔥 ADJUSTED TO FINISH FASTER
+      // Previously: start = 0.5, end = 2.0 (distance of 1.5 screen heights)
+      // Now: start = 0.2, end = 1.0 (distance of 0.8 screen heights)
+      const start = windowHeight * 0.2;
+      const end = windowHeight * 1.0;
 
       const progress = (scrollTop - start) / (end - start);
 
-      // clamp between 0 → 1
+      // Clamp between 0 → 1
       const clamped = Math.min(Math.max(progress, 0), 1);
 
-      video.currentTime = clamped * video.duration;
+      // Update the TARGET time, not the actual video time
+      targetTime = clamped * video.duration;
     };
 
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    // Add { passive: true } so the browser doesn't wait for scroll event processing
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
   return (
     <div

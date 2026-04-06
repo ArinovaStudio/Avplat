@@ -7,11 +7,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 const sections = [
   { id: "intro", label: "intro" },
-  { id: "mentorship", label: "mentorship", jump: "mentorship" },
-  { id: "about", label: "about" },
-  { id: "brandexperience", label: "brandexperience" },
-  { id: "education", label: "education" },
-  { id: "getintouch", label: "getintouch" },
+  { id: "vision", label: "Vision", jump: "mentorship" },
+  { id: "about", label: "About Us" },
+  { id: "whoweare", label: "Who We Are" },
+  { id: "fleet", label: "Our Fleet" },
+  { id: "clientcare", label: "Client Care" },
 ];
 
 const toRoman = (num: number) => {
@@ -101,6 +101,7 @@ export default function Sidebar({
   return (
     <div
       className="
+      max-md:hidden
   w-full h-full md:h-15 flex z-[200] flex-row md:flex-col 
   sticky top-0
   md:fixed md:h-screen md:w-15 
