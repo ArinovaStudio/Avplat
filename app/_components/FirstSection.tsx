@@ -116,10 +116,10 @@ export default function FirstSection({
       <div
         className={`md:hidden text-[var(--destructive)] text-left ${AvanttFont.className} font-extrabold uppercase text-7xl`}
       >
-        <LineRevealOnScroll text={"A smarter"} />
-        <LineRevealOnScroll text={"way"} />
-        <LineRevealOnScroll text={"to fly"} />
-        <LineRevealOnScroll text={"private"} />
+        <LineRevealOnScroll loaded={loaded} text={"A smarter"} />
+        <LineRevealOnScroll loaded={loaded} text={"way"} />
+        <LineRevealOnScroll loaded={loaded} text={"to fly"} />
+        <LineRevealOnScroll loaded={loaded} text={"private"} />
       </div>
       <motion.video
         ref={videoRef}
