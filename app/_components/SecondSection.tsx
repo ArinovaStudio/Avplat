@@ -103,7 +103,7 @@ const [expanded, setExpanded] = useState(false);
               </div>
             )}
           </AnimatePresence>,
-          document.body // <-- This forces the modal to render outside the GSAP transform container
+          document.body
         )}
 
             <div className="flex flex-col gap-3 md:gap-5">
