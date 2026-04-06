@@ -1,8 +1,7 @@
 "use client";
 import { AvanttFont } from "@/assets/fonts";
 import LineRevealOnScroll from "@/components/LineReveal";
-import { DESIGN_BY } from "@/lib/constants";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 export default function FirstSection({
   ref,
@@ -15,62 +14,34 @@ export default function FirstSection({
   loaded: boolean;
   progress: number;
 }) {
-  const videoRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(1);
+  const totalImages = 159;
+  const lastScrollY = useRef(0);
+
   useEffect(() => {
-    const video = videoRef.current! as HTMLVideoElement;
-    if (!video) return;
-
-    let animationFrameId: number;
-    let targetTime = 0;
-    let currentTime = 0;
-
-    // 1. THE RENDER LOOP (Smoothness)
-    const renderLoop = () => {
-      if (video.duration) {
-        // Lerp formula: moves the current time smoothly towards the target time
-        // The 0.1 multiplier controls the "glide". Lower = smoother/slower, Higher = snappier
-        currentTime += (targetTime - currentTime) * 0.1;
-
-        // Only update the actual video if the change is significant (saves CPU)
-        if (Math.abs(targetTime - currentTime) > 0.001) {
-          video.currentTime = currentTime;
-        }
-      }
-      animationFrameId = requestAnimationFrame(renderLoop);
-    };
-
-    // Start the continuous loop
-    renderLoop();
-
-    // 2. THE SCROLL LISTENER (Target Calculation)
     const handleScroll = () => {
-      if (!video.duration) return;
+      // Get the current scroll position
+      const currentScrollY = window.scrollY;
 
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
+      // Compare current position to the last known position
+      if (currentScrollY > lastScrollY.current) {
+        // Scrolling DOWN -> Increment image
+        setCurrentIndex((prev) => Math.min(totalImages, prev + 1));
+      } else if (currentScrollY < lastScrollY.current) {
+        // Scrolling UP -> Decrement image
+        setCurrentIndex((prev) => Math.max(1, prev - 1));
+      }
 
-      // 🔥 ADJUSTED TO FINISH FASTER
-      // Previously: start = 0.5, end = 2.0 (distance of 1.5 screen heights)
-      // Now: start = 0.2, end = 1.0 (distance of 0.8 screen heights)
-      const start = windowHeight * 0.2;
-      const end = windowHeight * 1.0;
-
-      const progress = (scrollTop - start) / (end - start);
-
-      // Clamp between 0 → 1
-      const clamped = Math.min(Math.max(progress, 0), 1);
-
-      // Update the TARGET time, not the actual video time
-      targetTime = clamped * video.duration;
+      // Update the stored scroll position for the next scroll event
+      lastScrollY.current = currentScrollY;
     };
 
-    // Add { passive: true } so the browser doesn't wait for scroll event processing
+    // Set the initial scroll position when the component mounts
+    lastScrollY.current = window.scrollY;
+
     window.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(animationFrameId);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
   return (
     <div
@@ -152,16 +123,15 @@ export default function FirstSection({
         <LineRevealOnScroll loaded={loaded} text={"to fly"} />
         <LineRevealOnScroll loaded={loaded} text={"private"} />
       </div>
-      <motion.video
-        ref={videoRef}
-        src="/video2.mp4"
-        muted
-        initial={{ opacity: 0, x: 500 }}
-        animate={loaded ? { opacity: 1, x: 0 } : { opacity: 0, x: 500 }}
-        playsInline
-        controls={false}
-        className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
-      />
+      <motion.div
+        initial={{ opacity: 1, x: 500 }}
+        animate={loaded ? { opacity: 1, x: 0 } : { opacity: 1, x: 500 }}
+      >
+        <img
+          src={`/hero-photos/${currentIndex}.jpg`}
+          className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
+        />
+      </motion.div>
     </div>
   );
 }

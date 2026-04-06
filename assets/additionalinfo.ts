@@ -26,18 +26,18 @@ export const IMAGES = [
     id: 2,
     src: "/Executive Lounge Chair.JPG",
     speed: 0.5,
-    position: "top-[24%] right-[10%] sm:top-[30%] sm:right-24",
+    position: "top-[34%] right-[10%] sm:top-[30%] sm:right-24",
   },
   {
     id: 3,
     src: "/TEM09545.jpg",
     speed: 0.9,
-    position: "top-[42%] left-[14%] sm:top-[60%] sm:left-32",
+    position: "top-[63%] left-[14%] sm:top-[60%] sm:left-32",
   },
   {
     id: 4,
     src: "/TEM09576.jpg",
     speed: 0.7,
-    position: "top-[60%] right-[12%] sm:top-[90%] sm:right-28",
+    position: "top-[95%] right-[12%] sm:top-[90%] sm:right-28",
   }
 ];

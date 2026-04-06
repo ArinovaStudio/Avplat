@@ -1,4 +1,4 @@
-export const ASSETS = [
+const ASSETS = [
   {
     type: "image",
     location: "/example.jpg",
@@ -76,3 +76,12 @@ export const ASSETS = [
     location: "/Nose_Left.JPG",
   },
 ];
+
+for(let i = 1;i<160;++i){
+  ASSETS.push({
+    type: "image",
+    location: `/hero-photos/${i}.jpg`
+  });
+}
+
+export {ASSETS};
