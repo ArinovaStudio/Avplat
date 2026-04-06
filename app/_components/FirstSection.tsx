@@ -42,7 +42,7 @@ export default function FirstSection({
       ref={ref}
       id="intro"
       className="pb-3 flex max-md:flex-col w-full
-      bg-gradient-to-r from-black via-black/60 via-[40%] via-black/20 via-[70%] to-transparent
+       bg-background
       relative
       md:h-screen
       px-4 md:px-0   
@@ -126,10 +126,8 @@ export default function FirstSection({
       </div>
       <motion.video
         ref={videoRef}
-        src="/hero-video.mp4"
+        src="/video2.mp4"
         muted
-        autoPlay
-        loop
         initial={{ opacity: 0, x: 500 }}
         animate={loaded ? { opacity: 1, x: 0 } : { opacity: 0, x: 500 }}
         playsInline

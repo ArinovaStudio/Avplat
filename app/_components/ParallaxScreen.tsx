@@ -15,7 +15,8 @@ export default function ParallaxSection({
         <div
           className={`uppercase relative text-center text-destructive text-[clamp(4rem,10vw,15rem)] leading-[0.8] grid font-extrabold ${AvanttFont.className}`}
         >
-         AvPlat Charters offers effortless access to private jets and helicopters through our digital charter platform. With 15+ years of industry experience, we manage everything from aircraft selection to flight operations, so you can focus on your journey.
+         {/* AvPlat Charters offers effortless access to private jets and helicopters through our digital charter platform. With 15+ years of industry experience, we manage everything from aircraft selection to flight operations, so you can focus on your journey. */}
+         A Trusted Legacy. Reimagined for Modern Aviation.
 
           {IMAGES.map((img) => (
             <div
@@ -32,9 +33,9 @@ export default function ParallaxSection({
             </div>
           ))}
         </div>
-        <div className="font-bold text-center underline cursor-pointer mt-5 text-xl text-[var(--destructive-secondary)]">
+        {/* <div className="font-bold text-center underline cursor-pointer mt-5 text-xl text-[var(--destructive-secondary)]">
           My Story ↗
-        </div>
+        </div> */}
       </div>
     </div>
   );

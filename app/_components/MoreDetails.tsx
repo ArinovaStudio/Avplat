@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef, useLayoutEffect } from "react";
 import { gsap } from "@/lib/gsapConfig";
 import LineRevealOnScroll from "@/components/LineReveal";
-import { SITE_NAME } from "@/lib/constants";
+import { SITE_NAME, SITE_TELL } from "@/lib/constants";
 
 export default function MoreDetails({
   educationRef: ref,
@@ -30,7 +30,7 @@ export default function MoreDetails({
           style={{ clipPath: "inset(0 0 0 0)" }}
         >
           <h6 className="absolute z-[20] text-[var(--destructive)] text-2xl md:text-5xl font-extrabold">
-            You can call me
+            Book  With
           </h6>
 
           {[1, 2, 3].map((n) => (
@@ -41,7 +41,7 @@ export default function MoreDetails({
               className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block transition-colors duration-500"
               style={{ zIndex: mp[n] }}
             >
-              {SITE_NAME}
+              {SITE_TELL}
             </span>
           ))}
 

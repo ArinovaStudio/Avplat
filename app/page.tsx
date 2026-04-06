@@ -425,7 +425,7 @@ export default function Home() {
           <div ref={triggerRef} className="md:h-screen w-full">
             <div className="absolute top-0 left-0 w-full h-full z-0">
               <video
-                src="/video2.mp4"
+                src="/video.mp4"
                 autoPlay
                 muted
                 loop
@@ -462,6 +462,7 @@ export default function Home() {
         </AnimatePresence>
         <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">
           <ParallaxSection aboutRef={aboutRef} />
+           {/* <HowItWorks />  */}
           <Brands brandsRef={brandsRef} />
           <MoreDetails
             educationRef={educationRef}

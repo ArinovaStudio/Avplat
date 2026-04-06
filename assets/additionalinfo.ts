@@ -59,54 +59,5 @@ export const IMAGES = [
     speed: 0.8,
     position: "top-[52%] left-[4%] sm:top-[54%] sm:left-16",
   },
-  {
-    id: 8,
-    src: "/Side Pic_Right.JPG",
-    speed: 0.6,
-    position: "top-[60%] right-[4%] sm:top-[62%] sm:right-16",
-  },
-
-  {
-    id: 9,
-    src: "/Side Pic_RWY.JPG",
-    speed: 0.7,
-    position: "top-[68%] left-[4%] sm:top-[70%] sm:left-10",
-  },
-  {
-    id: 10,
-    src: "/Side Profile.JPG",
-    speed: 0.9,
-    position: "top-[76%] right-[4%] sm:top-[78%] sm:right-10",
-  },
-  {
-    id: 11,
-    src: "/TEM09561.jpg",
-    speed: 0.8,
-    position: "top-[84%] left-[4%] sm:top-[86%] sm:left-16",
-  },
-  {
-    id: 12,
-    src: "/TEM09548.jpg",
-    speed: 0.6,
-    position: "top-[92%] right-[4%] sm:top-[94%] sm:right-16",
-  },
-
-  {
-    id: 13,
-    src: "/TEM09576.jpg",
-    speed: 0.7,
-    position: "top-[100%] left-[4%] sm:top-[102%] sm:left-10",
-  },
-  {
-    id: 14,
-    src: "/TEM09606.jpg",
-    speed: 0.85,
-    position: "top-[108%] right-[4%] sm:top-[110%] sm:right-10",
-  },
-  {
-    id: 15,
-    src: "/TEM09579.jpg",
-    speed: 0.75,
-    position: "top-[116%] left-[4%] sm:top-[118%] sm:left-16",
-  },
+  
 ];

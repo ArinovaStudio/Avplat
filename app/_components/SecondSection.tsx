@@ -53,15 +53,15 @@ export default function SecondSection() {
           {/* LEFT: SHOWREEL */}
           <div className="flex max-md:w-full max-md:justify-between items-center gap-4">
             <div className="w-16 h-16 md:w-24 md:h-24 bg-orange-400 flex items-center justify-center text-black font-bold text-[10px] md:text-xs">
-              SELECTED
+              HOW
               <br />
-              WORKS
+              TO
             </div>
 
             <div className="flex flex-col gap-3 md:gap-5">
               <div>
                 <p className="text-[10px] md:text-xs text-neutral-400 uppercase">
-                  Showreel
+                  Tutorial
                 </p>
                 <p className="text-sm md:text-base font-semibold">
                   Design by {DESIGN_BY}
