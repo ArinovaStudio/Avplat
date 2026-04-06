@@ -107,6 +107,7 @@ export default function FirstSection({
         src="/hero-video.mp4"
         muted
         autoPlay
+        loop
         initial={{ opacity: 0, x:500 }}
         animate={loaded ? { opacity: 1,x:0 } : { opacity: 0,x:500 }}
         playsInline
