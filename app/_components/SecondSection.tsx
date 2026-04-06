@@ -207,8 +207,8 @@ export default function SecondSection() {
                   <p className="text-[10px] md:text-xs text-neutral-400 uppercase">
                     Tutorial
                   </p>
-                  <p className="text-sm md:text-base font-semibold">
-                    {DESIGN_BY}
+                  <p className="text-sm md:text-base max-w-[100px] font-semibold">
+                    How to Get Trip Cost Estimate and Activate Trip
                   </p>
                 </div>
                 <VideoDialog
@@ -282,8 +282,8 @@ export default function SecondSection() {
                   <p className="text-[10px] md:text-xs text-neutral-400 uppercase">
                     Tutorial
                   </p>
-                  <p className="text-sm md:text-base font-semibold">
-                    {DESIGN_BY}
+                  <p className="text-sm md:text-base max-w-[100px] font-semibold">
+                     How to Setup Multi-Location Rate cards
                   </p>
                 </div>
                 <VideoDialog

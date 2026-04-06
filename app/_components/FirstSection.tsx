@@ -1,7 +1,8 @@
 "use client";
 import { AvanttFont } from "@/assets/fonts";
 import LineRevealOnScroll from "@/components/LineReveal";
-import { useEffect, useRef, useState } from "react";
+import { DESIGN_BY } from "@/lib/constants";
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 export default function FirstSection({
   ref,
@@ -14,35 +15,32 @@ export default function FirstSection({
   loaded: boolean;
   progress: number;
 }) {
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const totalImages = 159;
-  const lastScrollY = useRef(0);
+  // const videoRef = useRef(null);
+  // useEffect(() => {
+  //   const video = videoRef.current! as HTMLVideoElement;
+  //   if (!video) return;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      // Get the current scroll position
-      const currentScrollY = window.scrollY;
+  //   const handleScroll = () => {
+  //     if (!video.duration) return;
 
-      // Compare current position to the last known position
-      if (currentScrollY > lastScrollY.current) {
-        // Scrolling DOWN -> Increment image
-        setCurrentIndex((prev) => Math.min(totalImages, prev + 1));
-      } else if (currentScrollY < lastScrollY.current) {
-        // Scrolling UP -> Decrement image
-        setCurrentIndex((prev) => Math.max(1, prev - 1));
-      }
+  //     const scrollTop = window.scrollY;
+  //     const windowHeight = window.innerHeight;
 
-      // Update the stored scroll position for the next scroll event
-      lastScrollY.current = currentScrollY;
-    };
+  //     // 🔥 adjust these
+  //     const start = windowHeight * 0.5; // animation starts later
+  //     const end = windowHeight * 2; // animation finishes later
 
-    // Set the initial scroll position when the component mounts
-    lastScrollY.current = window.scrollY;
+  //     const progress = (scrollTop - start) / (end - start);
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+  //     // clamp between 0 → 1
+  //     const clamped = Math.min(Math.max(progress, 0), 1);
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  //     video.currentTime = clamped * video.duration;
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, []);
   return (
     <div
       ref={ref}
@@ -123,15 +121,17 @@ export default function FirstSection({
         <LineRevealOnScroll loaded={loaded} text={"to fly"} />
         <LineRevealOnScroll loaded={loaded} text={"private"} />
       </div>
-      <motion.div
-        initial={{ opacity: 1, x: 500 }}
-        animate={loaded ? { opacity: 1, x: 0 } : { opacity: 1, x: 500 }}
-      >
-        <img
-          src={`/hero-photos/${currentIndex}.jpg`}
-          className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
-        />
-      </motion.div>
+      <motion.video
+        // ref={videoRef}
+        src="/video2.mp4"
+        muted
+        initial={{ opacity: 0, x: 500 }}
+        animate={loaded ? { opacity: 1, x: 0 } : { opacity: 0, x: 500 }}
+        playsInline
+        autoPlay
+        controls={false}
+        className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
+      />
     </div>
   );
 }
