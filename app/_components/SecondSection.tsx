@@ -13,9 +13,9 @@ export default function SecondSection() {
   const [expanded1, setExpanded1] = useState(false);
   const [expanded2, setExpanded2] = useState(false);
   const [mounted, setMounted] = useState(false);
-  useEffect(()=>{
+  useEffect(() => {
     setMounted(true);
-  },[]);
+  }, []);
   return (
     <section className="md:w-screen h-full w-full bg-black text-white px-4 md:px-12 pb-10">
       <div className="max-w-7xl py-5 mx-auto flex flex-col justify-between items-center md:h-full mx-auto gap-10 md:gap-0">
@@ -60,84 +60,13 @@ export default function SecondSection() {
           className="
          w-full
           max-md:flex-col-reverse
-          flex flex-col md:flex-row 
+          flex flex-col md:flex-row
+          max-md:flex-wrap 
           items-start md:items-end 
           justify-between 
           gap-10
         "
         >
-          {/* LEFT: SHOWREEL */}
-          <div className="flex max-md:w-full max-md:justify-between items-center gap-4">
-            <motion.div
-              layoutId="video-expand-magic" // Matches the ID below
-              onClick={() => setExpanded(true)}
-              className="w-16 h-16 relative md:w-24 md:h-24 bg-orange-400 flex items-center justify-center text-black font-bold text-[10px] md:text-xs cursor-pointer overflow-hidden"
-            >
-              <Image
-                src={"/video-thumbnail.png"}
-                className="object-cover"
-                alt={"Logo"}
-                fill
-              />
-            </motion.div>
-
-            {/* 2. The Expanded View (Portaled directly to the <body>, escaping GSAP) */}
-            {mounted &&
-              createPortal(
-                <AnimatePresence>
-                  {expanded && (
-                    <div className="fixed inset-0 z-[999] flex items-center justify-center">
-                      {/* Background Dark Overlay */}
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={() => setExpanded(false)}
-                        className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
-                      />
-
-                      {/* The Expanded Image using Flexbox to perfectly center it */}
-                      <motion.div
-                        layoutId="video-expand-magic" // Matches the ID above
-                        className="max-md:h-[40vh] relative w-[80vw] h-[80vh] bg-orange-400 rounded-2xl overflow-hidden z-10 shadow-2xl"
-                      >
-                        <Image
-                          src={"/video-thumbnail.png"}
-                          className="object-cover"
-                          alt={"Logo"}
-                          fill
-                        />
-                      </motion.div>
-                    </div>
-                  )}
-                </AnimatePresence>,
-                document.body
-              )}
-
-            <div className="flex flex-col gap-3 md:gap-5">
-              <div>
-                <p className="text-[10px] md:text-xs text-neutral-400 uppercase">
-                  Tutorial
-                </p>
-                <p className="text-sm md:text-base font-semibold">
-                  {DESIGN_BY}
-                </p>
-              </div>
-              <VideoDialog url={"https://www.youtube.com/embed/IlbOpSccI_E?autoplay=1&controls=1&modestbranding=1&rel=0"} setExpanded={setExpanded}>
-                <Button
-                  size="icon"
-                  onClick={() => {
-                    setExpanded(true);
-                  }}
-                  variant="outline"
-                  className="rounded-full border-neutral-700 w-8 h-8 md:w-10 md:h-10"
-                >
-                  <Play size={12} />
-                </Button>
-              </VideoDialog>
-            </div>
-          </div>
-
           {/* RIGHT: TEXT BLOCKS */}
           <div
             className="
@@ -151,6 +80,81 @@ export default function SecondSection() {
             max-md:text-justify
           "
           >
+            <div className="flex max-md:w-full max-md:justify-between items-center gap-4">
+              <motion.div
+                layoutId="video-expand-magic" // Matches the ID below
+                onClick={() => setExpanded(true)}
+                className="w-16 h-16 relative md:w-24 md:h-24 bg-orange-400 flex items-center justify-center text-black font-bold text-[10px] md:text-xs cursor-pointer overflow-hidden"
+              >
+                <Image
+                  src={"/video-thumbnail.png"}
+                  className="object-cover"
+                  alt={"Logo"}
+                  fill
+                />
+              </motion.div>
+
+              {/* 2. The Expanded View (Portaled directly to the <body>, escaping GSAP) */}
+              {mounted &&
+                createPortal(
+                  <AnimatePresence>
+                    {expanded && (
+                      <div className="fixed inset-0 z-[999] flex items-center justify-center">
+                        {/* Background Dark Overlay */}
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          onClick={() => setExpanded(false)}
+                          className="absolute inset-0 bg-black/80 backdrop-blur-sm cursor-pointer"
+                        />
+
+                        {/* The Expanded Image using Flexbox to perfectly center it */}
+                        <motion.div
+                          layoutId="video-expand-magic" // Matches the ID above
+                          className="max-md:h-[40vh] relative w-[80vw] h-[80vh] bg-orange-400 rounded-2xl overflow-hidden z-10 shadow-2xl"
+                        >
+                          <Image
+                            src={"/video-thumbnail.png"}
+                            className="object-cover"
+                            alt={"Logo"}
+                            fill
+                          />
+                        </motion.div>
+                      </div>
+                    )}
+                  </AnimatePresence>,
+                  document.body
+                )}
+
+              <div className="flex flex-col gap-3 md:gap-5">
+                <div>
+                  <p className="text-[10px] md:text-xs text-neutral-400 uppercase">
+                    Tutorial
+                  </p>
+                  <p className="text-sm md:text-base font-semibold">
+                    {DESIGN_BY}
+                  </p>
+                </div>
+                <VideoDialog
+                  url={
+                    "https://www.youtube.com/embed/IlbOpSccI_E?autoplay=1&controls=1&modestbranding=1&rel=0"
+                  }
+                  setExpanded={setExpanded}
+                >
+                  <Button
+                    size="icon"
+                    onClick={() => {
+                      setExpanded(true);
+                    }}
+                    variant="outline"
+                    className="rounded-full border-neutral-700 w-8 h-8 md:w-10 md:h-10"
+                  >
+                    <Play size={12} />
+                  </Button>
+                </VideoDialog>
+              </div>
+            </div>
             <div className="flex max-md:w-full max-md:justify-between items-center gap-4">
               <motion.div
                 layoutId="video-expand-magic-1" // Matches the ID below
@@ -207,7 +211,12 @@ export default function SecondSection() {
                     {DESIGN_BY}
                   </p>
                 </div>
-                <VideoDialog url={"https://www.youtube.com/embed/z1oJA1bsF6Y?si=azNfAkFaGVD5WwlG&autoplay=1&controls=1&modestbranding=1&rel=0"} setExpanded={setExpanded1}>
+                <VideoDialog
+                  url={
+                    "https://www.youtube.com/embed/z1oJA1bsF6Y?si=azNfAkFaGVD5WwlG&autoplay=1&controls=1&modestbranding=1&rel=0"
+                  }
+                  setExpanded={setExpanded1}
+                >
                   <Button
                     size="icon"
                     onClick={() => {
@@ -277,7 +286,12 @@ export default function SecondSection() {
                     {DESIGN_BY}
                   </p>
                 </div>
-                <VideoDialog url={"https://www.youtube.com/embed/JPFWQ74BeGc?si=BQM9_x1f4YqIBZ3a&autoplay=1&controls=1&modestbranding=1&rel=0"} setExpanded={setExpanded2}>
+                <VideoDialog
+                  url={
+                    "https://www.youtube.com/embed/JPFWQ74BeGc?si=BQM9_x1f4YqIBZ3a&autoplay=1&controls=1&modestbranding=1&rel=0"
+                  }
+                  setExpanded={setExpanded2}
+                >
                   <Button
                     size="icon"
                     onClick={() => {

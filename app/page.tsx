@@ -409,8 +409,8 @@ export default function Home() {
   
   return (
     <div className="min-h-screen w-full flex max-md:flex-col">
-      <CursorLoader progress={progress} />
       <MobileLoader progress={progress}/>
+      <CursorLoader progress={progress} />
       <Sidebar
         letsConnect={letsConnect}
         setLetsConnect={setLetsConnect}
