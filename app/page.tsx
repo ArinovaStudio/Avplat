@@ -406,6 +406,7 @@ export default function Home() {
       });
     };
   }, [loaded]);
+  
   return (
     <div className="min-h-screen w-full flex max-md:flex-col">
       <CursorLoader progress={progress} />

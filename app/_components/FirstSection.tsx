@@ -8,10 +8,12 @@ export default function FirstSection({
   ref,
   innerRef,
   loaded,
+  progress,
 }: {
   ref: any;
   innerRef: any;
   loaded: boolean;
+  progress: number;
 }) {
   const videoRef = useRef(null);
   useEffect(() => {
@@ -82,12 +84,30 @@ export default function FirstSection({
         <h2 className="line">to fly</h2>
         <h2 className="line">private</h2>
 
-        <div className="reveal-it hidden mt-8 flex max-md:justify-center items-center gap-2 px-1">
+        {/* <div className="reveal-it hidden mt-8 flex max-md:justify-center items-center gap-2 px-1">
           <span className="uppercase text-white font-bold text-xs md:text-sm">
             Scroll to discover
           </span>
           <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
-        </div>
+        </div> */}
+        <div className="reveal-it hidden mt-8 flex max-md:justify-center items-center gap-2 px-1">
+  <span className="uppercase text-white font-bold text-xs md:text-sm">
+    {loaded ? "Scroll to discover" : "Loading..."}
+  </span>
+
+  <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px]  relative">
+    {loaded ? (
+      // original animation after loaded
+      <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
+    ) : (
+      // progress bar while loading
+      <div
+        className="absolute inset-0 bg-white transition-all duration-200"
+        style={{ width: `${progress}%` }}
+      />
+    )}
+  </div>
+</div>
       </div>
       <div
         className={`md:hidden text-[var(--destructive)] text-left ${AvanttFont.className} font-extrabold uppercase text-7xl`}
