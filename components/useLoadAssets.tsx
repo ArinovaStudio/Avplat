@@ -17,6 +17,7 @@ export default function useLoadAssets() {
 
       await Promise.all(
         ASSETS.map(async (asset, index) => {
+          // await delay(index * 100);
 
           return new Promise<void>((resolve, reject) => {
             const handleDone = () => {
@@ -33,6 +34,7 @@ export default function useLoadAssets() {
             } else if (asset.type === "video") {
               const video = document.createElement("video");
               video.src = asset.location;
+              video.preload = "auto";
               video.oncanplaythrough = handleDone;
               video.onerror = reject;
             }

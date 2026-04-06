@@ -101,8 +101,8 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
 
           {/* Text OUTSIDE */}
           <span className="text-white text-xs text-[var(--foreground)] tracking-wide">
-            Loading...
-          </span>
+  {progress < 30 ? "Starting..." : progress < 70 ? "Loading..." : "Almost there..."}
+</span>
         </div>
       </div>
     )

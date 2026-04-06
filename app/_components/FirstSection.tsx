@@ -65,7 +65,7 @@ export default function FirstSection({
         ${AvanttFont.className}`}
       >
         <span className="line top-text text-xs sm:text-sm mt-2 sm:mt-5 w-full capitalize text-[var(--foreground)]">
-          Design by {DESIGN_BY}
+          {/* Design by {DESIGN_BY} */}
         </span>
         <h1 className="line">A smarter</h1>
 
@@ -106,6 +106,7 @@ export default function FirstSection({
         ref={videoRef}
         src="/hero-video.mp4"
         muted
+        autoPlay
         initial={{ opacity: 0, x:500 }}
         animate={loaded ? { opacity: 1,x:0 } : { opacity: 0,x:500 }}
         playsInline
