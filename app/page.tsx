@@ -425,7 +425,7 @@ export default function Home() {
           <div ref={triggerRef} className="md:h-screen w-full">
             <div className="absolute top-0 left-0 w-full h-full z-0">
               <video
-                src="/video.mp4"
+                src="/video2.mp4"
                 autoPlay
                 muted
                 loop

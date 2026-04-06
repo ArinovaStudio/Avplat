@@ -42,7 +42,7 @@ export default function FirstSection({
       ref={ref}
       id="intro"
       className="pb-3 flex max-md:flex-col w-full
-      bg-background
+      bg-gradient-to-r from-black via-black/60 via-[40%] via-black/20 via-[70%] to-transparent
       relative
       md:h-screen
       px-4 md:px-0   
@@ -75,13 +75,13 @@ export default function FirstSection({
           <span
             className={`text-xs left-text hidden sm:text-sm mt-2 sm:mt-5 max-w-[180px] capitalize text-[var(--foreground)]`}
           >
-            
+
           </span>
 
           <span className="line text-[var(--destructive)]">way</span>
         </div>
 
-        <h2 className="line">to fly</h2>
+        <h2 className="line">to Book</h2>
         <h2 className="line">private</h2>
 
         {/* <div className="reveal-it hidden mt-8 flex max-md:justify-center items-center gap-2 px-1">
@@ -91,23 +91,25 @@ export default function FirstSection({
           <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
         </div> */}
         <div className="reveal-it hidden mt-8 flex max-md:justify-center items-center gap-2 px-1">
-  <span className="uppercase text-white font-bold text-xs md:text-sm">
-    {loaded ? "Scroll to discover" : "Loading..."}
-  </span>
+          <span className="uppercase text-white font-bold text-xs md:text-sm">
+            {loaded ? "Scroll to discover" : "Loading"}
+          </span>
 
-  <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px]  relative">
-    {loaded ? (
-      // original animation after loaded
-      <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
-    ) : (
-      // progress bar while loading
-      <div
-        className="absolute inset-0 bg-white transition-all duration-200"
-        style={{ width: `${progress}%` }}
-      />
-    )}
-  </div>
-</div>
+          <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px]  relative">
+            {loaded ? (
+              // original animation after loaded
+              <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
+            ) : (
+              // progress bar while loading
+              <div className="bg-zinc-700 w-full h-full">
+                <div
+                  className="absolute inset-0 bg-white transition-all duration-200"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
       <div
         className={`md:hidden text-[var(--destructive)] text-left ${AvanttFont.className} font-extrabold uppercase text-7xl`}
@@ -128,8 +130,8 @@ export default function FirstSection({
         muted
         autoPlay
         loop
-        initial={{ opacity: 0, x:500 }}
-        animate={loaded ? { opacity: 1,x:0 } : { opacity: 0,x:500 }}
+        initial={{ opacity: 0, x: 500 }}
+        animate={loaded ? { opacity: 1, x: 0 } : { opacity: 0, x: 500 }}
         playsInline
         controls={false}
         className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-fill"
