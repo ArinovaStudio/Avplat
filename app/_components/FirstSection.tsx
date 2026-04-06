@@ -73,7 +73,7 @@ export default function FirstSection({
           <span
             className={`text-xs left-text hidden sm:text-sm mt-2 sm:mt-5 max-w-[180px] capitalize text-[var(--foreground)]`}
           >
-            Design by {DESIGN_BY}
+            
           </span>
 
           <span className="line text-[var(--destructive)]">way</span>
