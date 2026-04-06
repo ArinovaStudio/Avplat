@@ -41,7 +41,7 @@ export default function MoreDetails({
               className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block transition-colors duration-500"
               style={{ zIndex: mp[n] }}
             >
-              {SITE_TELL}
+              {SITE_NAME}
             </span>
           ))}
 
@@ -58,7 +58,7 @@ export default function MoreDetails({
           ))}
 
           <span className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-none inline-block bg-background z-[10] transition-colors duration-500">
-            {SITE_NAME}
+            {SITE_TELL}
           </span>
         </div>
       </div>
