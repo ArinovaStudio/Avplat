@@ -17,7 +17,7 @@ export default function useLoadAssets() {
 
       await Promise.all(
         ASSETS.map(async (asset, index) => {
-          await delay(index * 500);
+          await delay(index * 100);
 
           return new Promise<void>((resolve, reject) => {
             const handleDone = () => {
