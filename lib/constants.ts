@@ -1,3 +1,9 @@
 export const DESIGN_BY = "How to Operate AvPlat";
 export const SITE_NAME = "AVPLAT";
 export const SITE_TELL= "EASE"
+export const YOUTUBE_HANDLE = "https://www.youtube.com/@avplat-flightplanningtrips819"
+export const X_HANDLE = "http://x.com/avplatapp"
+export const FACEBOOK_HANDLE = "https://www.facebook.com/avplatapp"
+export const LINKEDIN_HANLDE = "https://in.linkedin.com/company/avplatapp"
+export const INSTAGRAM_HANDLE = "https://www.instagram.com/avplatapp"
+export const PHONE = "+1 647 6946122"

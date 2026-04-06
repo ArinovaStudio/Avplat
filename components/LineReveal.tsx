@@ -5,9 +5,10 @@ import { motion } from "framer-motion";
 type Props = {
   text: string;
   className?: string;
+  loaded?: boolean;
 };
 
-export default function LineRevealOnScroll({ text, className }: Props) {
+export default function LineRevealOnScroll({ text, className,loaded=true }: Props) {
   const lines = text.split("\n");
 
   const container = {
@@ -37,7 +38,7 @@ export default function LineRevealOnScroll({ text, className }: Props) {
       className={className}
       variants={container}
       initial="hidden"
-      whileInView="show"
+      animate={loaded ? "show":"hidden"}
       viewport={{ once: true, margin: "-10% 0px" }}
     >
       {lines.map((lineText, i) => (

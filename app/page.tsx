@@ -15,6 +15,7 @@ import { gsap, ScrollTrigger, Flip } from "@/lib/gsapConfig";
 import CursorLoader from "@/components/LoadingCursor";
 import HowItWorks from "./_components/HowItWorks";
 import CloseCursor from "@/components/CloseCursor";
+import MobileLoader from "@/components/MobileLoader";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -262,12 +263,11 @@ export default function Home() {
       const items = gsap.utils.toArray<HTMLElement>(".parallax-item");
       if (items.length !== 0) {
         items.forEach((item) => {
-          // const speed = Number(item.dataset.speed || 0.5);
           gsap.fromTo(
             item,
-            { y: 0 },
+            { y: -150 },
             {
-              y: () => -(window.innerHeight * 1.6),
+              y: () => -(window.innerHeight * 1.4),
               ease: "none",
               scrollTrigger: {
                 trigger: aboutRef.current,
@@ -410,6 +410,7 @@ export default function Home() {
   return (
     <div className="min-h-screen w-full flex max-md:flex-col">
       <CursorLoader progress={progress} />
+      <MobileLoader progress={progress}/>
       <Sidebar
         letsConnect={letsConnect}
         setLetsConnect={setLetsConnect}
@@ -464,11 +465,11 @@ export default function Home() {
           <ParallaxSection aboutRef={aboutRef} />
            {/* <HowItWorks />  */}
           <Brands brandsRef={brandsRef} />
+          <HowItWorks />
           <MoreDetails
             educationRef={educationRef}
             educationWrapperRef={educationWrapperRef}
           />
-          <HowItWorks />
           <Footer
             footerRef={footerRef}
             footerContainerRef={footerContainerRef}

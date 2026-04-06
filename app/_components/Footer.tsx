@@ -2,13 +2,14 @@
 import Image from "next/image";
 import { AvanttFont } from "@/assets/fonts";
 import { motion } from "framer-motion";
-import { FaLinkedin, FaInstagram, FaGlobe } from "react-icons/fa";
+import { FaLinkedin, FaInstagram, FaGlobe, FaYoutube, FaFacebook, FaTwitter } from "react-icons/fa";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import LineRevealOnScroll from "@/components/LineReveal";
-import { SITE_NAME } from "@/lib/constants";
+import { FACEBOOK_HANDLE, INSTAGRAM_HANDLE, LINKEDIN_HANLDE, SITE_NAME, X_HANDLE, YOUTUBE_HANDLE } from "@/lib/constants";
 import { Separator } from "@/components/ui/separator";
+import { X } from "lucide-react";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 export default function Footer({
   footerRef: wrapperRef,
@@ -46,8 +47,8 @@ export default function Footer({
           >
             <LineRevealOnScroll text={"Save"} />
           </motion.h6>
-          <motion.h6
-            initial={{ x: 430 }}
+          <motion.h6 
+            initial={{ x: 100 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
             className="max-md:text-center md:text-left"
@@ -55,7 +56,7 @@ export default function Footer({
             <LineRevealOnScroll text={"More on"} />
           </motion.h6>
           <motion.h6
-            initial={{ x: -430 }}
+            initial={{ x: -100 }}
             whileInView={{ x: 0 }}
             transition={{ duration: 0.5, delay: 1.5 }}
             className="max-md:text-center md:text-right"
@@ -110,7 +111,7 @@ export default function Footer({
           </div>
         </div> */}
       </div>
-
+ 
       {/* RESPONSIVE BOTTOM: Switched to min-h-screen to avoid overlap on mobile */}
       <div className="min-h-screen md:h-screen flex flex-col justify-between p-6 w-full gap-12 md:gap-0">
         <div className="space-y-5">
@@ -118,16 +119,24 @@ export default function Footer({
           <div className="flex items-center max-w-xs justify-between w-full">
             <h6 className="capitalize text-lg text-gray-500/80">social</h6>
             <Separator orientation="vertical"/>
-            <a className="border-1" href={"#"}>
+            <a className="border-1" href={LINKEDIN_HANLDE}>
               <FaLinkedin />
             </a>
             <Separator orientation="vertical"/>
-            <a className="border-1" href={"#"}>
-              <FaGlobe />
+            <a className="border-1" href={YOUTUBE_HANDLE}>
+              <FaYoutube />
             </a>
             <Separator orientation="vertical"/>
-            <a className="border-1" href={"#"}>
+            <a className="border-1" href={INSTAGRAM_HANDLE}>
               <FaInstagram />
+            </a>
+            <Separator orientation="vertical"/>
+            <a className="border-1" href={FACEBOOK_HANDLE}>
+              <FaFacebook />
+            </a>
+            <Separator orientation="vertical"/>
+            <a className="border-1" href={X_HANDLE}>
+              <X size={20} className="bg-foreground rounded-full text-black p-1" strokeWidth={3} />
             </a>
           </div>
         </div>

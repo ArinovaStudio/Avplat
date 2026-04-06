@@ -4,6 +4,7 @@ import { ArrowDownRight, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
+import Link from "next/link";
 const sections = [
   { id: "intro", label: "intro" },
   { id: "mentorship", label: "mentorship", jump: "mentorship" },
@@ -188,11 +189,9 @@ export default function Sidebar({
             <ArrowDownRight size={16} />
           </span>
         </Button>
-
-        <Button
-          // onClick={() => {
-          //   setLetsConnect((prev: boolean) => !prev);
-          // }}
+        
+        <Link href={"https://play.google.com/store/apps/details?id=com.avplat.aviation&hl=en_US"} target="_blank">
+        <Button 
           className="w-auto rounded-none md:w-full bg-[var(--anothersecondary)]  md:h-38 flex md:items-center md:justify-center"
         >
           <span className="md:[writing-mode:vertical-rl] flex whitespace-nowrap transition-all duration-300 items-center gap-2 font-extrabold uppercase tracking-tighter text-xs md:text-sm">
@@ -200,6 +199,7 @@ export default function Sidebar({
             <ArrowDownRight size={16} />
           </span>
         </Button>
+        </Link>
       </motion.div>
     </div>
   );

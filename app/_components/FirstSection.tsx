@@ -17,26 +17,30 @@ export default function FirstSection({
 }) {
   const videoRef = useRef(null);
   useEffect(() => {
-    const video = videoRef.current as any;
+    const video = videoRef.current! as HTMLVideoElement;
     if (!video) return;
 
     const handleScroll = () => {
       if (!video.duration) return;
 
       const scrollTop = window.scrollY;
-      const scrollHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
+      const windowHeight = window.innerHeight;
 
-      const scrollFraction = scrollTop / scrollHeight;
+      // 🔥 adjust these
+      const start = windowHeight * 0.5; // animation starts later
+      const end = windowHeight * 2; // animation finishes later
 
-      // map scroll to video duration
-      video.currentTime = scrollFraction * video.duration;
+      const progress = (scrollTop - start) / (end - start);
+
+      // clamp between 0 → 1
+      const clamped = Math.min(Math.max(progress, 0), 1);
+
+      video.currentTime = clamped * video.duration;
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [videoRef.current]);
+  }, []);
   return (
     <div
       ref={ref}
@@ -74,9 +78,7 @@ export default function FirstSection({
         <div className="flex">
           <span
             className={`text-xs left-text hidden sm:text-sm mt-2 sm:mt-5 max-w-[180px] capitalize text-[var(--foreground)]`}
-          >
-
-          </span>
+          ></span>
 
           <span className="line text-[var(--destructive)]">way</span>
         </div>
@@ -115,12 +117,7 @@ export default function FirstSection({
         className={`md:hidden text-[var(--destructive)] text-left ${AvanttFont.className} font-extrabold uppercase text-7xl`}
       >
         <LineRevealOnScroll text={"A smarter"} />
-        <div className="flex">
-          <span className="text-xs sm:text-sm max-w-[150px] mt-2 sm:mt-5 w-full capitalize text-[var(--foreground)]">
-            <LineRevealOnScroll className="" text={`Design by ${DESIGN_BY}`} />
-          </span>
-          <LineRevealOnScroll text={"way"} />
-        </div>
+        <LineRevealOnScroll text={"way"} />
         <LineRevealOnScroll text={"to fly"} />
         <LineRevealOnScroll text={"private"} />
       </div>
@@ -132,7 +129,7 @@ export default function FirstSection({
         animate={loaded ? { opacity: 1, x: 0 } : { opacity: 0, x: 500 }}
         playsInline
         controls={false}
-        className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-fill"
+        className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
       />
     </div>
   );

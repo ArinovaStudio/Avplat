@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef, useLayoutEffect } from "react";
 import { gsap } from "@/lib/gsapConfig";
 import LineRevealOnScroll from "@/components/LineReveal";
-import { SITE_NAME, SITE_TELL } from "@/lib/constants";
+import { SITE_TELL } from "@/lib/constants";
 
 export default function MoreDetails({
   educationRef: ref,
@@ -41,7 +41,7 @@ export default function MoreDetails({
               className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block transition-colors duration-500"
               style={{ zIndex: mp[n] }}
             >
-              {SITE_NAME}
+              {SITE_TELL}
             </span>
           ))}
 
@@ -53,7 +53,7 @@ export default function MoreDetails({
               className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase bg-background leading-[0.8] inline-block transition-colors duration-500"
               style={{ zIndex: mp[n] }}
             >
-              {SITE_NAME}
+              {SITE_TELL}
             </span>
           ))}
 
