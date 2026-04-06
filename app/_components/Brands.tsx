@@ -100,7 +100,7 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
         className="object-cover mt-30 rounded-xl preview-img"
       />
     </div> */}
-    <div className="item font-bold text-[clamp(1rem,3vw,4rem)] text-foreground leading-[1] uppercase sm:py-8">
+    <div className="item font-bold text-[clamp(1rem,4vw,4rem)] text-foreground leading-[1] uppercase sm:py-8">
       AvPlat Charters was built on a simple promise to transform how
       private aviation is experienced and delivered. Backed by deep
       industry knowledge and shaped by innovation, we bring together years
