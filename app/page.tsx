@@ -445,7 +445,7 @@ export default function Home() {
             relative
           `}
             >
-              <FirstSection ref={homeRef} innerRef={innerHomeRef} loaded={loaded} />
+              <FirstSection ref={homeRef} innerRef={innerHomeRef} loaded={loaded} progress={progress} />
               <SecondSection />
               <ThirdSection
                 sectionRef={thirdSectionRef}
