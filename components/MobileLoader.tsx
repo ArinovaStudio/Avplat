@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 
 export default function MobileLoader({ progress }: { progress: number }) {
   return (
-    progress <= 99 && (
-      <div className="min-h-[105vh] bg-background fixed top-0 w-full flex justify-center z-[9999] items-center">
+    progress < 100 && (
+      <div className="min-h-[105vh] bg-background fixed top-0 w-full flex justify-center z-[99999] items-center">
         <div className="flex flex-col justify-center items-center gap-1">
           <div className="relative h-25 w-35 flex items-center justify-center">
             <span className="text-4xl md:text-5xl font-extrabold font-streach tracking-tight">
