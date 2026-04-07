@@ -14,7 +14,6 @@ import { AnimatePresence } from "framer-motion";
 import { gsap, ScrollTrigger, Flip } from "@/lib/gsapConfig";
 import CursorLoader from "@/components/LoadingCursor";
 import HowItWorks from "./_components/HowItWorks";
-import CloseCursor from "@/components/CloseCursor";
 import MobileLoader from "@/components/MobileLoader";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
