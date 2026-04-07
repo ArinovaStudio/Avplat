@@ -53,14 +53,6 @@ const ASSETS = [
   },
   {
     type: "image",
-    location: "/TEM09576.jpg",
-  },
-  {
-    type: "image",
-    location: "/TEM09545.jpg",
-  },
-  {
-    type: "image",
     location: "/Executive Lounge Chair.JPG",
   },
   {

@@ -45,72 +45,72 @@ export default function FirstSection({
   // }, []);
 
   useEffect(() => {
-  const frameCount = 82;
+    const frameCount = 82;
 
-  for (let i = 1; i <= frameCount; i++) {
-    const img = new Image();
-    img.src = `/frames/frame_${i.toString().padStart(4, "0")}.jpg`;
+    for (let i = 1; i <= frameCount; i++) {
+      const img = new Image();
+      img.src = `/frames/frame_${i.toString().padStart(4, "0")}.jpg`;
 
-    // draw first frame once loaded
-    if (i === 1) {
-      img.onload = () => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
+      // draw first frame once loaded
+      if (i === 1) {
+        img.onload = () => {
+          const canvas = canvasRef.current;
+          if (!canvas) return;
 
-        const context = canvas.getContext("2d");
-        if (!context) return;
+          const context = canvas.getContext("2d");
+          if (!context) return;
 
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+          canvas.width = canvas.clientWidth;
+          canvas.height = canvas.clientHeight;
 
-        context.drawImage(img, 0, 0, canvas.width, canvas.height);
-      };
+          context.drawImage(img, 0, 0, canvas.width, canvas.height);
+        };
+      }
+
+      images.current.push(img);
     }
-
-    images.current.push(img);
-  }
-}, []);
+  }, []);
 
   useEffect(() => {
-  const canvas = canvasRef.current;
-  if (!canvas) return;
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-  const context = canvas.getContext("2d");
-  if (!context) return;
+    const context = canvas.getContext("2d");
+    if (!context) return;
 
-  const frameCount = 82;
+    const frameCount = 82;
 
-  const render = (index: number) => {
-    const img = images.current[index];
-    if (!img) return;
+    const render = (index: number) => {
+      const img = images.current[index];
+      if (!img) return;
 
-    canvas.width = canvas.clientWidth;
-    canvas.height = canvas.clientHeight;
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
 
-    context.drawImage(img, 0, 0, canvas.width, canvas.height);
-  };
+      context.drawImage(img, 0, 0, canvas.width, canvas.height);
+    };
 
-  const handleScroll = () => {
-    const scrollTop = window.scrollY;
-    const maxScroll = window.innerHeight * 2;
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const maxScroll = window.innerHeight * 2;
 
-    const progress = scrollTop / maxScroll;
+      const progress = scrollTop / maxScroll;
 
-    const frameIndex = Math.min(
-      frameCount - 1,
-      Math.floor(progress * frameCount)
-    );
+      const frameIndex = Math.min(
+        frameCount - 1,
+        Math.floor(progress * frameCount)
+      );
 
-    render(frameIndex);
-  };
+      render(frameIndex);
+    };
 
-  // ✅ SHOW FIRST FRAME IMMEDIATELY
-  render(0);
+    // ✅ SHOW FIRST FRAME IMMEDIATELY
+    render(0);
 
-  window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   return (
     <div
       ref={ref}
@@ -211,9 +211,9 @@ export default function FirstSection({
       </div> */}
 
       <canvas
-  ref={canvasRef}
-  className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
-/>
+        ref={canvasRef}
+        className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
+      />
     </div>
   );
 }

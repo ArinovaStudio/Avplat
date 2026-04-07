@@ -30,13 +30,13 @@ export const IMAGES = [
   },
   {
     id: 3,
-    src: "/TEM09545.jpg",
+    src: "/Middle Club Seats_Rear Facing.JPG",
     speed: 0.9,
     position: "top-[63%] left-[0%] sm:top-[60%] sm:-left-32",
   },
   {
     id: 4,
-    src: "/TEM09576.jpg",
+    src: "/Middle Club Seats_Fwd Dacing.JPG",
     speed: 0.7,
     position: "top-[95%] right-[12%] sm:top-[90%] sm:-right-28 ",
   }
