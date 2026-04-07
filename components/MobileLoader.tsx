@@ -2,9 +2,9 @@
 import { AvanttFont } from "@/assets/fonts";
 import React, { useEffect, useState } from "react";
 
-export default function MobileLoader({ progress }: { progress: number }) {
+export default function MobileLoader({ loaded,progress }: { loaded: boolean; progress: number }) {
   return (
-    progress < 90 && (
+    !loaded && (
       <div className="min-h-[105vh] bg-background fixed top-0 w-full flex justify-center z-[9999] items-center">
         <div className="flex flex-col justify-center items-center gap-1">
           <div className="relative h-25 w-35 flex items-center justify-center">
