@@ -77,11 +77,11 @@ const ASSETS = [
   },
 ];
 
-for(let i = 1;i<160;++i){
-  ASSETS.push({
-    type: "image",
-    location: `/hero-photos/${i}.jpg`
-  });
-}
+// for(let i = 1;i<160;++i){
+//   ASSETS.push({
+//     type: "image",
+//     location: `/hero-photos/${i}.jpg`
+//   });
+// }
 
 export {ASSETS};

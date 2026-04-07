@@ -171,10 +171,10 @@ export default function Footer({
         {/* RESPONSIVE LINKS & COPYRIGHT: Flex-col on mobile, flex-row on desktop */}
         <div className="flex flex-col md:flex-row items-end justify-between gap-6 md:gap-0 text-center">
           <div className="text-gray-600 text-lg md:text-xl font-medium flex flex-wrap justify-center md:justify-start gap-4 md:gap-0 md:space-x-4">
-            <Link className="border-b-3" href="#">
+            <Link className="border-b-3" href="/privacy-policy">
               Privacy & Policy ↗
             </Link>
-            <Link className="border-b-3 " href="#">
+            <Link className="border-b-3 " href="/terms-and-conditions">
               Terms & Condition ↗
             </Link>
             {/* <Link className="border-b-3" href="#">

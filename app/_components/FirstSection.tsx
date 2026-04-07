@@ -1,9 +1,7 @@
 "use client";
 import { AvanttFont } from "@/assets/fonts";
 import LineRevealOnScroll from "@/components/LineReveal";
-import { DESIGN_BY } from "@/lib/constants";
 import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
 export default function FirstSection({
   ref,
   innerRef,
