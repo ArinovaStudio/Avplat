@@ -68,10 +68,10 @@ export default function MoreDetails({
         <div className="grid md:grid-cols-[60%_40%] w-full gap-10 md:gap-0">
           <div className="md:h-auto md:min-h-full w-full">
             <div className="h-full max-md:min-h-[500px] w-[90%] mx-auto relative">
-              <span className="absolute -mt-6 capitalize font-bold text-[var(--destructive-secondary)]">
+              {/* <span className="absolute -mt-6 capitalize font-bold text-[var(--destructive-secondary)]">
                 professor of ux
-              </span>
-              <div className="max-md:relative max-md:h-[500px]">
+              </span> */}
+              <div className="max-md:relative max-md:h-[420px]">
                 <Image
                   fill
                   alt="Professor of UX"
@@ -95,13 +95,10 @@ export default function MoreDetails({
           </div>
 
           <div className="relative w-full md:min-h-full md:min-w-lg px-5 md:px-0 pb-10 md:pb-0">
-            <div className="md:absolute md:right-5 md:bottom-5 grid gap-3 mt-10 md:mt-0">
-              <p className="bottom-text w-full md:max-w-sm text-lg md:text-2xl text-foreground transition-colors duration-500">
+            <div className="md:absolute  md:bottom-5 grid gap-3 mt-10 md:mt-0">
+              <p className="bottom-text w-full md:max-w-5/6 text-lg md:text-2xl text-foreground transition-colors duration-500">
                 <LineRevealOnScroll
-                  text={`AvPlat puts private aviation at your fingertips, 
-                    offering aircraft access to plan, customize, and manage 
-                    charter journeys ensuring precision, transparency, and 
-                    confidence from itinerary to touchdown.`}
+                  text={`More than conventional aircraft rental, our mobile app puts private charter planning entirely at your fingertips. With access to a nationwide network of private aircraft, AvPlat enables you to create, customize, and manage bespoke charter journeys—anytime, anywhere. From itinerary planning to smooth touchdown, every detail is handled through a single platform, delivering precision, transparency, and confidence at every step of your journey.`}
                 />
               </p>
               {/* <Link

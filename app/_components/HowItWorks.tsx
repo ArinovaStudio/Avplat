@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { SITE_NAME } from "@/lib/constants";
+import Link from "next/link";
 
 const steps = [
   {
@@ -52,63 +53,62 @@ export default function HowItWorks() {
 
         {/* Steps Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-14">
-         {steps.map((step, i) => (
-  <motion.div
-    key={i}
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    variants={{
-      visible: {
-        transition: {
-          staggerChildren: 0.15,
-        },
-      },
-    }}
-    className={`flex flex-col px-4 ${
-      i % 2 === 0 ? "items-start text-left" : "items-end text-right"
-    }`}
-  >
-    {/* ID */}
-    <motion.div
-      variants={{
-        hidden: { opacity: 0, scale: 0.6 },
-        visible: { opacity: 1, scale: 1 },
-      }}
-      transition={{ duration: 0.4 }}
-      className="w-10 h-10 flex items-center justify-center rounded-full border text-sm font-medium mb-4"
-    >
-      {step.id}
-    </motion.div>
+          {steps.map((step, i) => (
+            <motion.div
+              key={i}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{
+                visible: {
+                  transition: {
+                    staggerChildren: 0.15,
+                  },
+                },
+              }}
+              className={`flex flex-col px-4 ${i % 2 === 0 ? "items-start text-left" : "items-end text-right"
+                }`}
+            >
+              {/* ID */}
+              <motion.div
+                variants={{
+                  hidden: { opacity: 0, scale: 0.6 },
+                  visible: { opacity: 1, scale: 1 },
+                }}
+                transition={{ duration: 0.4 }}
+                className="w-10 h-10 flex items-center justify-center rounded-full border text-sm font-medium mb-4"
+              >
+                {step.id}
+              </motion.div>
 
-    {/* Title */}
-    <motion.h3
-      variants={{
-        hidden: { opacity: 0, y: -30 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="text-lg md:text-xl font-semibold"
-    >
-      {step.title}
-    </motion.h3>
+              {/* Title */}
+              <motion.h3
+                variants={{
+                  hidden: { opacity: 0, y: -30 },
+                  visible: { opacity: 1, y: 0 },
+                }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="text-lg md:text-xl font-semibold"
+              >
+                {step.title}
+              </motion.h3>
 
-    {/* Description */}
-    <motion.p
-      variants={{
-        hidden: {
-          opacity: 0,
-          x: i % 2 === 0 ? -40 : 40,
-        },
-        visible: { opacity: 1, x: 0 },
-      }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className="text-sm md:text-base text-muted-foreground mt-2 max-w-xs"
-    >
-      {step.desc}
-    </motion.p>
-  </motion.div>
-))}
+              {/* Description */}
+              <motion.p
+                variants={{
+                  hidden: {
+                    opacity: 0,
+                    x: i % 2 === 0 ? -40 : 40,
+                  },
+                  visible: { opacity: 1, x: 0 },
+                }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+                className="text-sm md:text-base text-muted-foreground mt-2 max-w-xs"
+              >
+                {step.desc}
+              </motion.p>
+            </motion.div>
+          ))}
         </div>
 
         {/* CTA */}
@@ -118,9 +118,9 @@ export default function HowItWorks() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-12"
         >
-         <Button size="lg" className="px-6 py-5 text-sm md:text-base uppercase rounded-none border border-gray-600 bg-transparent text-white hover:bg-white hover:text-black transition-colors">
-  Plan your charter
-</Button>
+          <Link target="_blank" href="https://skyblue-ten.vercel.app" className="px-6 py-5 text-sm md:text-base uppercase rounded-none border border-gray-600 bg-transparent text-white hover:bg-white hover:text-black transition-colors">
+            Plan your charter
+          </Link>
         </motion.div>
       </div>
     </section>

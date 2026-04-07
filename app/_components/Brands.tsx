@@ -79,7 +79,7 @@ export default function Brands({ brandsRef }: { brandsRef: any }) {
       <div className="flex flex-col lg:flex-row px-4 sm:px-6 mx-auto">
         <div className="w-full lg:w-[40%] py-10 lg:py-20">
           <div className="lg:sticky md:mt-80 lg:top-1/2 lg:-translate-y-1/2 max-md:text-center text-[clamp(1.8rem,4vw,2.5rem)] text-[var(--destructive-secondary)] font-bold">
-            A Trusted Legacy. Reimagined for Modern Aviation.
+            Decades of Reliability. Propelling the Future of Flight.
           </div>
 
           <div className="hidden z-[200] sm:block absolute right-5 lg:right-10 w-[160px] h-[160px] sm:w-[220px] sm:h-[220px] lg:w-[320px] lg:h-[320px] sticky top-0">

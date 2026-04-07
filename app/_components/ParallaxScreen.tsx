@@ -20,7 +20,7 @@ export default function ParallaxSection({
             <div
               key={img.id}
               data-speed={img.speed}
-              className={`group z-[100] parallax-item absolute ${img.position} w-[70px] h-[70px] sm:w-[110px] sm:h-[110px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] hover:scale-110 transition-all duration-500 mt-[600px]`}
+              className={`group z-[100] parallax-item absolute ${img.position} w-[70px] h-[70px] sm:w-[110px] sm:h-[110px] md:w-[150px] md:h-[150px] lg:w-[200px] lg:h-[200px] hover:scale-110 transition-all duration-500 mt-[600px] mix-blend-difference`}
             >
               <Image
                 src={img.src}

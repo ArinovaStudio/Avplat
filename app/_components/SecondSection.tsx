@@ -80,7 +80,7 @@ export default function SecondSection() {
             max-md:text-justify
           "
           >
-            <div className="flex max-md:w-full max-md:justify-between items-center gap-4">
+            <div className="flex max-md:w-full md:justify-between justify-start items-center gap-4">
               <motion.div
                 layoutId="video-expand-magic" // Matches the ID below
                 onClick={() => setExpanded(true)}
@@ -155,7 +155,7 @@ export default function SecondSection() {
                 </VideoDialog>
               </div>
             </div>
-            <div className="flex max-md:w-full max-md:justify-between items-center gap-4">
+            <div className="flex max-md:w-full md:justify-between items-center gap-4 justify-start ">
               <motion.div
                 layoutId="video-expand-magic-1" // Matches the ID below
                 onClick={() => setExpanded1(true)}
@@ -202,12 +202,12 @@ export default function SecondSection() {
                   document.body
                 )}
 
-              <div className="flex flex-col gap-3 md:gap-5">
+              <div className="flex flex-col gap-3 md:gap-5" >
                 <div>
                   <p className="text-[10px] md:text-xs text-neutral-400 uppercase">
                     Tutorial
                   </p>
-                  <p className="text-sm md:text-base max-w-[140px] md:max-w-[100px] font-semibold">
+                  <p className="text-sm md:text-base max-w-auto md:max-w-[250px] font-semibold">
                     How to Get Trip Cost Estimate and Activate Trip
                   </p>
                 </div>
@@ -230,7 +230,7 @@ export default function SecondSection() {
                 </VideoDialog>
               </div>
             </div>
-            <div className="flex max-md:w-full max-md:justify-between items-center gap-4">
+            <div className="flex max-md:w-full md:justify-between items-center gap-4 justify-start ">
               <motion.div
                 layoutId="video-expand-magic-2" // Matches the ID below
                 onClick={() => setExpanded2(true)}
@@ -282,7 +282,7 @@ export default function SecondSection() {
                   <p className="text-[10px] md:text-xs text-neutral-400 uppercase">
                     Tutorial
                   </p>
-                  <p className="text-sm md:text-base max-w-[140px] md:max-w-[100px] font-semibold">
+                  <p className="text-sm md:text-base max-w-auto md:max-w-[250px] font-semibold">
                      How to Setup Multi-Location Rate cards
                   </p>
                 </div>

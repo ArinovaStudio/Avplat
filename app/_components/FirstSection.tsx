@@ -15,7 +15,9 @@ export default function FirstSection({
   loaded: boolean;
   progress: number;
 }) {
-  // const videoRef = useRef(null);
+  const videoRef = useRef(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const images = useRef<HTMLImageElement[]>([]);
   // useEffect(() => {
   //   const video = videoRef.current! as HTMLVideoElement;
   //   if (!video) return;
@@ -41,6 +43,74 @@ export default function FirstSection({
   //   window.addEventListener("scroll", handleScroll);
   //   return () => window.removeEventListener("scroll", handleScroll);
   // }, []);
+
+  useEffect(() => {
+  const frameCount = 82;
+
+  for (let i = 1; i <= frameCount; i++) {
+    const img = new Image();
+    img.src = `/frames/frame_${i.toString().padStart(4, "0")}.jpg`;
+
+    // draw first frame once loaded
+    if (i === 1) {
+      img.onload = () => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+
+        const context = canvas.getContext("2d");
+        if (!context) return;
+
+        canvas.width = canvas.clientWidth;
+        canvas.height = canvas.clientHeight;
+
+        context.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
+    }
+
+    images.current.push(img);
+  }
+}, []);
+
+  useEffect(() => {
+  const canvas = canvasRef.current;
+  if (!canvas) return;
+
+  const context = canvas.getContext("2d");
+  if (!context) return;
+
+  const frameCount = 82;
+
+  const render = (index: number) => {
+    const img = images.current[index];
+    if (!img) return;
+
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+
+    context.drawImage(img, 0, 0, canvas.width, canvas.height);
+  };
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY;
+    const maxScroll = window.innerHeight * 2;
+
+    const progress = scrollTop / maxScroll;
+
+    const frameIndex = Math.min(
+      frameCount - 1,
+      Math.floor(progress * frameCount)
+    );
+
+    render(frameIndex);
+  };
+
+  // ✅ SHOW FIRST FRAME IMMEDIATELY
+  render(0);
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
   return (
     <div
       ref={ref}
@@ -121,8 +191,8 @@ export default function FirstSection({
         <LineRevealOnScroll loaded={loaded} text={"to fly"} />
         <LineRevealOnScroll loaded={loaded} text={"private"} />
       </div>
-      <motion.video
-        // ref={videoRef}
+      {/* <motion.video
+        ref={videoRef}
         src="/video2.mp4"
         muted
         initial={{ opacity: 0, x: 500 }}
@@ -131,7 +201,19 @@ export default function FirstSection({
         autoPlay
         controls={false}
         className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
-      />
+      /> */}
+      {/* <canvas className="w-full h-screen" id="frame">
+        <img src="./assets/frames/frame_0001" alt="" />
+      </canvas> */}
+
+      {/* <div className="w-[50%] h-full bg-amber-400">
+        <img src="/frames/frame_0001.jpg" alt="hello" className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"/>
+      </div> */}
+
+      <canvas
+  ref={canvasRef}
+  className="h-full right-0 md:absolute md:w-[50%] -z-[0] object-cover"
+/>
     </div>
   );
 }
