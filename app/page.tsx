@@ -438,14 +438,14 @@ export default function Home() {
             <div
               ref={sectionRef}
               className={`
-            md:ml-15
-            transition-all duration-1000
-            md:w-[430vw]
-            md:flex
-            md:h-full
-            relative
-          `}
-            >
+              md:ml-15
+              transition-all duration-1000
+              md:w-[430vw]
+              md:flex
+              md:h-full
+              relative
+              `}
+              >
               <FirstSection ref={homeRef} innerRef={innerHomeRef} loaded={loaded} progress={progress} />
               <SecondSection />
               <ThirdSection

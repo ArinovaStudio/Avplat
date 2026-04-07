@@ -24,8 +24,8 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
     const innerWidth = window.innerWidth;
 
     const offsetWidth = innerWidth * 0.1;
-    const offsetHeight = innerHeight * 0.85; 
-    
+    const offsetHeight = innerHeight * 0.85;
+
     gsap.set(cursorRef.current, {
       x: offsetWidth,
       y: offsetHeight,
@@ -101,8 +101,8 @@ export default function CursorLoader({ progress }: CursorProgressProps) {
 
           {/* Text OUTSIDE */}
           <span className="text-white text-xs text-[var(--foreground)] tracking-wide">
-  {progress < 30 ? "Starting..." : progress < 70 ? "Loading..." : "Almost there..."}
-</span>
+            {progress < 30 ? "Starting..." : progress < 70 ? "Loading..." : "Almost there..."}
+          </span>
         </div>
       </div>
     )

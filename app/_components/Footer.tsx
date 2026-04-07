@@ -10,6 +10,7 @@ import LineRevealOnScroll from "@/components/LineReveal";
 import { FACEBOOK_HANDLE, INSTAGRAM_HANDLE, LINKEDIN_HANLDE, SITE_NAME, X_HANDLE, YOUTUBE_HANDLE } from "@/lib/constants";
 import { Separator } from "@/components/ui/separator";
 import { X } from "lucide-react";
+import Link from "next/link";
 gsap.registerPlugin(ScrollTrigger, useGSAP);
 export default function Footer({
   footerRef: wrapperRef,
@@ -71,6 +72,7 @@ export default function Footer({
           >
             <LineRevealOnScroll text={"24×7 Assistance"} />
           </motion.h6>
+          <Link target="_blank" href="https://skyblue-ten.vercel.app" className="text-lg cursor-pointer hover:bg-white text-[var(--anothersecondary)] px-12 py-3 mt-5 w-fit mx-auto border border-[var(--anothersecondary)]">BOOK FLIGHT TODAY</Link>
         </div>
 
         {/* RESPONSIVE GRID: Added gap-10 for mobile stacking, text scaling */}
@@ -167,23 +169,23 @@ export default function Footer({
         </div>
 
         {/* RESPONSIVE LINKS & COPYRIGHT: Flex-col on mobile, flex-row on desktop */}
-        <div className="flex flex-col md:flex-row items-end justify-end gap-6 md:gap-0 text-center">
-          {/* <div className="text-[var(--destructive)] text-lg md:text-xl font-bold flex flex-wrap justify-center md:justify-start gap-4 md:gap-0 md:space-x-4">
-            <a className="border-b-3 border-b-[var(--destructive)]" href="#">
-              Personal site↗
-            </a>
-            <a className="border-b-3 border-b-[var(--destructive)]" href="#">
-              Medium↗
-            </a>
-            <a className="border-b-3 border-b-[var(--destructive)]" href="#">
+        <div className="flex flex-col md:flex-row items-end justify-between gap-6 md:gap-0 text-center">
+          <div className="text-gray-600 text-lg md:text-xl font-medium flex flex-wrap justify-center md:justify-start gap-4 md:gap-0 md:space-x-4">
+            <Link className="border-b-3" href="#">
+              Privacy & Policy ↗
+            </Link>
+            <Link className="border-b-3 " href="#">
+              Terms & Condition ↗
+            </Link>
+            {/* <Link className="border-b-3" href="#">
               Resources↗
-            </a>
-            <a className="border-b-3 border-b-[var(--destructive)]" href="#">
+            </Link>
+            <Link className="border-b-3 " href="#">
               Colophon↗
-            </a>
-          </div> */}
+            </Link> */}
+          </div>
           <span className="text-gray-500/80 text-sm md:text-base">
-            Copyright ©2025-26. All rights reserved by {SITE_NAME}.
+            © 2026. All rights reserved by {SITE_NAME}.
           </span>
         </div>
       </div>
