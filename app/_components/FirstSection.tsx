@@ -105,6 +105,7 @@ export default function FirstSection({
         md:pl-5
         duration-300
         py-5
+        pt-10
         relative
         max-md:hidden
         h-full

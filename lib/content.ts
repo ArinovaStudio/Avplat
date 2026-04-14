@@ -1,6 +1,6 @@
 export const siteInfo = {
-  DESIGN_BY: "How to Operate AvPlat",
-  SITE_NAME: "AVPLAT",
+  DESIGN_BY: `How to Operate Outright Creators`,
+  SITE_NAME: "Outright Creators",
 };
 
 export const contactInfo = {
@@ -19,7 +19,7 @@ export const CONTENT = {
     },
     section2: {
       headerlines: ["Same passion.", "New mission."],
-      paragraph: `AvPlat Charters offers effortless access to private jets and
+      paragraph: `Outright Creators Charters offers effortless access to private jets and
             helicopters through our digital charter platform. With 15+ years of
             industry experience, we manage everything from aircraft selection to
             flight operations, so you can focus on your journey.`,
@@ -73,12 +73,12 @@ export const CONTENT = {
     },
     section5: {
       leftHeading: "Decades of Reliability. Propelling the Future of Flight.",
-      rightText: `AvPlat Charters was built on a simple promise to transform how
+      rightText: `${siteInfo.SITE_NAME} Charters was built on a simple promise to transform how
             private aviation is experienced and delivered. Backed by deep
             industry knowledge and shaped by innovation, we bring together years
             of operational expertise with a digital-first approach to private
             charter and flight fulfilment. Rooted in aviation heritage and
-            driven by technology, AvPlat Charters evolves with the changing
+            driven by technology, ${siteInfo.SITE_NAME} Charters evolves with the changing
             needs of aircraft operators, service providers, and charter clients
             — setting new benchmarks for efficiency, transparency, and
             reliability in private aviation.`,
@@ -147,7 +147,7 @@ export const CONTENT = {
         base_heading: `Our Private 
                     Jet Fleet `,
         mobile_base_heading: `Our Private Jet Fleet `,
-        content: `More than conventional aircraft rental, our mobile app puts private charter planning entirely at your fingertips. With access to a nationwide network of private aircraft, AvPlat enables you to create, customize, and manage bespoke charter journeys—anytime, anywhere. From itinerary planning to smooth touchdown, every detail is handled through a single platform, delivering precision, transparency, and confidence at every step of your journey.`,
+        content: `More than conventional aircraft rental, our mobile app puts private charter planning entirely at your fingertips. With access to a nationwide network of private aircraft, ${siteInfo.SITE_NAME} enables you to create, customize, and manage bespoke charter journeys—anytime, anywhere. From itinerary planning to smooth touchdown, every detail is handled through a single platform, delivering precision, transparency, and confidence at every step of your journey.`,
       },
     },
     section8: {

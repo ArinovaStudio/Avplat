@@ -57,6 +57,7 @@ export default function ThirdSection({
                 fontWeight="900"
                 fill="black"
                 fontSize="10"
+                className="uppercase"
               >
                 {section.text}
               </text>
@@ -75,8 +76,8 @@ export default function ThirdSection({
         className="
           absolute inset-0 
           min-w-full
-          w-max 
-          left-[43%]
+          w-max  
+          left-[22%]
           h-full 
           z-10
           max-md:hidden
@@ -94,7 +95,7 @@ export default function ThirdSection({
               textAnchor="start"
               dy=".35em"
               fontSize="60"
-              className="md:[font-size:800px]"
+              className="md:[font-size:800px] uppercase"
               fontWeight="900"
               fill="black"
             >

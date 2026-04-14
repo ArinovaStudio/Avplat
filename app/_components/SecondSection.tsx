@@ -18,7 +18,7 @@ export default function SecondSection() {
   }, []);
   const section = CONTENT.horizontalScroll.section2;
   return (
-    <section className="md:w-screen h-full w-full bg-black text-white px-4 md:px-12 pb-10">
+    <section className="md:w-screen z-15 pt-5 h-full w-full bg-black text-white px-4 md:px-12 pb-10">
       <div className="max-w-7xl py-5 mx-auto flex flex-col justify-between items-center md:h-full mx-auto gap-10 md:gap-0">
         {/* MAIN HEADING */}
         <div className="text-left relative">

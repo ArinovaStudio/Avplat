@@ -16,6 +16,7 @@ import CursorLoader from "@/components/LoadingCursor";
 import HowItWorks from "./_components/HowItWorks";
 import MobileLoader from "@/components/MobileLoader";
 import {CONTENT} from "@/lib/content";
+import Image from "next/image";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -169,7 +170,7 @@ export default function Home() {
     mm.add("(min-width: 767px)", () => {
       if (!sectionRef.current || !triggerRef.current) return;
       const scrollTween = gsap.to(sectionRef.current, {
-        x: () => "-330vw",
+        x: () => "-730vw",
         ease: "none",
         scrollTrigger: {
           trigger: triggerRef.current,
@@ -198,8 +199,8 @@ export default function Home() {
           },
         });
         tl.to(text, {
-          scale: 1800,
-          transformOrigin: "91.6% center",
+          scale: 73,
+          transformOrigin: "95% center",
           ease: "power2.in",
           duration: 0.5,
         }).to(
@@ -411,6 +412,11 @@ export default function Home() {
     <div className="min-h-screen w-full flex max-md:flex-col">
       <MobileLoader loaded={loaded} progress={progress}/>
       <CursorLoader progress={progress} />
+      <div className="fixed top-0 z-[999] md:ml-15 w-full h-13 px-5 py-[4px]">
+        <div className="h-full w-20 relative">
+          <Image src={"/logo.png"} alt={"Loading..."} fill/>
+        </div>
+      </div>
       <Sidebar
         letsConnect={letsConnect}
         setLetsConnect={setLetsConnect}
@@ -440,7 +446,7 @@ export default function Home() {
               className={`
               md:ml-15 
               transition-all duration-1000
-              md:w-[430vw]
+              md:w-[830vw]
               md:flex
               md:h-full
               relative

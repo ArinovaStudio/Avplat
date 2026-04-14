@@ -121,14 +121,14 @@ export default function Footer({
             />
           </h3>
           {/* RESPONSIVE IMAGE: Scaled down signature w-100 */}
-          {/* <div className="relative h-16 w-52 md:h-30 md:w-100">
+          <div className="relative h-16 w-52 md:h-30 md:w-40">
             <Image
-              src={"/sign.png"}
+              src={"/logo.png"}
               alt={"Logo"}
               fill
               className="object-contain"
             />
-          </div> */}
+          </div>
         </div>
 
         {/* RESPONSIVE LINKS & COPYRIGHT: Flex-col on mobile, flex-row on desktop */}
