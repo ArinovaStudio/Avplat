@@ -1,10 +1,7 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
-import { useRef, useLayoutEffect } from "react";
-import { gsap } from "@/lib/gsapConfig";
 import LineRevealOnScroll from "@/components/LineReveal";
-import { SITE_TELL } from "@/lib/constants";
+import { CONTENT } from "@/lib/content";
 
 export default function MoreDetails({
   educationRef: ref,
@@ -14,14 +11,14 @@ export default function MoreDetails({
   educationWrapperRef: any;
 }) {
   const mp: Record<number, number> = { 1: 8, 2: 5, 3: 1 };
-
+  const section1 = CONTENT.verticalScroll.section7.part1;
+  const section2 = CONTENT.verticalScroll.section7.part2;
   return (
     <div
       ref={educationWrapperRef}
       id="education"
       className="relative z-10 md:pl-15 bg-background transition-colors duration-500 w-full"
     >
-      {/* ── Pinned Container (GSAP touches this) ──────────────── */}
       <div ref={ref} className="h-screen relative w-full">
         {/* ── Strict Clipping Boundary (GSAP ignores this) ──────── */}
         {/* clip-path: inset(0) guarantees nothing will EVER render outside this div */}
@@ -30,7 +27,7 @@ export default function MoreDetails({
           style={{ clipPath: "inset(0 0 0 0)" }}
         >
           <h6 className="absolute z-[20] text-[var(--destructive)] text-2xl md:text-5xl font-extrabold">
-            Book  With
+            {section1.front_heading}
           </h6>
 
           {[1, 2, 3].map((n) => (
@@ -41,7 +38,7 @@ export default function MoreDetails({
               className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-[0.8] bg-background inline-block transition-colors duration-500"
               style={{ zIndex: mp[n] }}
             >
-              {SITE_TELL}
+              {section1.heading_behind}
             </span>
           ))}
 
@@ -53,12 +50,12 @@ export default function MoreDetails({
               className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase bg-background leading-[0.8] inline-block transition-colors duration-500"
               style={{ zIndex: mp[n] }}
             >
-              {SITE_TELL}
+              {section1.heading_behind}
             </span>
           ))}
 
           <span className="anim-text absolute tracking-widest text-center text-6xl sm:text-8xl md:text-[17rem] font-bold uppercase leading-none inline-block bg-background z-[10] transition-colors duration-500">
-            {SITE_TELL}
+            {section1.heading_behind}
           </span>
         </div>
       </div>
@@ -75,20 +72,17 @@ export default function MoreDetails({
                 <Image
                   fill
                   alt="Professor of UX"
-                  src="/1.jpg"
+                  src={section2.image}
                   className="object-cover"
                 />
               </div>
               <h3 className="left-2 max-md:mt-5 md:left-[80%] text-[var(--destructive)] leading-[0.9] md:top-[-10%] md:top-[-10%] z-[99] md:absolute text-4xl sm:text-5xl md:text-[5rem] w-full font-extrabold">
                 <div className="max-md:hidden">
-                  <LineRevealOnScroll
-                    text={`Our Private 
-                    Jet Fleet `}
-                  />
+                  <LineRevealOnScroll text={section2.base_heading} />
                 </div>
 
                 <div className="md:hidden">
-                  <LineRevealOnScroll text={`Our Private Jet Fleet `} />
+                  <LineRevealOnScroll text={section2.mobile_base_heading} />
                 </div>
               </h3>
             </div>
@@ -97,9 +91,7 @@ export default function MoreDetails({
           <div className="relative w-full md:min-h-full md:min-w-lg px-5 md:px-0 pb-10 md:pb-0">
             <div className="md:absolute  md:bottom-5 grid gap-3 mt-10 md:mt-0">
               <p className="bottom-text w-full md:max-w-5/6 text-lg md:text-2xl text-foreground transition-colors duration-500">
-                <LineRevealOnScroll
-                  text={`More than conventional aircraft rental, our mobile app puts private charter planning entirely at your fingertips. With access to a nationwide network of private aircraft, AvPlat enables you to create, customize, and manage bespoke charter journeys—anytime, anywhere. From itinerary planning to smooth touchdown, every detail is handled through a single platform, delivering precision, transparency, and confidence at every step of your journey.`}
-                />
+                <LineRevealOnScroll text={section2.content} />
               </p>
               {/* <Link
                 className="bottom-text text-lg md:text-xl font-bold underline transition-colors duration-500"

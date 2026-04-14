@@ -3,20 +3,22 @@
 import { AvanttFont } from "@/assets/fonts";
 import Image from "next/image";
 import { IMAGES } from "@/assets/additionalinfo";
-
+import {CONTENT} from "@/lib/content";
 export default function ParallaxSection({
   aboutRef: containerRef,
 }: {
   aboutRef: any;
 }) {
+  const section = CONTENT.verticalScroll.section4;
   return (
     <div ref={containerRef} className="w-full overflow-hidden mt-[300px]">
       <div className="relative max-w-5xl mx-auto md:pl-15 py-12 bg-black">
         <div
           className={`uppercase relative text-center text-destructive text-[clamp(4rem,10vw,15rem)] leading-[0.8] font-extrabold overflow-visible ${AvanttFont.className}`}
         >
-          A Trusted Legacy. Reimagined for Modern Aviation.
-          {IMAGES.map((img) => (
+          {section.heading}
+
+          {section.IMAGES.map((img) => (
             <div
               key={img.id}
               data-speed={img.speed}

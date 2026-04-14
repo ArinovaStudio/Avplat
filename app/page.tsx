@@ -15,6 +15,7 @@ import { gsap, ScrollTrigger, Flip } from "@/lib/gsapConfig";
 import CursorLoader from "@/components/LoadingCursor";
 import HowItWorks from "./_components/HowItWorks";
 import MobileLoader from "@/components/MobileLoader";
+import {CONTENT} from "@/lib/content";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -425,7 +426,7 @@ export default function Home() {
           <div ref={triggerRef} className="md:h-screen w-full">
             <div className="absolute max-md:hidden top-0 left-0 w-full h-full z-0">
               <video
-                src="/video.mp4"
+                src={CONTENT.horizontalScroll.section3.video_url}
                 autoPlay
                 muted
                 loop
@@ -437,7 +438,7 @@ export default function Home() {
             <div
               ref={sectionRef}
               className={`
-              md:ml-15
+              md:ml-15 
               transition-all duration-1000
               md:w-[430vw]
               md:flex

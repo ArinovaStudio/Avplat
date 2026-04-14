@@ -2,33 +2,13 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { SITE_NAME } from "@/lib/constants";
+import { siteInfo } from "@/lib/content";
 import Link from "next/link";
-
-const steps = [
-  {
-    id: "01",
-    title: "Create your flight itinerary",
-    desc: "Enter your departure and destination, select the date and time, and let us do the rest. Your journey is just a search away!",
-  },
-  {
-    id: "02",
-    title: "Select your aircraft",
-    desc: "Explore the results and choose the option that suits your travel plans. Fine-tune your search with easy-to-use filters.",
-  },
-  {
-    id: "03",
-    title: "Charter Concierge & Trip Support",
-    desc: "Enhance your trip with catering, transportation, assistance, and other special requests.",
-  },
-  {
-    id: "04",
-    title: "Confidence at every mile",
-    desc: "Receive real-time updates through email and text, ensuring you are always in the loop.",
-  },
-];
+import {CONTENT} from "@/lib/content";
 
 export default function HowItWorks() {
+  const section = CONTENT.verticalScroll.section6;
+  const steps = section.steps;
   return (
     <section className="w-full mt-30 py-10 px-4 md:px-10 lg:px-20">
       <div className="max-w-6xl mx-auto text-center">
@@ -39,7 +19,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.6 }}
           className="text-2xl md:text-4xl lg:text-5xl font-semibold text-foreground"
         >
-          How {SITE_NAME} works.
+          {section.heading}
         </motion.h2>
 
         <motion.p
@@ -48,7 +28,7 @@ export default function HowItWorks() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-base md:text-xl lg:text-2xl text-muted-foreground mt-2"
         >
-          Booking → touchdown.
+          {section.subheading}
         </motion.p>
 
         {/* Steps Grid */}
@@ -119,7 +99,7 @@ export default function HowItWorks() {
           className="mt-12"
         >
           <Link target="_blank" href="https://skyblue-ten.vercel.app" className="px-6 py-5 text-sm md:text-base uppercase rounded-none border border-gray-600 bg-transparent text-white hover:bg-white hover:text-black transition-colors">
-            Plan your charter
+            {section.buttonText}
           </Link>
         </motion.div>
       </div>

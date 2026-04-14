@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Play } from "lucide-react";
-import { DESIGN_BY } from "@/lib/constants";
 import VideoDialog from "@/components/VideoPlayer";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
+import { siteInfo,CONTENT } from "@/lib/content";
 export default function SecondSection() {
   const [expanded, setExpanded] = useState(false);
   const [expanded1, setExpanded1] = useState(false);
@@ -16,6 +16,7 @@ export default function SecondSection() {
   useEffect(() => {
     setMounted(true);
   }, []);
+  const section = CONTENT.horizontalScroll.section2;
   return (
     <section className="md:w-screen h-full w-full bg-black text-white px-4 md:px-12 pb-10">
       <div className="max-w-7xl py-5 mx-auto flex flex-col justify-between items-center md:h-full mx-auto gap-10 md:gap-0">
@@ -32,8 +33,9 @@ export default function SecondSection() {
             uppercase tracking-wide
           "
           >
-            <p>Same passion.</p>
-            <p>New mission.</p>
+           {
+            section.headerlines.map((line,idx)=><p key={idx} className="capitalize">{line}</p>)
+           }
           </span>
 
           <h1
@@ -48,10 +50,7 @@ export default function SecondSection() {
             max-md:text-left
           "
           >
-            AvPlat Charters offers effortless access to private jets and
-            helicopters through our digital charter platform. With 15+ years of
-            industry experience, we manage everything from aircraft selection to
-            flight operations, so you can focus on your journey.
+            {section.paragraph}
           </h1>
         </div>
 
@@ -87,7 +86,7 @@ export default function SecondSection() {
                 className="w-16 h-16 relative md:w-24 md:h-24 bg-orange-400 flex items-center justify-center text-black font-bold text-[10px] md:text-xs cursor-pointer overflow-hidden"
               >
                 <Image
-                  src={"/video-thumbnail.png"}
+                  src={section.video1.thumbnail}
                   className="object-cover"
                   alt={"Logo"}
                   fill
@@ -115,7 +114,7 @@ export default function SecondSection() {
                           className="max-md:h-[40vh] relative w-[80vw] h-[80vh] bg-orange-400 rounded-2xl overflow-hidden z-10 shadow-2xl"
                         >
                           <Image
-                            src={"/video-thumbnail.png"}
+                            src={section.video1.thumbnail}
                             className="object-cover"
                             alt={"Logo"}
                             fill
@@ -133,12 +132,12 @@ export default function SecondSection() {
                     Tutorial
                   </p>
                   <p className="text-sm md:text-base font-semibold">
-                    {DESIGN_BY}
+                    {siteInfo.DESIGN_BY}
                   </p>
                 </div>
                 <VideoDialog
                   url={
-                    "https://www.youtube.com/embed/IlbOpSccI_E?autoplay=1&controls=1&modestbranding=1&rel=0"
+                    section.video1.url
                   }
                   setExpanded={setExpanded}
                 >
@@ -155,6 +154,7 @@ export default function SecondSection() {
                 </VideoDialog>
               </div>
             </div>
+
             <div className="flex max-md:w-full md:justify-between items-center gap-4 justify-start ">
               <motion.div
                 layoutId="video-expand-magic-1" // Matches the ID below
@@ -162,7 +162,7 @@ export default function SecondSection() {
                 className="w-16 h-16 relative md:w-24 md:h-24 bg-orange-400 flex items-center justify-center text-black font-bold text-[10px] md:text-xs cursor-pointer overflow-hidden"
               >
                 <Image
-                  src={"/video-thumbnail.png"}
+                  src={section.video2.thumbnail}
                   className="object-cover"
                   alt={"Logo"}
                   fill
@@ -190,7 +190,7 @@ export default function SecondSection() {
                           className="max-md:h-[40vh] relative w-[80vw] h-[80vh] bg-orange-400 rounded-2xl overflow-hidden z-10 shadow-2xl"
                         >
                           <Image
-                            src={"/video-thumbnail.png"}
+                            src={section.video2.thumbnail}
                             className="object-cover"
                             alt={"Logo"}
                             fill
@@ -213,7 +213,7 @@ export default function SecondSection() {
                 </div>
                 <VideoDialog
                   url={
-                    "https://www.youtube.com/embed/z1oJA1bsF6Y?si=azNfAkFaGVD5WwlG&autoplay=1&controls=1&modestbranding=1&rel=0"
+                    section.video2.url
                   }
                   setExpanded={setExpanded1}
                 >
@@ -230,6 +230,7 @@ export default function SecondSection() {
                 </VideoDialog>
               </div>
             </div>
+
             <div className="flex max-md:w-full md:justify-between items-center gap-4 justify-start ">
               <motion.div
                 layoutId="video-expand-magic-2" // Matches the ID below
@@ -237,7 +238,7 @@ export default function SecondSection() {
                 className="w-16 h-16 relative md:w-24 md:h-24 bg-orange-400 flex items-center justify-center text-black font-bold text-[10px] md:text-xs cursor-pointer overflow-hidden"
               >
                 <Image
-                  src={"/video-thumbnail.png"}
+                  src={section.video3.thumbnail}
                   className="object-cover"
                   alt={"Logo"}
                   fill
@@ -265,7 +266,7 @@ export default function SecondSection() {
                           className="max-md:h-[40vh] relative w-[80vw] h-[80vh] bg-orange-400 rounded-2xl overflow-hidden z-10 shadow-2xl"
                         >
                           <Image
-                            src={"/video-thumbnail.png"}
+                            src={section.video3.thumbnail}
                             className="object-cover"
                             alt={"Logo"}
                             fill
@@ -288,7 +289,7 @@ export default function SecondSection() {
                 </div>
                 <VideoDialog
                   url={
-                    "https://www.youtube.com/embed/JPFWQ74BeGc?si=BQM9_x1f4YqIBZ3a&autoplay=1&controls=1&modestbranding=1&rel=0"
+                    section.video3.url
                   }
                   setExpanded={setExpanded2}
                 >

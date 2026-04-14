@@ -5,17 +5,30 @@ import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 import Link from "next/link";
-const sections = [
-  { id: "intro", label: "intro" },
-  { id: "vision", label: "Vision", jump: "mentorship" },
-  { id: "about", label: "About Us" },
-  { id: "whoweare", label: "Who We Are" },
-  { id: "fleet", label: "Our Fleet" },
-  { id: "clientcare", label: "Client Care" },
-];
-
+import { SIDE_MENU as sections } from "@/lib/content";
 const toRoman = (num: number) => {
-  const romans = ["I", "II", "III", "IV", "V", "VI"];
+  const romans = [
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V",
+    "VI",
+    "VII",
+    "VIII",
+    "IX",
+    "X",
+    "XI",
+    "XII",
+    "XIII",
+    "XIV",
+    "XV",
+    "XVI",
+    "XVII",
+    "XVIII",
+    "XIX",
+    "XX",
+  ];
   return romans[num - 1];
 };
 
@@ -76,17 +89,17 @@ export default function Sidebar({
       observers.forEach((observer) => observer.disconnect());
     };
   }, [sectionRefs]);
-  
+
   const handleJump = (index: number) => {
     setActive(index);
 
     const ref = sectionRefs[index];
     if (!ref?.current) return;
-    if(index===1){
+    if (index === 1) {
       window.scrollTo({
         top: 1500,
-        behavior: "smooth"
-      })
+        behavior: "smooth",
+      });
       return;
     }
     const headerOffset = 100;
@@ -94,7 +107,7 @@ export default function Sidebar({
     const offsetPosition = elementPosition + window.scrollY - headerOffset;
     window.scrollTo({
       top: index === 0 ? 0 : offsetPosition,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
@@ -177,7 +190,6 @@ export default function Sidebar({
         animate={loaded ? { x: 0 } : { x: -100 }}
         className="w-full max-md:flex max-md:justify-end"
       >
-
         <Button
           onClick={() => {
             setLetsConnect((prev: boolean) => !prev);
@@ -189,16 +201,19 @@ export default function Sidebar({
             <ArrowDownRight size={16} />
           </span>
         </Button>
-        
-        <Link href={"https://play.google.com/store/apps/details?id=com.avplat.aviation&hl=en_US"} target="_blank">
-        <Button 
-          className="w-auto rounded-none md:w-full bg-[var(--anothersecondary)]  md:h-38 flex md:items-center md:justify-center"
+
+        <Link
+          href={
+            "https://play.google.com/store/apps/details?id=com.avplat.aviation&hl=en_US"
+          }
+          target="_blank"
         >
-          <span className="md:[writing-mode:vertical-rl] flex whitespace-nowrap transition-all duration-300 items-center gap-2 font-extrabold uppercase tracking-tighter text-xs md:text-sm">
-            Download
-            <ArrowDownRight size={16} />
-          </span>
-        </Button>
+          <Button className="w-auto rounded-none md:w-full bg-[var(--anothersecondary)]  md:h-38 flex md:items-center md:justify-center">
+            <span className="md:[writing-mode:vertical-rl] flex whitespace-nowrap transition-all duration-300 items-center gap-2 font-extrabold uppercase tracking-tighter text-xs md:text-sm">
+              Download
+              <ArrowDownRight size={16} />
+            </span>
+          </Button>
         </Link>
       </motion.div>
     </div>

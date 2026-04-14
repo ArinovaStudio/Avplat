@@ -1,6 +1,6 @@
 "use client";
 
-import { SITE_NAME } from "@/lib/constants";
+import { CONTENT } from "@/lib/content";
 
 export default function ThirdSection({
   sectionRef,
@@ -15,6 +15,7 @@ export default function ThirdSection({
   thirdMobileTextRef: any;
   thirdMobileSvgWrapper: any;
 }) {
+  const section = CONTENT.horizontalScroll.section3;
   return (
     <div
       ref={sectionRef}
@@ -26,18 +27,18 @@ export default function ThirdSection({
         min-h-screen
       "
     >
-            <div className="absolute top-0 left-0 w-full md:hidden h-screen md:h-full z-0">
-              <video
-                src="/video.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
-                controls={false}
-                // Added w-full so it spans the mobile screen properly
-                className="w-full h-full object-cover md:w-screen"
-              />
-            </div>
+      <div className="absolute top-0 left-0 w-full md:hidden h-screen md:h-full z-0">
+        <video
+          src={section.video_url}
+          autoPlay
+          muted
+          loop
+          playsInline
+          controls={false}
+          // Added w-full so it spans the mobile screen properly
+          className="w-full h-full object-cover md:w-screen"
+        />
+      </div>
       <svg
         ref={thirdMobileSvgWrapper}
         className="w-full md:hidden max-md:h-screen max-md:absolute scale-300 block overflow-hidden"
@@ -57,12 +58,17 @@ export default function ThirdSection({
                 fill="black"
                 fontSize="10"
               >
-                {SITE_NAME}
+                {section.text}
               </text>
             </g>
           </mask>
         </defs>
-        <rect width="100%" height="100%" fill="black" mask="url(#text-mask-1)" />
+        <rect
+          width="100%"
+          height="100%"
+          fill="black"
+          mask="url(#text-mask-1)"
+        />
       </svg>
       <svg
         ref={thirdSectionSvgWrapper}
@@ -92,12 +98,17 @@ export default function ThirdSection({
               fontWeight="900"
               fill="black"
             >
-              {SITE_NAME}
+              {section.text}
             </text>
           </mask>
         </defs>
 
-        <rect width="100%" height="100%" fill="black" mask="url(#text-mask-2)" />
+        <rect
+          width="100%"
+          height="100%"
+          fill="black"
+          mask="url(#text-mask-2)"
+        />
       </svg>
     </div>
   );

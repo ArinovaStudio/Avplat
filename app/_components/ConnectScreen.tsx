@@ -5,7 +5,7 @@ import { FaLinkedin, FaGlobe, FaEnvelope, FaInstagram, FaCross, FaFacebook } fro
 import { ArrowUpRight, X } from "lucide-react";
 import LineRevealOnScroll from "@/components/LineReveal";
 import CloseCursor from "@/components/CloseCursor";
-import { FACEBOOK_HANDLE, INSTAGRAM_HANDLE, LINKEDIN_HANLDE, PHONE, SITE_NAME, X_HANDLE, YOUTUBE_HANDLE } from "@/lib/constants";
+import { contactInfo } from "@/lib/content";
 export default function ConnectSection({
   setLetsConnect,
   letsConnect
@@ -30,25 +30,25 @@ export default function ConnectSection({
       <div className="relative z-20 w-full px-3 pt-10 flex flex-col gap-10">
         <div className="grid text-[var(--foreground)] grid-cols-2 md:absolute right-0 top-0 max-w-md p-5 w-full">
           <div className="p-3 flex justify-between items-center shadow-xs rounded-md">
-            <a href={FACEBOOK_HANDLE} className="flex gap-2 items-center">
+            <a href={contactInfo.facebook} className="flex gap-2 items-center">
               <FaFacebook /> <LineRevealOnScroll text={"Let's Chat"} />
             </a>
             <ArrowUpRight strokeWidth={3} size={20} />
           </div>
           <div className="p-3 flex justify-between items-center shadow-xs rounded-md">
-            <a href={LINKEDIN_HANLDE} className="flex gap-2 items-center">
+            <a href={contactInfo.linkedin} className="flex gap-2 items-center">
               <FaLinkedin /> {"Connect"}
             </a>
             <ArrowUpRight strokeWidth={3} size={20} />
           </div>
           <div className="p-3 flex justify-between items-center shadow-xs rounded-md">
-            <a href={X_HANDLE} className="flex gap-2 items-center">
+            <a href={contactInfo.x} className="flex gap-2 items-center">
               <X /> <LineRevealOnScroll text={"X Handle"} />
             </a>
             <ArrowUpRight strokeWidth={3} size={20} />
           </div>
           <div className="p-3 flex justify-between items-center shadow-xs rounded-md">
-            <a href={INSTAGRAM_HANDLE} className="flex gap-2 items-center">
+            <a href={contactInfo.instagram} className="flex gap-2 items-center">
               <FaInstagram /> <LineRevealOnScroll text={"Follow Me"} />
             </a>
             <ArrowUpRight strokeWidth={3} size={20} />
@@ -79,7 +79,7 @@ export default function ConnectSection({
             </span>
             <a
               className="text-xl sm:text-2xl md:text-3xl max-w-fit bottom-shine border-b-3 border-b-[var(--foreground)] pb-1 font-extrabold tracking-[1.1]"
-              href={YOUTUBE_HANDLE}
+              href={contactInfo.youtube}
               target="_blank"
             >
               <LineRevealOnScroll text={"Click Here..."} />
@@ -91,9 +91,9 @@ export default function ConnectSection({
             </span>
             <a
               className="text-xl sm:text-2xl md:text-3xl max-w-fit bottom-shine border-b-3 border-b-[var(--foreground)] pb-1 font-extrabold tracking-[1.1]"
-              href={`tel:${PHONE}`}
+              href={`tel:${contactInfo.phone}`}
             >
-              <LineRevealOnScroll text={PHONE} />
+              <LineRevealOnScroll text={contactInfo.phone} />
             </a>
           </div>
           <div className="grid gap-3">
@@ -102,7 +102,7 @@ export default function ConnectSection({
             </span>
             <a
               className="text-xl sm:text-2xl md:text-3xl bottom-shine border-b-3 border-b-[var(--foreground)] max-w-fit pb-1 font-extrabold tracking-[1.1] break-all"
-              href={FACEBOOK_HANDLE}
+              href={contactInfo.facebook}
             >
               <LineRevealOnScroll text={"Click Here..."} />
             </a>

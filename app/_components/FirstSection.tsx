@@ -2,6 +2,7 @@
 import { AvanttFont } from "@/assets/fonts";
 import LineRevealOnScroll from "@/components/LineReveal";
 import { useEffect, useRef } from "react";
+import {CONTENT} from "@/lib/content";
 export default function FirstSection({
   ref,
   innerRef,
@@ -13,35 +14,8 @@ export default function FirstSection({
   loaded: boolean;
   progress: number;
 }) {
-  const videoRef = useRef(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const images = useRef<HTMLImageElement[]>([]);
-  // useEffect(() => {
-  //   const video = videoRef.current! as HTMLVideoElement;
-  //   if (!video) return;
-
-  //   const handleScroll = () => {
-  //     if (!video.duration) return;
-
-  //     const scrollTop = window.scrollY;
-  //     const windowHeight = window.innerHeight;
-
-  //     // 🔥 adjust these
-  //     const start = windowHeight * 0.5; // animation starts later
-  //     const end = windowHeight * 2; // animation finishes later
-
-  //     const progress = (scrollTop - start) / (end - start);
-
-  //     // clamp between 0 → 1
-  //     const clamped = Math.min(Math.max(progress, 0), 1);
-
-  //     video.currentTime = clamped * video.duration;
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-  //   return () => window.removeEventListener("scroll", handleScroll);
-  // }, []);
-
   useEffect(() => {
     const frameCount = 82;
 
@@ -109,6 +83,7 @@ export default function FirstSection({
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+  const LINES = CONTENT.horizontalScroll.section1.lines;
   return (
     <div
       ref={ref}
@@ -138,28 +113,9 @@ export default function FirstSection({
         max-w-screen
         ${AvanttFont.className}`}
       >
-        <span className="line top-text text-xs sm:text-sm mt-2 sm:mt-5 w-full capitalize text-[var(--foreground)]">
-          {/* Design by {DESIGN_BY} */}
-        </span>
-        <h1 className="line">A smarter</h1>
-
-        <div className="flex">
-          <span
-            className={`text-xs left-text hidden sm:text-sm mt-2 sm:mt-5 max-w-[180px] capitalize text-[var(--foreground)]`}
-          ></span>
-
-          <span className="line text-[var(--destructive)]">way</span>
-        </div>
-
-        <h2 className="line">to Book</h2>
-        <h2 className="line">private</h2>
-
-        {/* <div className="reveal-it hidden mt-8 flex max-md:justify-center items-center gap-2 px-1">
-          <span className="uppercase text-white font-bold text-xs md:text-sm">
-            Scroll to discover
-          </span>
-          <div className="h-[2px] overflow-hidden w-[60px] md:w-[100px] animate-progress" />
-        </div> */}
+        {
+          LINES.map((line,idx)=><h1 key={idx} className="line">{line}</h1>)
+        }
         <div className="reveal-it hidden mt-8 flex max-md:justify-center items-center gap-2 px-1">
           <span className="uppercase text-white font-bold text-xs md:text-sm">
             {loaded ? "Scroll to discover" : "Loading"}
@@ -184,10 +140,9 @@ export default function FirstSection({
       <div
         className={`md:hidden text-[var(--destructive)] text-left ${AvanttFont.className} font-extrabold uppercase text-7xl`}
       >
-        <LineRevealOnScroll loaded={loaded} text={"A smarter"} />
-        <LineRevealOnScroll loaded={loaded} text={"way"} />
-        <LineRevealOnScroll loaded={loaded} text={"to fly"} />
-        <LineRevealOnScroll loaded={loaded} text={"private"} />
+        {
+          LINES.map((line,idx)=><LineRevealOnScroll loaded={loaded} key={idx} text={line} />)
+        }
       </div>
       {/* <motion.video
         ref={videoRef}
