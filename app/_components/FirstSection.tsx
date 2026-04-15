@@ -43,7 +43,7 @@ export default function FirstSection({
     }
   }, []);
 
-  useEffect(() => {
+ useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -56,10 +56,30 @@ export default function FirstSection({
       const img = images.current[index];
       if (!img) return;
 
+      // Set internal canvas dimensions to match CSS dimensions
       canvas.width = canvas.clientWidth;
       canvas.height = canvas.clientHeight;
 
-      context.drawImage(img, 0, 0, canvas.width, canvas.height);
+      // --- OBJECT-FIT: COVER LOGIC ---
+      // 1. Calculate the scale needed to cover both width and height
+      const scale = Math.max(
+        canvas.width / img.width,
+        canvas.height / img.height
+      );
+
+      // 2. Calculate the new dimensions of the scaled image
+      const newWidth = img.width * scale;
+      const NextHeight = img.height * scale;
+
+      // 3. Calculate offsets to center the image on the canvas
+      const offsetX = (canvas.width - newWidth) / 2;
+      const offsetY = (canvas.height - NextHeight) / 2;
+
+      // Clear the canvas before drawing the new frame
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw the image with the new dimensions and offsets
+      context.drawImage(img, offsetX, offsetY, newWidth, NextHeight);
     };
 
     const handleScroll = () => {
