@@ -202,7 +202,7 @@ export default function Sidebar({
           </span>
         </Button>
 
-        <Link
+        {/* <Link
           href={
             "https://play.google.com/store/apps/details?id=com.avplat.aviation&hl=en_US"
           }
@@ -214,7 +214,7 @@ export default function Sidebar({
               <ArrowDownRight size={16} />
             </span>
           </Button>
-        </Link>
+        </Link> */}
       </motion.div>
     </div>
   );
