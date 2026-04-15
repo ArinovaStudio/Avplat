@@ -15,7 +15,7 @@ import { gsap, ScrollTrigger, Flip } from "@/lib/gsapConfig";
 import CursorLoader from "@/components/LoadingCursor";
 import HowItWorks from "./_components/HowItWorks";
 import MobileLoader from "@/components/MobileLoader";
-import {CONTENT} from "@/lib/content";
+import { CONTENT } from "@/lib/content";
 import Image from "next/image";
 export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -48,95 +48,26 @@ export default function Home() {
     []
   );
   useEffect(() => {
-    gsap.set("#parallax-overlay", { yPercent: 100 });
-    const homeContext = gsap.context(() => {
-      if (loaded) return;
-      const element = innerHomeRef.current;
-      const lines = gsap.utils.toArray<HTMLElement>(".line");
+    if (!loaded) {
+      gsap.set("#parallax-overlay", { yPercent: 100 });
+      const previousHomeContext = gsap.context(() => {
+        const element = innerHomeRef.current;
+        const lines = gsap.utils.toArray<HTMLElement>(".line");
 
-      // 🔥 set initial positions
-      gsap.set(lines, {
-        yPercent: 100,
-        opacity: 0,
-        display: "none",
-      });
-
-      gsap.set(element, {
-        alignItems: "center",
-        justifyContent: "center",
-      });
-
-      const tl = gsap.timeline();
-
-      lines.forEach((line, i) => {
-        // current line enters
-        tl.to(line, {
-          yPercent: 0,
-          opacity: 1,
-          duration: 1,
-          display: "block",
-          ease: "back.out(1.4)",
+        // 🔥 set initial positions
+        gsap.set(lines, {
+          yPercent: 100,
+          opacity: 0,
+          display: "none",
         });
 
-        if (i >= 4) {
-          tl.fromTo(
-            ".top-text",
-            { y: 0 },
-            {
-              y: -200,
-              display: "none",
-            },
-            "<" // Optional: makes this start at the same time as the 5th line
-          );
-        }
-      });
-
-      // 🔥 THE FLIP INTEGRATION 🔥
-      // Instead of tweening alignItems, we use a callback to capture state,
-      // change the alignment, and trigger the smooth Flip transition.
-      tl.add(() => {
-        // 1. Capture the state of all direct children inside the container
-        const state = Flip.getState((element as any).children);
-
-        // 2. Change the CSS alignment instantly
         gsap.set(element, {
-          justifyItems: "center",
-          alignItems: "flex-start",
+          alignItems: "center",
+          justifyContent: "center",
         });
-
-        // 3. Animate them from their previous centered positions to the top
-        Flip.from(state, {
-          duration: 1,
-          ease: "power3.inOut",
-        });
-      });
-
-      // 4. Because Flip is running outside the timeline's main flow,
-      // we add an empty 1-second tween so the timeline "waits" for Flip to finish
-      tl.to({}, { duration: 1 });
-
-      // Now continue with the rest of your sequence...
-      tl.fromTo(
-        ".left-text",
-        { x: -100, display: "none" }, // Added display: none here for a cleaner fromTo
-        {
-          display: "block",
-          x: 0,
-        }
-      );
-
-      tl.fromTo(
-        ".reveal-it",
-        { opacity: 0, display: "none" },
-        {
-          opacity: 1,
-          display: "flex",
-        }
-      );
-    }, homeRef);
-
-    if (!loaded) return;
-    if (!loaded) return;
+      }, homeRef);
+      return;
+    }
     let mm = gsap.matchMedia();
     mm.add("(max-width: 768px)", () => {
       const text = thirdMobileTextRef.current as any;
@@ -214,7 +145,78 @@ export default function Home() {
         );
       }
     });
+    const homeContext = gsap.context(() => {
+      const element = innerHomeRef.current;
+      const lines = gsap.utils.toArray<HTMLElement>(".line");
 
+      const tl = gsap.timeline();
+
+      lines.forEach((line, i) => {
+        // current line enters
+        tl.to(line, {
+          yPercent: 0,
+          opacity: 1,
+          duration: 1,
+          display: "block",
+          ease: "back.out(1.4)",
+        });
+
+        if (i >= 4) {
+          tl.fromTo(
+            ".top-text",
+            { y: 0 },
+            {
+              y: -200,
+              display: "none",
+            },
+            "<" // Optional: makes this start at the same time as the 5th line
+          );
+        }
+      });
+
+      // 🔥 THE FLIP INTEGRATION 🔥
+      // Instead of tweening alignItems, we use a callback to capture state,
+      // change the alignment, and trigger the smooth Flip transition.
+      tl.add(() => {
+        // 1. Capture the state of all direct children inside the container
+        const state = Flip.getState((element as any).children);
+
+        // 2. Change the CSS alignment instantly
+        gsap.set(element, {
+          justifyItems: "center",
+          alignItems: "flex-start",
+        });
+
+        // 3. Animate them from their previous centered positions to the top
+        Flip.from(state, {
+          duration: 1,
+          ease: "power3.inOut",
+        });
+      });
+
+      // 4. Because Flip is running outside the timeline's main flow,
+      // we add an empty 1-second tween so the timeline "waits" for Flip to finish
+      tl.to({}, { duration: 1 });
+
+      // Now continue with the rest of your sequence...
+      tl.fromTo(
+        ".left-text",
+        { x: -100, display: "none" }, // Added display: none here for a cleaner fromTo
+        {
+          display: "block",
+          x: 0,
+        }
+      );
+
+      tl.fromTo(
+        ".reveal-it",
+        { opacity: 0, display: "none" },
+        {
+          opacity: 1,
+          display: "flex",
+        }
+      );
+    }, homeRef);
     const aboutContext = gsap.context(() => {
       const overlay = document.querySelector("#parallax-overlay");
 
@@ -407,14 +409,14 @@ export default function Home() {
       });
     };
   }, [loaded]);
-  
+
   return (
     <div className="min-h-screen w-full flex max-md:flex-col">
-      <MobileLoader loaded={loaded} progress={progress}/>
+      <MobileLoader loaded={loaded} progress={progress} />
       <CursorLoader progress={progress} />
-      <div className="fixed top-0 z-[999] md:ml-15 w-full h-13 px-5 py-[4px]">
+      <div className="fixed max-md:hidden top-0 z-[999] md:ml-15 w-full h-13 px-5 py-[4px]">
         <div className="h-full w-20 relative">
-          <Image src={"/logo.png"} alt={"Loading..."} fill/>
+          <Image src={"/logo.png"} alt={"Loading..."} fill />
         </div>
       </div>
       <Sidebar
@@ -451,8 +453,13 @@ export default function Home() {
               md:h-full
               relative
               `}
-              >
-              <FirstSection ref={homeRef} innerRef={innerHomeRef} loaded={loaded} progress={progress} />
+            >
+              <FirstSection
+                ref={homeRef}
+                innerRef={innerHomeRef}
+                loaded={loaded}
+                progress={progress}
+              />
               <SecondSection />
               <ThirdSection
                 sectionRef={thirdSectionRef}
@@ -465,11 +472,16 @@ export default function Home() {
           </div>
         </section>
         <AnimatePresence mode="sync">
-          {letsConnect && <ConnectSection letsConnect={letsConnect} setLetsConnect={setLetsConnect} />}
+          {letsConnect && (
+            <ConnectSection
+              letsConnect={letsConnect}
+              setLetsConnect={setLetsConnect}
+            />
+          )}
         </AnimatePresence>
         <div className="max-w-screen w-full flex flex-col justify-center items-center h-auto">
           <ParallaxSection aboutRef={aboutRef} />
-           {/* <HowItWorks />  */}
+          {/* <HowItWorks />  */}
           <Brands brandsRef={brandsRef} />
           <HowItWorks />
           <MoreDetails
